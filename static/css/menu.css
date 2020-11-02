@@ -1,0 +1,251 @@
+body {
+  height: 700px;
+  width: 525px;
+  margin: 0 auto;
+}
+
+.header {
+  height:40px;
+  background-color: #472c0c;
+}
+
+.header button {
+  width: 130px;
+  height: 30px;
+  margin-top: 5px;
+  background-color: #472c0c;
+  color: white;
+  margin-left: 2px;
+  border: 1px solid #472c0c;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.nav {
+  width: 525px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  background-color:rgb(139, 144, 148);
+  opacity: 0.8;
+}
+
+.nav_items {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.nav_items a:visited {
+  color: white;
+}
+
+.nav_item {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-weight: 700;
+  color: white;
+}
+
+.nav_item_button {
+  color: black;
+}
+
+.nav_item a {
+  text-decoration: none;
+}
+
+#navItemLeftButton {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#navItemRightButton {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.main {
+  width: 525px;
+  margin: auto;
+  margin-top: 5px;
+}
+
+.items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* menu가 1~4개여도 밑에 공백이 나오도록 설정 */
+  grid-template-rows: repeat(3, 1fr);
+  min-height: 250px;
+}
+
+.item {
+  width: 100px;
+  height: 105px;
+  border: 1px solid rgb(227, 234, 240);
+  margin-left: 10px;
+  margin-right: 15px;
+  margin-top: 8px;
+  margin-bottom: 1px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.item_image {
+  width: 100px;
+}
+
+#nextButton {
+  height: 38px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+#nextButtonLeft {
+  font-size: 30px;
+  cursor: pointer;
+}
+#nextButtonRight {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#nextButtonDisplay {
+  font-size: 15px;
+  margin-top: 5px;
+  color: darkblue;
+}
+
+.item_image {
+  height: 70px;
+  border-bottom: 1px solid rgb(209, 218, 224);
+}
+.item_name {
+  font-size: 13px;
+  text-align: center;
+  background-color: rgb(242, 242, 243);
+}
+.item_price {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: rgb(242, 242, 243);
+}
+
+.banner {
+  height: 160px;
+  width: 525px;
+  margin: auto;
+}
+
+.banner_image {
+  height: 160px;
+  width: 525px;
+}
+
+#orderPriceDiv {
+  position: relative;
+  top: -155px;
+  right: -10px;
+  display: flex;
+  justify-content: start;
+  z-index: 1;
+}
+
+#orderPrice {
+  height: 115px;
+  width: 120px;
+  margin-left: 5px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(197, 133, 15);
+  background-color: black;
+  opacity: 0.7;
+  font-size: larger;
+}
+
+#orderNameDiv {
+  position: relative;
+  top: -240px;
+  right: -10px;
+  display: flex;
+  justify-content: start;
+  z-index: 1;
+}
+
+#orderName {
+  height: 115px;
+  width: 120px;
+  margin-left: 5px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  font-size: small;
+}
+
+#orderDrink {
+  height: 95px;
+  width: 100px;
+  opacity: 0.9;
+  margin-top: 27px;
+}
+
+.footer {
+  height: 58px;
+  width: 525px;
+  margin: auto; 
+  background-color: slategrey;
+  display: flex;
+  color: white;
+}
+
+#optionIcon {
+  width: 40px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 5px;
+  text-align: center;
+  border: 1px solid rgb(139, 144, 148);
+  background-color: rgb(139, 144, 148);
+  color: white;
+}
+
+#orderNumber {
+  width: 70px;
+  height: 58px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 8px;
+}
+#sum {
+  margin-left: auto;
+  width: 100px;
+  height: 58px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+#cancel {
+  width: 70px;
+  height: 58px;
+  background-color: tomato;
+  font-weight: bolder;
+  line-height: 58px;
+  text-align: center;
+}
+
+#card {
+  width: 70px;
+  height: 58px;
+  background-color: #4954ec;
+  font-weight: bolder;
+  line-height: 58px;
+  text-align: center;
+}

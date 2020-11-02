@@ -1,0 +1,11 @@
+extends menu
+include mixins/menuBlock
+
+block content
+    div.items
+        each one in coffeeIce
+            +menuBlock({
+                src: one.src,
+                name: one.name,
+                price: one.price
+            })

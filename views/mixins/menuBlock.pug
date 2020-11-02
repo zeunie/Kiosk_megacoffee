@@ -1,0 +1,5 @@
+mixin menuBlock(menu={})
+    div.item#item
+        img.item_image(src=menu.src, alt="pic")
+        span.item_name=` ${menu.name} `
+        span.item_price=` ${menu.price} `
