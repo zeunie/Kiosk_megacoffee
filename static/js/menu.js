@@ -13,6 +13,7 @@ const bannerImage = document.getElementById("bannerImage");
 const item = document.getElementById("item");
 const orderNameDiv = document.getElementById("orderNameDiv");
 const orderPriceDiv = document.getElementById("orderPriceDiv");
+const payByCard = document.getElementById("card");
 
 let num = 1;
 let index = 0;
@@ -20,136 +21,156 @@ let len = menuPage.length;
 let displayNumber = parseInt((len - 1) / 12);
 
 function minusNum() {
-  if (num == 1) {
-    return;
-  }
-  num -= 1;
-  if (num == 1) {
-    navItemFirst.innerHTML = '<a href="/coffeeHot">Coffee(HOT)</a>';
-    navItemSecond.innerHTML = '<a href="/coffeeIce">Coffee(ICE)</a>';
-    navItemThird.innerText = "BEVERAGE";
-    navItemFourth.innerText = "TEA";
-  }
+	if (num == 1) {
+		return;
+	}
+	num -= 1;
+	if (num == 1) {
+		navItemFirst.innerHTML = '<a href="/coffeeHot">Coffee(HOT)</a>';
+		navItemSecond.innerHTML = '<a href="/coffeeIce">Coffee(ICE)</a>';
+		navItemThird.innerText = "BEVERAGE";
+		navItemFourth.innerText = "TEA";
+	}
 }
 function plusNum() {
-  if (num == 2) {
-    return;
-  }
-  num += 1;
+	if (num == 2) {
+		return;
+	}
+	num += 1;
 
-  if (num == 2) {
-    navItemFirst.innerText = "JUICE";
-    navItemSecond.innerText = "ADE";
-    navItemThird.innerText = "SMOOTHIE&FRAFFE";
-    navItemFourth.innerText = "DESSERT";
-  }
+	if (num == 2) {
+		navItemFirst.innerText = "JUICE";
+		navItemSecond.innerText = "ADE";
+		navItemThird.innerText = "SMOOTHIE&FRAFFE";
+		navItemFourth.innerText = "DESSERT";
+	}
 }
 
 function showMenuPage(num) {
-  for (var i = 0; i < len; i++) {
-    menuPage[i].style.display = "none";
-    if (parseInt(i / 12) == num) menuPage[i].style.display = "grid";
-  }
+	for (var i = 0; i < len; i++) {
+		menuPage[i].style.display = "none";
+		if (parseInt(i / 12) == num) menuPage[i].style.display = "grid";
+	}
 }
 
 function minusIndex() {
-  if (index == 0) {
-    return;
-  }
-  index -= 1;
-  if (displayNumber == 1) {
-    if (index == 0) {
-      showMenuPage(0);
-      nextBtnDisplay.innerText = "● ○";
-    }
-  }
-  if (displayNumber == 2) {
-    if (index == 0) {
-      showMenuPage(0);
-      nextBtnDisplay.innerText = "● ○ ○";
-    }
+	if (index == 0) {
+		return;
+	}
+	index -= 1;
+	if (displayNumber == 1) {
+		if (index == 0) {
+			showMenuPage(0);
+			nextBtnDisplay.innerText = "● ○";
+		}
+	}
+	if (displayNumber == 2) {
+		if (index == 0) {
+			showMenuPage(0);
+			nextBtnDisplay.innerText = "● ○ ○";
+		}
 
-    if (index == 1) {
-      showMenuPage(1);
-      nextBtnDisplay.innerText = "○ ● ○";
-    }
-  }
+		if (index == 1) {
+			showMenuPage(1);
+			nextBtnDisplay.innerText = "○ ● ○";
+		}
+	}
 }
 
 function plusIndex() {
-  if (index == 2) {
-    return;
-  }
-  index += 1;
-  if (displayNumber == 1) {
-    if (index == 1) {
-      showMenuPage(1);
-      nextBtnDisplay.innerText = "○ ●";
-    }
-  }
-  if (displayNumber == 2) {
-    if (index == 1) {
-      showMenuPage(1);
-      nextBtnDisplay.innerText = "○ ● ○";
-    }
-    if (index == 2) {
-      showMenuPage(2);
-      nextBtnDisplay.innerText = "○ ○ ●";
-    }
-  }
+	if (index == 2) {
+		return;
+	}
+	index += 1;
+	if (displayNumber == 1) {
+		if (index == 1) {
+			showMenuPage(1);
+			nextBtnDisplay.innerText = "○ ●";
+		}
+	}
+	if (displayNumber == 2) {
+		if (index == 1) {
+			showMenuPage(1);
+			nextBtnDisplay.innerText = "○ ● ○";
+		}
+		if (index == 2) {
+			showMenuPage(2);
+			nextBtnDisplay.innerText = "○ ○ ●";
+		}
+	}
 }
 
 function setDisplay(num) {
-  if (num == 0) {
-    nextBtnDisplay.innerText = "●";
-    nextBtnLeft.removeEventListener;
-    nextBtnRight.removeEventListener;
-  }
-  if (num == 1) {
-    nextBtnDisplay.innerText = "● ○";
-  }
-  if (num == 2) {
-    nextBtnDisplay.innerText = "● ○ ○";
-  }
+	if (num == 0) {
+		nextBtnDisplay.innerText = "●";
+		nextBtnLeft.removeEventListener;
+		nextBtnRight.removeEventListener;
+	}
+	if (num == 1) {
+		nextBtnDisplay.innerText = "● ○";
+	}
+	if (num == 2) {
+		nextBtnDisplay.innerText = "● ○ ○";
+	}
 }
 
 function addMenu(src, name, price) {
-  const spanForName = document.createElement("span");
-  spanForName.id = "orderName";
-  spanForName.innerText = name;
-  orderNameDiv.appendChild(spanForName);
-  const spanForPrice = document.createElement("span");
-  spanForPrice.id = "orderPrice";
-  spanForPrice.innerText = price;
-  orderPriceDiv.appendChild(spanForPrice);
-  const drinkImg = document.createElement("img");
-  drinkImg.id = "orderDrink";
-  drinkImg.src = src;
-  spanForPrice.appendChild(drinkImg);
-  banner.style.backgroundColor = "lightgray";
-  bannerImage.style.opacity = 0;
+	const spanForName = document.createElement("span");
+	spanForName.id = "orderName";
+	spanForName.innerText = name;
+	orderNameDiv.appendChild(spanForName);
+	const spanForPrice = document.createElement("span");
+	spanForPrice.id = "orderPrice";
+	spanForPrice.innerText = price;
+	orderPriceDiv.appendChild(spanForPrice);
+	const drinkImg = document.createElement("img");
+	drinkImg.id = "orderDrink";
+	drinkImg.src = src;
+	spanForPrice.appendChild(drinkImg);
+	banner.style.backgroundColor = "lightgray";
+	bannerImage.style.opacity = 0;
 }
 
 function trackItem() {
-  html = this.innerHTML;
-  src = html.split('"')[3];
-  name = html.split(" ")[5];
-  price = html.split(" ")[8];
-  // 이 정보를 이용해서 어떤 음료를 클릭한 것인지 알아내겠다.
-  addMenu(src, name, price);
+	html = this.innerHTML;
+	src = html.split('"')[3];
+	name = html.split(" ")[5];
+	price = html.split(" ")[8];
+	// 이 정보를 이용해서 어떤 음료를 클릭한 것인지 알아내겠다.
+	addMenu(src, name, price);
 }
 
 function main() {
-  showMenuPage(0);
-  setDisplay(displayNumber);
-  navItemLeftBtn.addEventListener("click", minusNum);
-  navItemRightBtn.addEventListener("click", plusNum);
+	showMenuPage(0);
+	setDisplay(displayNumber);
+	navItemLeftBtn.addEventListener("click", minusNum);
+	navItemRightBtn.addEventListener("click", plusNum);
 
-  nextBtnLeft.addEventListener("click", minusIndex);
-  nextBtnRight.addEventListener("click", plusIndex);
+	nextBtnLeft.addEventListener("click", minusIndex);
+	nextBtnRight.addEventListener("click", plusIndex);
 
-  for (var i = 0; i < len; i++) {
-    menuPage[i].addEventListener("click", trackItem);
-  }
+	for (var i = 0; i < len; i++) {
+		menuPage[i].addEventListener("click", trackItem);
+	}
+
+	//JH	결제 요청 시 서버에 주문 내역이 JSON으로 전달되도록 하기 위한 실험 
+	payByCard.addEventListener("click", () => {
+		let orderInfo = {
+			"order_list": [
+				{ "item_name": "아메리카노", "item_price": 3000 }, { "item_name": "카페라테", "item_price": 4000 }, { "item_name": "유자차", "item_price": 4500 },
+			]
+			, "order_togo": true
+			//필요한 정보 추가 가능
+		}
+
+		const xhttp = new XMLHttpRequest();
+		xhttp.open("POST", "/order");
+		xhttp.setRequestHeader("Content-Type", "application/json");
+		xhttp.onload = () => {
+			console.log(xhttp.responseText)
+		}
+		xhttp.send(JSON.stringify(orderInfo));
+	})
+	//JH******************************************
 }
 main();
