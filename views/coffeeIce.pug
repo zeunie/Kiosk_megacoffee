@@ -5,7 +5,7 @@ block content
     div.items
         each one in coffeeIce
             +menuBlock({
-                src: one.src,
-                name: one.name,
-                price: one.price
+                src: one.getValue().imageUrl,
+                name: one.getValue().name,
+                price: one.getValue().price
             })

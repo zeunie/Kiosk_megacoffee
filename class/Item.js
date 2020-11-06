@@ -4,15 +4,14 @@ class Item {
 		this.name = name
 		this.price = price
 
-		this.image = new Image()
-		this.image.url =imageUrl	
+		this.imageUrl =imageUrl	
 	}
 
 	getValue() {
 		return {
 			'name': this.name
 			, 'price': this.price
-			, 'inageUrl':this.image.url
+			, 'imageUrl':this.imageUrl
 		}
 	}
 }
