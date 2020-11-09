@@ -1,11 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\static",
+    "\\class",
+    "\\static\\css",
     "\\static\\js",
-    "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\app.js",
+  "SelectedNode": "\\megacoffeeDB.sql",
   "PreviewInSolutionExplorer": false
 }

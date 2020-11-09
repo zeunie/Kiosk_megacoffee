@@ -3,9 +3,9 @@ include mixins/menuBlock
 
 block content
     div.items
-        each one in coffeeIce
+        each one in menu
             +menuBlock({
-                src: one.getValue().imageUrl,
+                src: one.getValue().image,
                 name: one.getValue().name,
                 price: one.getValue().price
             })
