@@ -1,0 +1,36 @@
+doctype html
+html
+    head
+        title 메가커피 키오스크
+        link(rel="stylesheet" type="text/css" href="/static/css/menu.css")
+    body
+        div.header
+            a(href=routes.cover)    
+                button 처음으로
+        div.nav
+            div.nav_items
+                div.nav_item_button#navItemLeftButton ◀
+                div.nav_item#navItemFirst
+                    a(href=routes.coffeeHot) Coffee(HOT)
+                div.nav_item#navItemSecond
+                    a(href=routes.coffeeIce) Coffee(ICE)
+                div.nav_item#navItemThird BEVERAGE
+                div.nav_item#navItemFourth TEA
+                div.nav_item_button#navItemRightButton ▶
+        div.main#main
+            block content
+            div#nextButton
+                span#nextButtonLeft ◀
+                span#nextButtonDisplay ● ○
+                span#nextButtonRight ▶
+        div.banner#banner
+            img.banner_image#bannerImage(src="static/picture/banner1.jpg" alt="picture")
+            div#orderPriceDiv
+            div#orderNameDiv
+        div.footer
+            span#optionIcon ▤
+            span#orderNumber 0 <br> 주문수량
+            span#sum 0 <br> 합계금액
+            span#cancel 전체 취소
+            span#card 카드
+        script(src="/static/js/menu.js")
