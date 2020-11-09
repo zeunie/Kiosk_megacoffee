@@ -2,10 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\class",
+    "\\static",
     "\\static\\css",
     "\\static\\js",
+    "\\static\\picture",
+    "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\megacoffeeDB.sql",
+  "SelectedNode": "\\routes.js",
   "PreviewInSolutionExplorer": false
 }

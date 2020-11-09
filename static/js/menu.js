@@ -26,10 +26,10 @@ function minusNum() {
 	}
 	num -= 1;
 	if (num == 1) {
-		navItemFirst.innerHTML = '<a href="/coffeeHot">Coffee(HOT)</a>';
-		navItemSecond.innerHTML = '<a href="/coffeeIce">Coffee(ICE)</a>';
-		navItemThird.innerText = "BEVERAGE";
-		navItemFourth.innerText = "TEA";
+		navItemFirst.innerHTML = '<a href="/menu?category=COFFEE(HOT)">Coffee(HOT)</a>';
+		navItemSecond.innerHTML = '<a href="/menu?category=COFFEE(HOT)">Coffee(HOT)</a>';
+		navItemThird.innerHTML = '<a href="/menu?category=BEVERAGE">BEVERAGE</a>';
+		navItemFourth.innerHTML = '<a href="/menu?category=TEA">TEA</a>';
 	}
 }
 function plusNum() {
@@ -39,10 +39,10 @@ function plusNum() {
 	num += 1;
 
 	if (num == 2) {
-		navItemFirst.innerText = "JUICE";
-		navItemSecond.innerText = "ADE";
-		navItemThird.innerText = "SMOOTHIE&FRAFFE";
-		navItemFourth.innerText = "DESSERT";
+		navItemFirst.innerHTML = '<a href="/menu?category=JUICE">JUICE</a>';
+		navItemSecond.innerHTML = '<a href="/menu?category=ADE">ADE</a>';
+		navItemThird.innerHTML = '<a href="/menu?category=SMOOTHIE&FRAFFE">SMOOTHIE&FRAFFE</a>';
+		navItemFourth.innerHTML = '<a href="/menu?category=DESSERT">DESSERT</a>';
 	}
 }
 

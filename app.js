@@ -11,15 +11,12 @@ app.use(localsMiddleware.localsMiddleware)
 app.set("view engine", "pug")
 app.use("/static", express.static("static"))
 
-
-//¶ó¿ìÅÍ
 const partials = {
 	header: 'partials/header',
 	footer: 'partials/footer'
 };
 require('./routes')(app, partials)
 
-//DB 
 const DB = require("./DB")
 
 app.listen(PORT, () => {

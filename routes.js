@@ -7,15 +7,10 @@ module.exports = (app, partials) => {
 	app.get(routes.cover, (req, res) => {
 		res.render("cover", { routes })
 	})
-	app.get(routes.coffeeHot, (req, res) => {
-		DB_adapter.getMenu("COFFEE(HOT)").then((ret) => { menu = ret })
-		console.log("served: " + menu)
-		res.render("coffeeHot", { routes, menu })
-	})
-	app.get(routes.coffeeIce, (req, res) => {
-		DB_adapter.getMenu("COFFEE(ICE)").then((ret) => { menu = ret })
-		console.log("served: " + menu)
-		res.render("coffeeIce", { routes, menu })
+
+	app.get(routes.menu, async (req, res) => {
+		await DB_adapter.getMenu(`${req.query.category}`).then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
+		res.render("menulist", { routes, menu })
 	})
 
 	//JH 결제요청으로 전송된 json 받기
@@ -35,6 +30,8 @@ module.exports = (app, partials) => {
 
 const routes = {
 	cover: "/",
+
+	menu: "/menu",
 	coffeeHot: "/coffeeHot",
 	coffeeIce: "/coffeeIce",
 	beverage: "/beverage",

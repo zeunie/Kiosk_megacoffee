@@ -11,11 +11,13 @@ html
             div.nav_items
                 div.nav_item_button#navItemLeftButton ◀
                 div.nav_item#navItemFirst
-                    a(href=routes.coffeeHot) Coffee(HOT)
+                    a(href=routes.menu+"?category=COFFEE(HOT)") Coffee(HOT)
                 div.nav_item#navItemSecond
-                    a(href=routes.coffeeIce) Coffee(ICE)
-                div.nav_item#navItemThird BEVERAGE
-                div.nav_item#navItemFourth TEA
+                    a(href=routes.menu+"?category=COFFEE(ICE)") Coffee(ICE)
+                div.nav_item#navItemThird 
+                    a(href=routes.menu+"?category=BEVERAGE") BEVERAGE
+                div.nav_item#navItemFourth
+                    a(href=routes.menu+"?category=TEA") TEA
                 div.nav_item_button#navItemRightButton ▶
         div.main#main
             block content
