@@ -1,14 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\class",
+    "\\kiosk",
     "\\static",
-    "\\static\\css",
+    "\\static\\class",
     "\\static\\js",
-    "\\static\\picture",
     "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\routes.js",
+  "SelectedNode": "\\DB.js",
   "PreviewInSolutionExplorer": false
 }

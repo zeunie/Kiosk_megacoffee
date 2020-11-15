@@ -2,13 +2,12 @@ const DB = require("./DB")
 let DB_adapter = new DB()
 
 module.exports = (app, partials) => {
-	let menu = []
-
 	app.get(routes.cover, (req, res) => {
 		res.render("cover", { routes })
 	})
 
 	app.get(routes.menu, async (req, res) => {
+		let menu=[]
 		await DB_adapter.getMenu(`${req.query.category}`).then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
 		res.render("menulist", { routes, menu })
 	})
@@ -26,23 +25,32 @@ module.exports = (app, partials) => {
 
 		res.send(JSON.stringify(order))
 	})
+
+	app.get(routes.refund, async (req, res) => {
+		let refund = []
+		await DB_adapter.getOrderList().then((ret) => { refund = ret })
+		console.log("MY JSON: "+refund[0])
+		res.render("refund", { routes, refund })
+	})
 }
 
 const routes = {
-	cover: "/",
+	cover: "/"
+	,menu: "/menu"
+	,coffeeHot: "/coffeeHot"
+	,coffeeIce: "/coffeeIce"
+	,beverage: "/beverage"
+	,tea: "/tea"
+	,juice: "/juice"
+	,ade: "/ade"
+	,smoothieFraffe: "/smoothieFraffe"
+	,dessert: "/dessert"
+	,americano: "/americano"
 
-	menu: "/menu",
-	coffeeHot: "/coffeeHot",
-	coffeeIce: "/coffeeIce",
-	beverage: "/beverage",
-	tea: "/tea",
-	juice: "/juice",
-	ade: "/ade",
-	smoothieFraffe: "/smoothieFraffe",
-	dessert: "/dessert",
-	americano: "/americano",
+	,order: "/order"
+	,refund:"/refund"
 
-	order: "/order",
+	,test:"/test"
 }
 
 export default routes

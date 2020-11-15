@@ -20,5 +20,5 @@ require('./routes')(app, partials)
 const DB = require("./DB")
 
 app.listen(PORT, () => {
-	console.log(`[${Date()}]\nTEAM13 SERVER RUNNING...\thttp://127.0.0.1:${PORT}`)
+	console.log(`[${Date()}]\nTEAM13>> SERVER RUNNING...\thttp://127.0.0.1:${PORT}`)
 })

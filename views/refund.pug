@@ -1,0 +1,41 @@
+doctype html
+html
+    head
+        title 메가커피 키오스크
+        link(rel="stylesheet" type="text/css" href="/static/css/menu.css")
+        style.
+            table {
+                border-collapse:collapse;
+            }
+            th, td {
+                border:1px solid blue;
+                padding:8px;
+            }
+    body
+        header
+            h2 영수증 관리
+        nav
+            input(type="date" id="selectDate")
+            ul.navbar
+                li 주문번호 조회
+                li 승인번호 조회
+                li 영수증 재출력
+                li 반품
+        section.main
+            table
+                tr
+                    th No
+                    th 주문번호
+                    th 거래일시
+                    th 매장/T.O.
+                    th 금액
+                    th 적립
+                each one in refund
+                    tr
+                        td.item_id=` ${one.getValue().id} `
+                        td.item_orderTime=` ${one.getValue().orderTime} `
+                        td.item_TO=` 테이크 아웃 `
+                        td.item_price=` ${one.getValue().price} `
+                        td.item_payment=` 카드 `
+
+        
