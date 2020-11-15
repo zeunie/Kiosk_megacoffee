@@ -1,6 +1,161 @@
+.header {
+  height:90px;
+  background-color: #472c0c;
+}
+
+.americanoImg {
+  width: 130px;
+  height: 80px;
+  margin-top: 5px;
+  margin-left: 10px;
+  float: left
+}
+
+#menuName {
+  color: white;
+  font-size: 20px;
+  display: block;
+  margin-right: 260px;
+  margin-top: 10px;
+  font-size: 18px;
+  float: right;
+}
+
+#menuNum {
+  color: white;
+  font-size: 17px;
+  display: block;
+  margin-right: 315px;
+  margin-top: -11px; 
+  float: right;
+}
+
+.fas{
+  font-size: 22px;
+  color: white;
+  margin-top: 45px;
+}
+
+.fa-minus-circle{
+  margin-left: 90px;
+  margin-right: 17px;
+}
+
+.fa-plus-circle{
+  margin-left: 17px;
+  margin-right: 10px;
+}
+
+#menuQuantity{
+  font-size: 25px;
+  color: white;
+  margin-top: 37px;
+}
+
+.header #price{
+  color: white;
+  font-size: 15px;
+  margin-top: -60px;
+  margin-right: 10px;
+}
+
+.header #wordSum{
+  color: white;
+  font-size: 15px;
+  margin-top: -46px;
+  margin-right: 90px;
+}
+
+.header #sum{
+  color: white;
+  font-size: 25px;
+  margin-top: -35px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.right{
+  float: right;
+}
+
+.header div{
+  display: flex;
+}
+
 body {
   height: 700px;
   width: 525px;
   margin: 0 auto;
   border: 1px solid black;
+}
+
+.order_main{
+  width: 525px;
+  height: 510px;
+}
+
+.order_main table{
+  margin-top: 10px;
+  margin-left: 2px;
+}
+
+.order_main td{
+  border: 1px solid rgb(199, 194, 194);
+  padding: 15px;
+  width: 78px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.footer{
+  height: 90px;
+  width: 525px;
+  background-color: slategray;
+}
+
+.footer #sum{
+  color: white;
+  float: left;
+  margin-left: 272px;
+  font-size: 33px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.footer #sumWord{
+  color: white;
+  float: left;
+  margin-left: -62px;
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+.footer #cancel{
+  float: right;
+  display: block;
+  background-color: tomato;
+  width: 70px;
+  height: 60px;
+  margin-top: 14px;
+  margin-right: 83px;
+  text-align: center;
+  line-height: 53px;
+  color: white;
+  font-size: 18px;
+  border-radius: 4px;
+}
+
+.footer #order{
+  float: right;
+  display: block;
+  background-color: #4954ec;
+  width: 70px;
+  height: 60px;
+  margin-top: 14px;
+  margin-right: -146px;
+  text-align: center;
+  line-height: 53px;
+  color: white;
+  font-size: 18px;
+  border-radius: 4px;
 }
