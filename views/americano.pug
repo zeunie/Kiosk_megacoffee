@@ -3,12 +3,32 @@ html
     head
         title 메가커피 키오스크
         <style type="text/css"> a { text-decoration:none } </style> 
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
         link(rel="stylesheet" href="/static/css/order.css")
     body
+        div.header
+            img.americanoImg(src="static/picture/americano.png" alt="picture")
+            span#menuName 아메리카노
+            span#menuNum <br>수량 
+            div
+                <i class="fas fa-minus-circle"></i>
+                span#menuQuantity 1
+                <i class="fas fa-plus-circle"></i>
+            span.right#price 단가 3,000
+            span.right#wordSum <br>합계
+            span.right#sum 3,000
         div.order_main
+            <table>
+                <tr>
+                    <td>샷추가</td><td id = "shot1">샷추가1개<br>(+ 500)</td>
+                    <td id = "shot2">샷추가2개<br>(+ 1,000)</td>
+                    <td id = "milder">연하게</td>
+                    <td id = "none">선택안함</td>
+                </tr>
+            </table > 
         div.footer
-            span#optionIcon ▤
-            span#orderNumber 0 <br> 주문수량
-            span#sum 0 <br> 합계금액
-            span#cancel 전체 취소
-            span#card 카드
+            span#sum 3,000
+            span#sumWord <br>결제금액
+            span#cancel 취소
+            span#order 주문
+        script(src="/static/js/americano.js")

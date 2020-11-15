@@ -13,6 +13,8 @@ const bannerImage = document.getElementById("bannerImage");
 const item = document.getElementById("item");
 const orderNameDiv = document.getElementById("orderNameDiv");
 const orderPriceDiv = document.getElementById("orderPriceDiv");
+const chevronLeft = document.getElementById("chevronLeft");
+const chevronRight = document.getElementById("chevronRight");
 const payByCard = document.getElementById("card");
 
 let num = 1;
@@ -32,6 +34,7 @@ function minusNum() {
 		navItemFourth.innerHTML = '<a href="/menu?category=TEA">TEA</a>';
 	}
 }
+
 function plusNum() {
 	if (num == 2) {
 		return;
@@ -54,81 +57,101 @@ function showMenuPage(num) {
 }
 
 function minusIndex() {
-	if (index == 0) {
-		return;
-	}
-	index -= 1;
-	if (displayNumber == 1) {
-		if (index == 0) {
-			showMenuPage(0);
-			nextBtnDisplay.innerText = "● ○";
-		}
-	}
-	if (displayNumber == 2) {
-		if (index == 0) {
-			showMenuPage(0);
-			nextBtnDisplay.innerText = "● ○ ○";
-		}
+  if (index == 0) {
+    return;
+  }
+  index -= 1;
+  if (displayNumber == 1) {
+    if (index == 0) {
+      showMenuPage(0);
+      nextBtnDisplay.innerText = "• ∘";
+    }
+  }
+  if (displayNumber == 2) {
+    if (index == 0) {
+      showMenuPage(0);
+      nextBtnDisplay.innerText = "• ∘ ∘";
+    }
 
-		if (index == 1) {
-			showMenuPage(1);
-			nextBtnDisplay.innerText = "○ ● ○";
-		}
-	}
+    if (index == 1) {
+      showMenuPage(1);
+      nextBtnDisplay.innerText = "∘ • ∘";
+    }
+  }
 }
 
 function plusIndex() {
-	if (index == 2) {
-		return;
-	}
-	index += 1;
-	if (displayNumber == 1) {
-		if (index == 1) {
-			showMenuPage(1);
-			nextBtnDisplay.innerText = "○ ●";
-		}
-	}
-	if (displayNumber == 2) {
-		if (index == 1) {
-			showMenuPage(1);
-			nextBtnDisplay.innerText = "○ ● ○";
-		}
-		if (index == 2) {
-			showMenuPage(2);
-			nextBtnDisplay.innerText = "○ ○ ●";
-		}
-	}
+  if (index == 2) {
+    return;
+  }
+  index += 1;
+  if (displayNumber == 1) {
+    if (index == 1) {
+      showMenuPage(1);
+      nextBtnDisplay.innerText = "∘ •";
+    }
+  }
+  if (displayNumber == 2) {
+    if (index == 1) {
+      showMenuPage(1);
+      nextBtnDisplay.innerText = "∘ • ∘";
+    }
+    if (index == 2) {
+      showMenuPage(2);
+      nextBtnDisplay.innerText = "∘ ∘ •";
+    }
+  }
 }
 
 function setDisplay(num) {
-	if (num == 0) {
-		nextBtnDisplay.innerText = "●";
-		nextBtnLeft.removeEventListener;
-		nextBtnRight.removeEventListener;
-	}
-	if (num == 1) {
-		nextBtnDisplay.innerText = "● ○";
-	}
-	if (num == 2) {
-		nextBtnDisplay.innerText = "● ○ ○";
-	}
+  if (num == 0) {
+    nextBtnDisplay.innerText = "•";
+    nextBtnLeft.removeEventListener;
+    nextBtnRight.removeEventListener;
+  }
+  if (num == 1) {
+    nextBtnDisplay.innerText = "• ∘";
+  }
+  if (num == 2) {
+    nextBtnDisplay.innerText = "• ∘ ∘";
+  }
 }
 
 function addMenu(src, name, price) {
-	const spanForName = document.createElement("span");
-	spanForName.id = "orderName";
-	spanForName.innerText = name;
-	orderNameDiv.appendChild(spanForName);
-	const spanForPrice = document.createElement("span");
-	spanForPrice.id = "orderPrice";
-	spanForPrice.innerText = price;
-	orderPriceDiv.appendChild(spanForPrice);
-	const drinkImg = document.createElement("img");
-	drinkImg.id = "orderDrink";
-	drinkImg.src = src;
-	spanForPrice.appendChild(drinkImg);
-	banner.style.backgroundColor = "lightgray";
-	bannerImage.style.opacity = 0;
+  const spanForName = document.createElement("span");
+  spanForName.id = "orderName";
+  spanForName.innerText = name;
+  orderNameDiv.appendChild(spanForName);
+  const spanForPrice = document.createElement("span");
+  spanForPrice.id = "orderPrice";
+  spanForPrice.innerText = price;
+  orderPriceDiv.appendChild(spanForPrice);
+  const drinkImg = document.createElement("img");
+  drinkImg.id = "orderDrink";
+  drinkImg.src = src;
+  spanForPrice.appendChild(drinkImg);
+  const deleteBtn = document.createElement("span");
+  deleteBtn.id = "deleteBtn";
+  deleteBtn.innerText = "X";
+  orderPriceDiv.appendChild(deleteBtn);
+  const quantity = document.createElement("span");
+  quantity.id = "quantity";
+  quantity.innerText = "\n\n1";
+  spanForName.appendChild(quantity);
+  banner.style.backgroundColor = "lightgray";
+  chevronLeft.style.visibility = "visible";
+  chevronRight.style.visibility = "visible";
+  bannerImage.style.opacity = 0;
+  const minusIcon = document.createElement("i");
+  quantity.appendChild(minusIcon);
+  minusIcon.className="fas fa-minus-circle";
+  const plusIcon = document.createElement("i");
+  quantity.appendChild(plusIcon);
+  plusIcon.className="fas fa-plus-circle";
+  const option = document.createElement("span");
+  option.id = "option";
+  option.innerText = "+연하게";
+  spanForName.appendChild(option);
 }
 
 function trackItem() {
@@ -141,11 +164,15 @@ function trackItem() {
 }
 
 function main() {
+  showMenuPage(0);
+  setDisplay(displayNumber);
+
+  navItemLeftBtn.addEventListener("click", minusNum);
+  navItemRightBtn.addEventListener("click", plusNum);
 	showMenuPage(0);
 	setDisplay(displayNumber);
 	navItemLeftBtn.addEventListener("click", minusNum);
 	navItemRightBtn.addEventListener("click", plusNum);
-
 	nextBtnLeft.addEventListener("click", minusIndex);
 	nextBtnRight.addEventListener("click", plusIndex);
 

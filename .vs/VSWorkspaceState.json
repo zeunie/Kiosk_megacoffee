@@ -4,10 +4,12 @@
     "\\kiosk",
     "\\static",
     "\\static\\class",
+    "\\static\\css",
     "\\static\\js",
+    "\\static\\picture",
     "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\DB.js",
+  "SelectedNode": "\\routes.js",
   "PreviewInSolutionExplorer": false
 }

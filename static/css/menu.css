@@ -21,6 +21,10 @@ body {
   opacity: 0.8;
 }
 
+.header svg {
+  margin-top: -7px;
+}
+
 .nav {
   width: 525px;
   margin-left: auto;
@@ -29,13 +33,10 @@ body {
   border-bottom: 1px solid black;
   display: flex;
   align-items: center;
-  background-color:rgb(139, 144, 148);
-  opacity: 0.8;
+  background-color:#472c0c;
 }
 
-.nav_items {
-  margin-left: auto;
-  margin-right: auto;
+.nav_items{
   display: flex;
 }
 
@@ -44,14 +45,20 @@ body {
 }
 
 .nav_item {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-top: -1px;
   font-weight: 700;
   color: white;
+  border: 1px solid rgb(157, 162, 167);
+  background-color: rgb(157, 162, 167);
+  border-radius: 7px;
+  padding: 13px;
 }
 
 .nav_item_button {
-  color: black;
+  color: rgb(231, 227, 227);
+  font-size: 30px;
 }
 
 .nav_item a {
@@ -61,11 +68,34 @@ body {
 #navItemLeftButton {
   font-weight: bold;
   cursor: pointer;
+  margin-left: 14px;
+  margin-right: 14px;
 }
 
 #navItemRightButton {
   font-weight: bold;
   cursor: pointer;
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+/* #navItemFirst {
+  border-radius: 7px;
+  padding: 13px;
+  border: 1px solid white;
+  background-color: white;
+  color: black;
+} */
+
+/* #navItemFirst a {
+  color: black;
+} */
+
+#option {
+  display: block;
+  font-size: 10px;
+  margin-top: -53px;
+  text-align: center;
 }
 
 .main {
@@ -106,17 +136,20 @@ body {
 }
 
 #nextButtonLeft {
-  font-size: 30px;
+  font-size: 25px;
   cursor: pointer;
+  color: rgb(150, 148, 148);
 }
+
 #nextButtonRight {
-  font-size: 30px;
+  font-size: 25px;
   cursor: pointer;
+  color: rgb(150, 148, 148);
 }
 
 #nextButtonDisplay {
-  font-size: 15px;
-  margin-top: 5px;
+  font-size: 30px;
+  margin-top: -2px;
   color: darkblue;
 }
 
@@ -124,6 +157,7 @@ body {
   height: 70px;
   border-bottom: 1px solid rgb(209, 218, 224);
 }
+
 .item_name {
   font-size: 13px;
   text-align: center;
@@ -139,7 +173,7 @@ body {
 .banner {
   height: 160px;
   width: 525px;
-  margin: auto;
+  /* margin: auto; */
 }
 
 .banner_image {
@@ -149,38 +183,39 @@ body {
 
 #orderPriceDiv {
   position: relative;
-  top: -155px;
-  right: -10px;
+  top: -135px;
+  left: 36px;
   display: flex;
   justify-content: start;
   z-index: 1;
 }
 
 #orderPrice {
-  height: 115px;
-  width: 120px;
-  margin-left: 5px;
+  height: 100px;
+  width: 103px;
+  margin-left: 8px;
   font-weight: bold;
   text-align: center;
   color: rgb(197, 133, 15);
   background-color: black;
   opacity: 0.7;
   font-size: larger;
+  z-index: 1;
 }
 
 #orderNameDiv {
   position: relative;
-  top: -240px;
-  right: -10px;
+  top: -210px;
   display: flex;
+  left: 36px;
   justify-content: start;
   z-index: 1;
 }
 
 #orderName {
-  height: 115px;
-  width: 120px;
-  margin-left: 5px;
+  height: 100px;
+  width: 100px;
+  margin-left: 8px;
   font-weight: bold;
   text-align: center;
   color: white;
@@ -188,10 +223,55 @@ body {
 }
 
 #orderDrink {
-  height: 95px;
-  width: 100px;
-  opacity: 0.9;
-  margin-top: 27px;
+  height: 70px;
+  width: 103px;
+  opacity: 0.3;
+  margin-top: 37px;
+}
+
+#deleteBtn {
+  color: rgb(218, 216, 216);
+  margin-left: -13px;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+#quantity {
+  display: block;
+  font-size: 21px;
+  margin-top: -38px;
+  margin-left: 38px;
+}
+
+.fa-minus-circle {
+  margin-left: -40px;
+  /* margin-right: 7px; */
+}
+
+.fa-plus-circle {
+  margin-left: 28px;
+}
+
+#chevronLeft{
+  z-index: 1;
+  display: block;
+  color: rgb(134, 131, 131);
+  font-size: 30px;
+  font-weight: bolder;
+  visibility: hidden;
+  margin-top: -300px;
+  margin-left: 7px;
+}
+
+#chevronRight{
+  z-index: 1;
+  display: block;
+  color: rgb(134, 131, 131);
+  margin-left: 480px;
+  font-size: 30px;
+  font-weight: bolder;
+  visibility: hidden;
+  margin-top: -45px;
 }
 
 .footer {
@@ -221,15 +301,27 @@ body {
   font-size: 15px;
   text-align: center;
   margin-top: 8px;
+  line-height: 22px;
 }
+
+#orderNumber #num {
+  font-size: 20px;
+}
+
 #sum {
   margin-left: auto;
   width: 100px;
   height: 58px;
   font-weight: bold;
   font-size: 15px;
+  line-height: 22px;
   text-align: center;
   margin-top: 8px;
+}
+
+#sum #value {
+  color: rgb(50, 211, 203);
+  font-size: 22px;
 }
 
 #cancel {
@@ -237,8 +329,15 @@ body {
   height: 58px;
   background-color: tomato;
   font-weight: bolder;
-  line-height: 58px;
+  font-size: 15px;
+  line-height: 28px;
   text-align: center;
+}
+
+#cancel svg {
+  margin-top: 4px;
+  width: 42px;
+  height: 22px;
 }
 
 #card {
@@ -247,5 +346,13 @@ body {
   background-color: #4954ec;
   font-weight: bolder;
   line-height: 58px;
+  font-size: 15px;
+  line-height: 28px;
   text-align: center;
+}
+
+#card svg {
+  margin-top: 4px;
+  width: 42px;
+  height: 22px;
 }
