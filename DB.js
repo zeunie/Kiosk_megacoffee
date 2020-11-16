@@ -34,7 +34,7 @@ class DB_adapter {
 
 		await this.getMenuCore(categoryName).then((result) => { menuListRaw = result }) //DB에서 모든 값이 넘어올 때까지 기다려서 실행한다.
 		for (const i of menuListRaw) {
-			ret.push(new Menu(i.Cat, i.Name, i.Price))//DB에서 전달받은 raw 데이터에서 카테고리, 이름, 가격만 뽑아서 메뉴를 구성한다(나머지는 다음에)
+			ret.push(new Menu(i.Cat, i.Name, i.Price, (i.Image)?i.Image:undefined))//DB에서 전달받은 raw 데이터에서 카테고리, 이름, 가격, 이미지(null -> default)만 뽑아서 메뉴를 구성한다(나머지는 다음에)
 		}
 
 		return ret

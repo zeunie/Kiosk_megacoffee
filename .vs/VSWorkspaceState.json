@@ -1,7 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\kiosk",
+    "\\kiosk\\static",
     "\\static",
     "\\static\\class",
     "\\static\\css",
@@ -10,6 +10,6 @@
     "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\routes.js",
+  "SelectedNode": "\\static\\css\\date-picker.css",
   "PreviewInSolutionExplorer": false
 }

@@ -29,7 +29,6 @@ module.exports = (app, partials) => {
 	app.get(routes.refund, async (req, res) => {
 		let refund = []
 		await DB_adapter.getOrderList().then((ret) => { refund = ret })
-		console.log("MY JSON: "+refund[0])
 		res.render("refund", { routes, refund })
 	})
 }

@@ -3,26 +3,30 @@ html
     head
         title 메가커피 키오스크
         link(rel="stylesheet" type="text/css" href="/static/css/menu.css")
-        style.
-            table {
-                border-collapse:collapse;
-            }
-            th, td {
-                border:1px solid blue;
-                padding:8px;
-            }
+        link(rel="stylesheet" type="text/css" href="/static/css/refund.css")
+        link(rel="stylesheet" type="text/css" href="/static/css/date-picker.css")
+        script(src='http://code.jquery.com/jquery-1.9.1.js')
+        script(src='http://code.jquery.com/ui/1.10.2/jquery-ui.js')
+        script(src='/static/js/date-picker.js')
+
     body
         header
             h2 영수증 관리
         nav
-            input(type="date" id="selectDate")
-            ul.navbar
-                li 주문번호 조회
-                li 승인번호 조회
-                li 영수증 재출력
-                li 반품
+            .date-picker.navlist
+                .input
+                    .result
+                        | Select Date: 
+                        span
+                    button
+                        i.fa.fa-calendar
+                .calendar
+            .navlist 주문번호 조회
+            .navlist 승인번호 조회
+            .navlist 영수증 재출력
+            .navlist 반품
         section.main
-            table
+            table.refundlist
                 tr
                     th No
                     th 주문번호
@@ -37,5 +41,6 @@ html
                         td.item_TO=` 테이크 아웃 `
                         td.item_price=` ${one.getValue().price} `
                         td.item_payment=` 카드 `
+                        td.item_stamp=""
 
         
