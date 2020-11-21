@@ -8,8 +8,7 @@ html
         script(src='http://code.jquery.com/jquery-1.9.1.js')
         script(src='http://code.jquery.com/ui/1.10.2/jquery-ui.js')
         script(src='/static/js/refund.js')
-
-
+            
     body
         header
             h2 영수증 관리
@@ -23,7 +22,7 @@ html
                 button.btn.btn-outline-success(type="button") 반품 
         main
             article
-                table.table.table-bordered.table-sm.table-fix-head
+                table#table_order_list.table.table-bordered.table-sm.table-fix-head
                     thead.thead-light
                         tr
                             th No
@@ -45,5 +44,27 @@ html
                                 td.item_price=` ${one.getValue().price} `
                                 td.item_payment=` 카드 `
                                 td.item_stamp=""
+            article
+                table#detailed_order.table.table-bordered(hidden)
+                    tr
+                        th 임시 메세지
+                        td JH 이 부분 원래는 주문한 음료가 어떤건지 보여줘야 되는데 그러려면 DB에 주문한 음료정보도 어레이나 딕셔너리같은걸로 들어가있어야 할 것 같아요. 나중에 혹시 그렇게 구현된다면 음료 목록 나오게 할게요. 
+                    tr
+                        th 주문번호
+                        td.order_id
+                    tr
+                        th 거래일시
+                        td.order_orderTime
+                    tr
+                        th 매장/T.O.
+                        td.order_TO
+                    tr
+                        th 금액
+                        td.order_price
+
+
+        .data
+            input(type="text" id="refund" value=`${JSON.stringify(refund)}` hidden)
+            
 
         
