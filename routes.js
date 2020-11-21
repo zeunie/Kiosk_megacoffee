@@ -29,6 +29,13 @@ module.exports = (app, partials) => {
 	app.get(routes.refund, async (req, res) => {
 		let refund = []
 		await DB_adapter.getOrderList().then((ret) => { refund = ret })
+		//JH 201121 주문내역 엄청 많이 나오도록 테스트를 위해 
+		refund = refund.concat(refund)
+		refund = refund.concat(refund)
+		refund = refund.concat(refund)
+		refund = refund.concat(refund)
+		refund = refund.concat(refund)
+		refund = refund.concat(refund)
 		res.render("refund", { routes, refund })
 	})
 }

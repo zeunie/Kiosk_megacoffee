@@ -2,45 +2,48 @@ doctype html
 html
     head
         title 메가커피 키오스크
-        link(rel="stylesheet" type="text/css" href="/static/css/menu.css")
         link(rel="stylesheet" type="text/css" href="/static/css/refund.css")
-        link(rel="stylesheet" type="text/css" href="/static/css/date-picker.css")
+        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+
         script(src='http://code.jquery.com/jquery-1.9.1.js')
         script(src='http://code.jquery.com/ui/1.10.2/jquery-ui.js')
-        script(src='/static/js/date-picker.js')
+        script(src='/static/js/refund.js')
+
 
     body
         header
             h2 영수증 관리
-        nav
-            .date-picker.navlist
-                .input
-                    .result
-                        | Select Date: 
-                        span
-                    button
-                        i.fa.fa-calendar
-                .calendar
-            .navlist 주문번호 조회
-            .navlist 승인번호 조회
-            .navlist 영수증 재출력
-            .navlist 반품
-        section.main
-            table.refundlist
-                tr
-                    th No
-                    th 주문번호
-                    th 거래일시
-                    th 매장/T.O.
-                    th 금액
-                    th 적립
-                each one in refund
-                    tr
-                        td.item_id=` ${one.getValue().id} `
-                        td.item_orderTime=` ${one.getValue().orderTime} `
-                        td.item_TO=` 테이크 아웃 `
-                        td.item_price=` ${one.getValue().price} `
-                        td.item_payment=` 카드 `
-                        td.item_stamp=""
+        nav.navbar.navbar-light.bg-light.justify-content-right
+            form.form-inline
+                input.form-control.mr-sm-2(type="date")
+            form.form-inline
+                button.btn.btn-outline-success(type="button") 주문번호 조회
+                button.btn.btn-outline-success(type="button") 승인번호 조회
+                button.btn.btn-outline-success(type="button") 영수증 재출력
+                button.btn.btn-outline-success(type="button") 반품 
+        main
+            article
+                table.table.table-bordered.table-sm.table-fix-head
+                    thead.thead-light
+                        tr
+                            th No
+                            th 주문번호
+                            th 거래일시
+                            th 매장/T.O.
+                            th 금액
+                            th 결제 
+                            th 적립
+                    tbody
+                        - var i = 1
+                        each one in refund
+                            tr
+                                td.item_num=`${i++}`
+                                td.item_id=` ${one.getValue().id} `
+                                - var ot = one.getValue().orderTime
+                                td.item_orderTime=` ${ot.getFullYear()}년 ${ot.getMonth()+1}월 ${ot.getDate()}일 \n${ot.getHours()}시 ${ot.getMinutes()}분 ${ot.getSeconds()}초`
+                                td.item_TO=` 테이크 아웃 `
+                                td.item_price=` ${one.getValue().price} `
+                                td.item_payment=` 카드 `
+                                td.item_stamp=""
 
         

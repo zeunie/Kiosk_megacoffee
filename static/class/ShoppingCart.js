@@ -35,6 +35,7 @@ class ShoppingCart {
 		this.quantity -= 1
 	}
 
+	//주문내역 생성 후 쇼핑카트 초기화
 	constructOrderList() {
 		const ret = new orderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity)
 

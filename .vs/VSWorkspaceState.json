@@ -1,15 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\kiosk\\static",
     "\\static",
     "\\static\\class",
     "\\static\\css",
     "\\static\\js",
-    "\\static\\picture",
     "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\static\\css\\date-picker.css",
+  "SelectedNode": "\\static\\js\\refund.js",
   "PreviewInSolutionExplorer": false
 }
