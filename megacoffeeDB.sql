@@ -131,6 +131,24 @@ LOCK TABLES `orderlist` WRITE;
 INSERT INTO `orderlist` VALUES ('1',1,'2020-10-01 01:00:31','아메리카노(ICE)',2000,1,NULL,NULL,NULL,NULL,2000,1,1,1),('2',2,'2020-10-02 01:10:31','h 아메리카노',1500,1,1,NULL,NULL,NULL,1500,1,1,1),('202011231600030208',6,'2020-11-23 07:00:03','h 바닐라라떼',3200,1,NULL,NULL,NULL,NULL,3200,NULL,1,1),('3',3,'2020-10-02 02:00:31','h 티라미수라떼',3900,2,NULL,NULL,NULL,NULL,7800,1,2,1),('4',4,'2020-10-03 06:00:31','아메리카노(ICE)',2000,1,NULL,NULL,NULL,NULL,2000,1,1,1),('5',4,'2020-10-03 06:00:31','바닐라라떼(ICE)',3200,1,1,NULL,NULL,NULL,3200,1,1,1),('6',5,'2020-10-04 01:00:31','h 녹차라떼',3200,1,NULL,NULL,NULL,NULL,3200,1,1,1);
 /*!40000 ALTER TABLE `orderlist` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `orderlist_BEFORE_INSERT` BEFORE INSERT ON `orderlist` FOR EACH ROW BEGIN
+	set new.ID = DATE_FORMAT(now(), '%Y%m%d%H%i%s0208');
+    set new.TotalPrice = new.price * new.quantity;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `shoppingcart`
@@ -188,6 +206,14 @@ LOCK TABLES `stamp` WRITE;
 /*!40000 ALTER TABLE `stamp` DISABLE KEYS */;
 /*!40000 ALTER TABLE `stamp` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'megacoffee'
+--
+
+--
+-- Dumping routines for database 'megacoffee'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -198,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-23 16:25:49
+-- Dump completed on 2020-11-23 16:41:49
