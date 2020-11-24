@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\sales",
     "\\static",
     "\\static\\class",
     "\\static\\css",
@@ -8,6 +9,6 @@
     "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\static\\js\\refund.js",
+  "SelectedNode": "\\DB.js",
   "PreviewInSolutionExplorer": false
 }

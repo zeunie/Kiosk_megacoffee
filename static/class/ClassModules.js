@@ -148,6 +148,7 @@ class Time extends Date {
 	constructor(y, m, d, hr, min, sec) {
 		if (typeof (y) === typeof ("")) {
 			//첫번째 매개변수의 타입이 ""이랑 같은(string일) 경우 14자리를 일월연시분초로 parse하여 시간 생성
+
 			let time = y
 
 			y = parseInt(time.slice(0, 4))

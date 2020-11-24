@@ -10,11 +10,8 @@ else
     //echo ("Connect Successfully");
 }
 
-
 $sql = "SELECT time, Quantity from orderlist where Date(time) = Date(CURDATE())";
 $sth = mysqli_query($con, $sql);
-
-
 
 $table = array();
 $table['cols'] = array(
