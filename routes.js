@@ -12,8 +12,8 @@ module.exports = (app, partials) => {
 		res.render("menulist", { routes, menu })
 	})
 
-	//JH 결제요청으로 전송된 json 받기
-	app.post(routes.order, (req, res) => {
+	//JH	결제요청으로 전송된 json 받고 check 페이지로 넘어가기
+	app.post(routes.check, (req, res) => {
 		console.log(req.body)
 		const order = req.body
 		let amount = 0
@@ -23,7 +23,7 @@ module.exports = (app, partials) => {
 		order["total_price"] = amount
 		order["total_quantity"] = order["order_list"].length
 
-		res.send(JSON.stringify(order))
+		res.render("check", { routes , order})
 	})
 
 	app.get(routes.refund, async (req, res) => {
@@ -43,9 +43,9 @@ module.exports = (app, partials) => {
 		res.sendFile("sales/timesales.php")
 	})
 
-	//JH test페이지 내의 기능 테스트
+	//JH	test페이지 내의 기능 테스트
 	app.get(routes.test, (req, res) => {
-		res.render("test", {routes})
+		res.render("test", { routes })
 	})
 	app.post(routes.test, async (req, res) => {
 		let result = []
@@ -67,7 +67,7 @@ const routes = {
 	, dessert: "/dessert"
 	, americano: "/americano"
 
-	, order: "/order"
+	, check: "/check"
 	, refund: "/refund"
 	, timesales: "/timesales"
 
