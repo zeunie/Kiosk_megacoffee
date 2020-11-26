@@ -1,14 +1,19 @@
 {
   "ExpandedNodes": [
     "",
-    "\\sales",
+    "\\kiosk",
+    "\\kiosk\\templates",
+    "\\kiosk\\venv\\Lib",
+    "\\kiosk\\venv\\Lib\\site-packages",
+    "\\kiosk\\venv\\Lib\\site-packages\\werkzeug",
+    "\\kiosk\\venv\\Lib\\site-packages\\werkzeug\\debug",
+    "\\kiosk\\venv\\Lib\\site-packages\\werkzeug\\debug\\shared",
     "\\static",
     "\\static\\class",
-    "\\static\\css",
     "\\static\\js",
     "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\DB.js",
+  "SelectedNode": "\\static\\js\\menu.js",
   "PreviewInSolutionExplorer": false
 }

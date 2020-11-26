@@ -187,16 +187,21 @@ function main() {
 				{ "item_name": "아메리카노", "item_price": 3000 }, { "item_name": "카페라테", "item_price": 4000 }, { "item_name": "유자차", "item_price": 4500 },
 			]
 			, "order_togo": true
-			//필요한 정보 추가 가능
 		}
 
-		const xhttp = new XMLHttpRequest();
-		xhttp.open("POST", "/order");
-		xhttp.setRequestHeader("Content-Type", "application/json");
-		xhttp.onload = () => {
-			console.log(xhttp.responseText)
+		var form = document.createElement('form');
+		form.style.visibility = 'hidden'; // no user interaction is necessary
+		form.method = 'POST'; // forms by default use GET query strings
+		form.action = '/check';
+		for (key of Object.keys(orderInfo)) {
+			var input = document.createElement('input');
+			input.name = key;
+			input.value = orderInfo[key];
+			form.appendChild(input); // add key/value pair to form
 		}
-		xhttp.send(JSON.stringify(orderInfo));
+		document.body.appendChild(form); // forms cannot be submitted outside of body
+		form.submit(); // send the payload and navigate
+
 	})
 	//JH******************************************
 }
