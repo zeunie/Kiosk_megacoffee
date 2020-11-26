@@ -1,14 +1,14 @@
 .header {
-  height:90px;
+  height: 90px;
   background-color: #472c0c;
 }
 
-.americanoImg {
+.drinkImg {
   width: 130px;
   height: 80px;
   margin-top: 5px;
   margin-left: 10px;
-  float: left
+  float: left;
 }
 
 #menuName {
@@ -26,47 +26,47 @@
   font-size: 17px;
   display: block;
   margin-right: 315px;
-  margin-top: -11px; 
+  margin-top: -11px;
   float: right;
 }
 
-.fas{
+.fas {
   font-size: 22px;
   color: white;
   margin-top: 45px;
 }
 
-.fa-minus-circle{
+.fa-minus-circle {
   margin-left: 90px;
   margin-right: 17px;
 }
 
-.fa-plus-circle{
+.fa-plus-circle {
   margin-left: 17px;
   margin-right: 10px;
 }
 
-#menuQuantity{
+#menuQuantity {
   font-size: 25px;
   color: white;
   margin-top: 37px;
 }
 
-.header #price{
+.header #price {
   color: white;
   font-size: 15px;
   margin-top: -60px;
   margin-right: 10px;
 }
 
-.header #wordSum{
+.header #wordSum {
   color: white;
   font-size: 15px;
   margin-top: -46px;
   margin-right: 90px;
 }
 
-.header #sum{
+#header_sum {
   color: white;
   font-size: 25px;
   margin-top: -35px;
@@ -74,11 +74,11 @@
   font-weight: bold;
 }
 
-.right{
+.right {
   float: right;
 }
 
-.header div{
+.header div {
   display: flex;
 }
 
@@ -89,55 +89,69 @@ body {
   border: 1px solid black;
 }
 
-.order_main{
+.order_main {
   width: 525px;
   height: 510px;
 }
 
-.order_main table{
+.order_main table {
   margin-top: 10px;
   margin-left: 2px;
+  /* 테이블 간격 */
+  border-spacing: 2px;
 }
 
-.order_main td{
-  border: 1px solid rgb(199, 194, 194);
+.order_main td {
+  border: 3px solid rgb(199, 194, 194);
   padding: 15px;
   width: 78px;
+  height: 40px;
   text-align: center;
   font-size: 13px;
+  cursor: pointer;
 }
 
-.footer{
+.order_main .selected {
+  background-color: rgb(240, 234, 234);
+  border-color: red;
+}
+
+/* .onlyShot_topping,
+.onlyCream_topping,
+.shotCream_shot_topping,
+.shotCream_cream_topping,
+.shotCinnamon_shot_topping,
+.shotCinnamon_cinnamon_topping {
+  background-color: rgb(240, 234, 234);
+} */
+
+.footer {
   height: 90px;
   width: 525px;
   background-color: slategray;
 }
 
-.footer #sum{
+#footer_sum {
   color: white;
   float: left;
-  margin-left: 272px;
+  /* margin-left: 272px; */
   font-size: 33px;
   font-weight: bold;
   margin-top: 10px;
 }
 
-.footer #sumWord{
+.footer #sumWord {
   color: white;
-  float: left;
-  margin-left: -62px;
-  margin-top: 30px;
+  text-align: right;
   font-size: 15px;
 }
 
-.footer #cancel{
+.footer #cancel {
   float: right;
   display: block;
   background-color: tomato;
   width: 70px;
   height: 60px;
-  margin-top: 14px;
-  margin-right: 83px;
   text-align: center;
   line-height: 53px;
   color: white;
@@ -145,17 +159,33 @@ body {
   border-radius: 4px;
 }
 
-.footer #order{
+.footer #order {
   float: right;
   display: block;
   background-color: #4954ec;
   width: 70px;
   height: 60px;
-  margin-top: 14px;
-  margin-right: -146px;
   text-align: center;
   line-height: 53px;
   color: white;
   font-size: 18px;
   border-radius: 4px;
+}
+.footer {
+  display: flex;
+  align-items: center;
+}
+
+.footer_items {
+  margin-left: auto;
+  display: flex;
+}
+
+.footer_item {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+#footer_item {
+  margin-bottom: 15px;
 }
