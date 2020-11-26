@@ -8,7 +8,7 @@ module.exports = (app, partials) => {
 
 	app.get(routes.menu, async (req, res) => {
 		let menu = []
-		await DB_adapter.getMenu(`${req.query.category}`).then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
+		await DB_adapter.getMenu().then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
 		res.render("menulist", { routes, menu })
 	})
 

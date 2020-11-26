@@ -3,17 +3,12 @@
     "",
     "\\kiosk",
     "\\kiosk\\templates",
-    "\\kiosk\\venv\\Lib",
-    "\\kiosk\\venv\\Lib\\site-packages",
-    "\\kiosk\\venv\\Lib\\site-packages\\werkzeug",
-    "\\kiosk\\venv\\Lib\\site-packages\\werkzeug\\debug",
-    "\\kiosk\\venv\\Lib\\site-packages\\werkzeug\\debug\\shared",
     "\\static",
     "\\static\\class",
     "\\static\\js",
     "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\static\\js\\menu.js",
+  "SelectedNode": "\\views\\mixins\\menuBlock.pug",
   "PreviewInSolutionExplorer": false
 }

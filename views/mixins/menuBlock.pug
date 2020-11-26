@@ -3,3 +3,4 @@ mixin menuBlock(menu={})
         img.item_image(src=menu.src, onerror=`this.onerror=null; this.src='/static/picture/default.png'` alt="pic")
         span.item_name=` ${menu.name} `
         span.item_price=` ${menu.price} `
+        span.item_cat(hidden)=` ${menu.cat} `

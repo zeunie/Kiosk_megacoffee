@@ -17,141 +17,173 @@ const chevronLeft = document.getElementById("chevronLeft");
 const chevronRight = document.getElementById("chevronRight");
 const payByCard = document.getElementById("card");
 
+const HOW_MANY_TO_SHOW=12
+
 let num = 1;
 let index = 0;
 let len = menuPage.length;
-let displayNumber = parseInt((len - 1) / 12);
+let displayNumber = parseInt((len - 1) / HOW_MANY_TO_SHOW);
 
 function minusNum() {
+	//카테고리 8개 중 첫번째 4개를 보여준다
 	if (num == 1) {
 		return;
 	}
 	num -= 1;
 	if (num == 1) {
-		navItemFirst.innerHTML = '<a href="/menu?category=COFFEE(HOT)">Coffee(HOT)</a>';
-		navItemSecond.innerHTML = '<a href="/menu?category=COFFEE(HOT)">Coffee(HOT)</a>';
-		navItemThird.innerHTML = '<a href="/menu?category=BEVERAGE">BEVERAGE</a>';
-		navItemFourth.innerHTML = '<a href="/menu?category=TEA">TEA</a>';
+		navItemFirst.innerHTML = `<a href="#" onclick="showCategory('COFFEE(HOT)')">Coffee(HOT)</a>`;
+		navItemSecond.innerHTML = `<a href="#" onclick="showCategory('COFFEE(ICE)')"">Coffee(HOT)</a>`;
+		navItemThird.innerHTML = `<a href="#" onclick="showCategory('BEVERAGE')"">BEVERAGE</a>`;
+		navItemFourth.innerHTML = `<a href="#" onclick="showCategory('TEA')"">TEA</a>`;
 	}
 }
 
 function plusNum() {
+	//카테고리 8개 중 두번째 4개를 보여준다
 	if (num == 2) {
 		return;
 	}
 	num += 1;
 
 	if (num == 2) {
-		navItemFirst.innerHTML = '<a href="/menu?category=JUICE">JUICE</a>';
-		navItemSecond.innerHTML = '<a href="/menu?category=ADE">ADE</a>';
-		navItemThird.innerHTML = '<a href="/menu?category=SMOOTHIE&FRAFFE">SMOOTHIE&FRAFFE</a>';
-		navItemFourth.innerHTML = '<a href="/menu?category=DESSERT">DESSERT</a>';
+		navItemFirst.innerHTML = `<a href="#" onclick="showCategory('JUICE')"">JUICE</a>`;
+		navItemSecond.innerHTML = `<a href="#" onclick="showCategory('ADE')"">ADE</a>`;
+		navItemThird.innerHTML = `<a href="#" onclick="showCategory('SMOOTHIE')"">SMOOTHIE&FRAFFE</a>`;
+		navItemFourth.innerHTML = `<a href="#" onclick="showCategory('DESSERT')"">DESSERT</a>`;
 	}
 }
-
-function showMenuPage(num) {
+function showCategory(cat) {
+	//선택시 menuPage에 있는 메뉴들이 해당 카테고리의 것으로 바뀐다. 그 다음 displayNumber가 처음(0)으로 돌아가도록 하고 
+	//첫번째 페이의 음료 목록을 보여주고, 디스플레이(●○○)를 처음으로 한다 
+	let count_of_item_in_category=0
 	for (var i = 0; i < len; i++) {
 		menuPage[i].style.display = "none";
-		if (parseInt(i / 12) == num) menuPage[i].style.display = "grid";
+		menuPage[i].setAttribute("data-selected","")
+		if (String(menuPage[i].children[3].innerText).includes(cat)) {//이 부분 children[3]에서 3이란게 카테고리를 가리키는거예요. 원래 저렇게 쓰면 안좋은데 딱히 방법이 생각 안 나서
+			menuPage[i].setAttribute("data-selected", "selected")
+			count_of_item_in_category++
+		}
+	}
+	displayNumber = parseInt((count_of_item_in_category - 1) / HOW_MANY_TO_SHOW)
+	minusIndex()
+	minusIndex()
+	showMenuPage(index)
+	setDisplay(displayNumber)
+}
+function showMenuPage(num) {
+	//num번째의 페이지에 있는 메뉴 목록을 HOW_MANY_TO_SHOW개씩 보여준다
+	let count = 0
+	for (var i = 0; i < len; i++) {
+		if (menuPage[i].getAttribute("data-selected")) {
+			if (num * HOW_MANY_TO_SHOW <= count && count < (num + 1) * HOW_MANY_TO_SHOW) {
+				menuPage[i].style.display = "grid";
+			}
+			else {
+				menuPage[i].style.display = "none";
+			}
+			count++
+		}
+		//menuPage[i].style.display = "none";
+		//if (parseInt(i / HOW_MANY_TO_SHOW) == num) menuPage[i].style.display = "grid";
 	}
 }
 
 function minusIndex() {
-  if (index == 0) {
-    return;
-  }
-  index -= 1;
-  if (displayNumber == 1) {
-    if (index == 0) {
-      showMenuPage(0);
-      nextBtnDisplay.innerText = "• ∘";
-    }
-  }
-  if (displayNumber == 2) {
-    if (index == 0) {
-      showMenuPage(0);
-      nextBtnDisplay.innerText = "• ∘ ∘";
-    }
+	if (index == 0) {
+		return;
+	}
+	index -= 1;
+	if (displayNumber == 1) {
+		if (index == 0) {
+			showMenuPage(0);
+			nextBtnDisplay.innerText = "• ∘";
+		}
+	}
+	if (displayNumber == 2) {
+		if (index == 0) {
+			showMenuPage(0);
+			nextBtnDisplay.innerText = "• ∘ ∘";
+		}
 
-    if (index == 1) {
-      showMenuPage(1);
-      nextBtnDisplay.innerText = "∘ • ∘";
-    }
-  }
+		if (index == 1) {
+			showMenuPage(1);
+			nextBtnDisplay.innerText = "∘ • ∘";
+		}
+	}
 }
 
 function plusIndex() {
-  if (index == 2) {
-    return;
-  }
-  index += 1;
-  if (displayNumber == 1) {
-    if (index == 1) {
-      showMenuPage(1);
-      nextBtnDisplay.innerText = "∘ •";
-    }
-  }
-  if (displayNumber == 2) {
-    if (index == 1) {
-      showMenuPage(1);
-      nextBtnDisplay.innerText = "∘ • ∘";
-    }
-    if (index == 2) {
-      showMenuPage(2);
-      nextBtnDisplay.innerText = "∘ ∘ •";
-    }
-  }
+	if (index == 2) {
+		return;
+	}
+	index += 1;
+	if (displayNumber == 1) {
+		if (index == 1) {
+			showMenuPage(1);
+			nextBtnDisplay.innerText = "∘ •";
+		}
+	}
+	if (displayNumber == 2) {
+		if (index == 1) {
+			showMenuPage(1);
+			nextBtnDisplay.innerText = "∘ • ∘";
+		}
+		if (index == 2) {
+			showMenuPage(2);
+			nextBtnDisplay.innerText = "∘ ∘ •";
+		}
+	}
 }
 
 function setDisplay(num) {
-  if (num == 0) {
-    nextBtnDisplay.innerText = "•";
-    nextBtnLeft.removeEventListener;
-    nextBtnRight.removeEventListener;
-  }
-  if (num == 1) {
-    nextBtnDisplay.innerText = "• ∘";
-  }
-  if (num == 2) {
-    nextBtnDisplay.innerText = "• ∘ ∘";
-  }
+	if (num == 0) {
+		nextBtnDisplay.innerText = "•";
+		nextBtnLeft.removeEventListener;
+		nextBtnRight.removeEventListener;
+	}
+	if (num == 1) {
+		nextBtnDisplay.innerText = "• ∘";
+	}
+	if (num == 2) {
+		nextBtnDisplay.innerText = "• ∘ ∘";
+	}
 }
 
 function addMenu(src, name, price) {
-  const spanForName = document.createElement("span");
-  spanForName.id = "orderName";
-  spanForName.innerText = name;
-  orderNameDiv.appendChild(spanForName);
-  const spanForPrice = document.createElement("span");
-  spanForPrice.id = "orderPrice";
-  spanForPrice.innerText = price;
-  orderPriceDiv.appendChild(spanForPrice);
-  const drinkImg = document.createElement("img");
-  drinkImg.id = "orderDrink";
-  drinkImg.src = src;
-  spanForPrice.appendChild(drinkImg);
-  const deleteBtn = document.createElement("span");
-  deleteBtn.id = "deleteBtn";
-  deleteBtn.innerText = "X";
-  orderPriceDiv.appendChild(deleteBtn);
-  const quantity = document.createElement("span");
-  quantity.id = "quantity";
-  quantity.innerText = "\n\n1";
-  spanForName.appendChild(quantity);
-  banner.style.backgroundColor = "lightgray";
-  chevronLeft.style.visibility = "visible";
-  chevronRight.style.visibility = "visible";
-  bannerImage.style.opacity = 0;
-  const minusIcon = document.createElement("i");
-  quantity.appendChild(minusIcon);
-  minusIcon.className="fas fa-minus-circle";
-  const plusIcon = document.createElement("i");
-  quantity.appendChild(plusIcon);
-  plusIcon.className="fas fa-plus-circle";
-  const option = document.createElement("span");
-  option.id = "option";
-  option.innerText = "+연하게";
-  spanForName.appendChild(option);
+	const spanForName = document.createElement("span");
+	spanForName.id = "orderName";
+	spanForName.innerText = name;
+	orderNameDiv.appendChild(spanForName);
+	const spanForPrice = document.createElement("span");
+	spanForPrice.id = "orderPrice";
+	spanForPrice.innerText = price;
+	orderPriceDiv.appendChild(spanForPrice);
+	const drinkImg = document.createElement("img");
+	drinkImg.id = "orderDrink";
+	drinkImg.src = src;
+	spanForPrice.appendChild(drinkImg);
+	const deleteBtn = document.createElement("span");
+	deleteBtn.id = "deleteBtn";
+	deleteBtn.innerText = "X";
+	orderPriceDiv.appendChild(deleteBtn);
+	const quantity = document.createElement("span");
+	quantity.id = "quantity";
+	quantity.innerText = "\n\n1";
+	spanForName.appendChild(quantity);
+	banner.style.backgroundColor = "lightgray";
+	chevronLeft.style.visibility = "visible";
+	chevronRight.style.visibility = "visible";
+	bannerImage.style.opacity = 0;
+	const minusIcon = document.createElement("i");
+	quantity.appendChild(minusIcon);
+	minusIcon.className = "fas fa-minus-circle";
+	const plusIcon = document.createElement("i");
+	quantity.appendChild(plusIcon);
+	plusIcon.className = "fas fa-plus-circle";
+	const option = document.createElement("span");
+	option.id = "option";
+	option.innerText = "+연하게";
+	spanForName.appendChild(option);
 }
 
 function trackItem() {
@@ -164,11 +196,13 @@ function trackItem() {
 }
 
 function main() {
-  showMenuPage(0);
-  setDisplay(displayNumber);
+	showCategory("COFFEE(HOT)")
+	showMenuPage(0);
+	setDisplay(displayNumber);
 
-  navItemLeftBtn.addEventListener("click", minusNum);
-  navItemRightBtn.addEventListener("click", plusNum);
+	navItemLeftBtn.addEventListener("click", minusNum);
+	navItemRightBtn.addEventListener("click", plusNum);
+	showCategory("COFFEE(HOT)")
 	showMenuPage(0);
 	setDisplay(displayNumber);
 	navItemLeftBtn.addEventListener("click", minusNum);
