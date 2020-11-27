@@ -1,12 +1,21 @@
 const DB = require("./DB")
 let DB_adapter = new DB()
 
+class ServerLog {
+	tell(msg="") {
+		console.log(`[${Date()}]\nTEAM13>> ${msg}`)
+	}
+}
+const Log=new ServerLog() 
+
 module.exports = (app, partials) => {
 	app.get(routes.cover, (req, res) => {
 		res.render("cover", { routes })
 	})
 
 	app.get(routes.menu, async (req, res) => {
+		Log.tell("Menu Page Requested")
+
 		let menu = []
 		await DB_adapter.getMenu().then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
 		res.render("menulist", { routes, menu })
@@ -14,6 +23,8 @@ module.exports = (app, partials) => {
 
 	//JH	결제요청으로 전송된 json 받고 check 페이지로 넘어가기
 	app.post(routes.check, (req, res) => {
+		Log.tell("Payment Requested")
+
 		console.log(req.body)
 		const order = req.body
 		let amount = 0
@@ -23,7 +34,18 @@ module.exports = (app, partials) => {
 		order["total_price"] = amount
 		order["total_quantity"] = order["order_list"].length
 
-		res.render("check", { routes , order})
+		res.render("check", { routes, order })
+	})
+
+	app.get(routes.change_to_checkpoint, (req, res) => {
+		Log.tell("Stamp Requested")
+
+		res.render("numberpad", { routes })
+	})
+	app.get(routes.change_to_complete, (req, res) => {
+		Log.tell("Payment Complete Requested")
+
+		res.render("complete", {routes})
 	})
 
 	app.get(routes.refund, async (req, res) => {
@@ -68,6 +90,9 @@ const routes = {
 	, americano: "/americano"
 
 	, check: "/check"
+	, change_to_complete: "/change_to_complete"
+	, change_to_checkpoint:"/change_to_checkpoint"
+
 	, refund: "/refund"
 	, timesales: "/timesales"
 
