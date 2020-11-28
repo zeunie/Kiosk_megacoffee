@@ -16,6 +16,8 @@ const orderPriceDiv = document.getElementById("orderPriceDiv");
 const chevronLeft = document.getElementById("chevronLeft");
 const chevronRight = document.getElementById("chevronRight");
 const payByCard = document.getElementById("card");
+const drinkNum = document.getElementById("drinkNum");
+const totalPrice = document.getElementById("totalPrice");
 
 const HOW_MANY_TO_SHOW=12
 
@@ -149,7 +151,194 @@ function setDisplay(num) {
 	}
 }
 
-function addMenu(src, name, price) {
+function showCart() {
+	const cartItems1 = document.querySelectorAll(
+	  "#orderNameDiv span:nth-child(n)"
+	);
+	const cartItems2 = document.querySelectorAll(
+	  "#orderPriceDiv span:nth-child(n)"
+	);
+  
+	lastPage = parseInt(parseInt((cartItems1.length - 1) / 3) / 4);
+	for (var i = 0; i < cartItems1.length; i++) {
+	  if (parseInt(parseInt(i / 3) / 4) != lastPage) {
+		cartItems1[i].style.display = "none";
+	  } else {
+		cartItems1[i].style.display = "";
+	  }
+	}
+	for (var i = 0; i < cartItems2.length; i++) {
+	  if (parseInt(parseInt(i / 2) / 4) != lastPage) {
+		cartItems2[i].style.display = "none";
+	  } else {
+		cartItems2[i].style.display = "";
+	  }
+	}
+  }
+  
+  function minusCart() {
+	const cartItems1 = document.querySelectorAll(
+	  "#orderNameDiv span:nth-child(n)"
+	);
+	const cartItems2 = document.querySelectorAll(
+	  "#orderPriceDiv span:nth-child(n)"
+	);
+	let num;
+	for (var i = 0; i < cartItems1.length; i++) {
+	  if (cartItems1[i].style.display != "none") {
+		num = parseInt(parseInt(i / 3) / 4);
+		break;
+	  }
+	}
+	if (num == 0) return;
+	num -= 1;
+	for (var i = 0; i < cartItems1.length; i++) {
+	  if (parseInt(parseInt(i / 3) / 4) != num) {
+		cartItems1[i].style.display = "none";
+	  } else {
+		cartItems1[i].style.display = "";
+	  }
+	}
+	for (var i = 0; i < cartItems2.length; i++) {
+	  if (parseInt(parseInt(i / 2) / 4) != num) {
+		cartItems2[i].style.display = "none";
+	  } else {
+		cartItems2[i].style.display = "";
+	  }
+	}
+  }
+  
+  function plusCart() {
+	const cartItems1 = document.querySelectorAll(
+	  "#orderNameDiv span:nth-child(n)"
+	);
+	const cartItems2 = document.querySelectorAll(
+	  "#orderPriceDiv span:nth-child(n)"
+	);
+  
+	lastPage = parseInt(parseInt((cartItems1.length - 1) / 3) / 4);
+	let num;
+	for (var i = 0; i < cartItems1.length; i++) {
+	  if (cartItems1[i].style.display != "none") {
+		num = parseInt(parseInt(i / 3) / 4);
+		break;
+	  }
+	}
+	if (num == lastPage) return;
+	num += 1;
+	for (var i = 0; i < cartItems1.length; i++) {
+	  if (parseInt(parseInt(i / 3) / 4) != num) {
+		cartItems1[i].style.display = "none";
+	  } else {
+		cartItems1[i].style.display = "";
+	  }
+	}
+	for (var i = 0; i < cartItems2.length; i++) {
+	  if (parseInt(parseInt(i / 2) / 4) != num) {
+		cartItems2[i].style.display = "none";
+	  } else {
+		cartItems2[i].style.display = "";
+	  }
+	}
+  }
+  
+  function changeDrinkNum() {
+	const quantity = document.querySelectorAll("#quantity");
+	sum = 0;
+	for (var i = 0; i < quantity.length; i++) {
+	  sum += parseInt(quantity[i].innerText);
+	}
+	drinkNum.innerHTML = sum;
+  }
+  
+  function changeTotalPrice() {
+	const quantity = document.querySelectorAll("#quantity");
+	const cartItems2 = document.querySelectorAll("#orderPrice");
+	sum = 0;
+	for (var i = 0; i < cartItems2.length; i++) {
+	  sum +=
+		parseInt(cartItems2[i].innerText.split(",").join("")) *
+		quantity[i].innerText;
+	}
+	totalPrice.innerText = sum.toLocaleString("en").split(".")[0];
+  }
+  
+  function delBtnRemover(event) {
+	const cartItems1 = document.querySelectorAll(
+	  "#orderNameDiv span:nth-child(n)"
+	);
+	const cartItems2 = document.querySelectorAll(
+	  "#orderPriceDiv span:nth-child(n)"
+	);
+	let nameIndex;
+	let priceIndex;
+  
+	for (var i = 0; i < cartItems2.length; i++) {
+	  if (cartItems2[i] == event.target) {
+		nameIndex = ((i + 1) / 2) * 3 - 1;
+		priceIndex = i;
+		break;
+	  }
+	}
+  
+	orderNameDiv.removeChild(cartItems1[nameIndex - 2]);
+	orderPriceDiv.removeChild(cartItems2[priceIndex]);
+	orderPriceDiv.removeChild(cartItems2[priceIndex - 1]);
+  
+	if ((cartItems1.length - 3) % 12 == 0) {
+	  if (cartItems1.length == 3) {
+		chevronLeft.style.visibility = "hidden";
+		chevronRight.style.visibility = "hidden";
+		bannerImage.style.opacity = 1;
+	  } else {
+		showCart();
+	  }
+	}
+	changeDrinkNum();
+	changeTotalPrice();
+  }
+  
+  function delBtnListener() {
+	const delBtn = document.querySelectorAll("#deleteBtn");
+	for (var Btn of delBtn) {
+	  Btn.addEventListener("click", delBtnRemover);
+	}
+  }
+  
+  function handleMinusIcon(event) {
+	const fas = document.getElementsByClassName("fa-minus-circle");
+	let node;
+	for (var Btn of fas) {
+	  if (Btn == event.target) {
+		node = Btn.previousSibling;
+	  }
+	}
+	currentNum = parseInt(node.innerText);
+	if (currentNum == 1) return;
+	else {
+	  currentNum -= 1;
+	  node.innerText = `\n\n ${currentNum}`;
+	  changeDrinkNum();
+	  changeTotalPrice();
+	}
+  }
+  
+  function handlePlusIcon(event) {
+	const fas = document.getElementsByClassName("fa-plus-circle");
+	let node;
+	for (var Btn of fas) {
+	  if (Btn == event.target) {
+		node = Btn.previousSibling.previousSibling;
+	  }
+	}
+	currentNum = parseInt(node.innerText);
+	currentNum += 1;
+	node.innerText = `\n\n ${currentNum}`;
+	changeDrinkNum();
+	changeTotalPrice();
+  }
+  
+  function addMenu(src, name, price) {
 	const spanForName = document.createElement("span");
 	spanForName.id = "orderName";
 	spanForName.innerText = name;
@@ -162,29 +351,51 @@ function addMenu(src, name, price) {
 	drinkImg.id = "orderDrink";
 	drinkImg.src = src;
 	spanForPrice.appendChild(drinkImg);
+  
+	// delete
 	const deleteBtn = document.createElement("span");
 	deleteBtn.id = "deleteBtn";
 	deleteBtn.innerText = "X";
 	orderPriceDiv.appendChild(deleteBtn);
+	delBtnListener();
+  
+	// quantity
 	const quantity = document.createElement("span");
 	quantity.id = "quantity";
-	quantity.innerText = "\n\n1";
+	quantity.innerText = "\n\n 1";
 	spanForName.appendChild(quantity);
+  
+	bannerImage.style.opacity = 0;
+  
+	// + -
+	const minusIcon = document.createElement("i");
+	spanForName.appendChild(minusIcon);
+	minusIcon.className = "fas fa-minus-circle";
+	const plusIcon = document.createElement("i");
+	spanForName.appendChild(plusIcon);
+	plusIcon.className = "fas fa-plus-circle";
+  
+	minusIcon.addEventListener("click", handleMinusIcon);
+	plusIcon.addEventListener("click", handlePlusIcon);
+  
+	// option
+	const option = document.createElement("span");
+	option.id = "option";
+	// option.innerText =
+	spanForName.appendChild(option);
+  
+	// banner
 	banner.style.backgroundColor = "lightgray";
 	chevronLeft.style.visibility = "visible";
 	chevronRight.style.visibility = "visible";
-	bannerImage.style.opacity = 0;
-	const minusIcon = document.createElement("i");
-	quantity.appendChild(minusIcon);
-	minusIcon.className = "fas fa-minus-circle";
-	const plusIcon = document.createElement("i");
-	quantity.appendChild(plusIcon);
-	plusIcon.className = "fas fa-plus-circle";
-	const option = document.createElement("span");
-	option.id = "option";
-	option.innerText = "+연하게";
-	spanForName.appendChild(option);
-}
+  
+	// cart 4개씩
+	showCart();
+  
+	// change footer number
+	changeDrinkNum();
+	changeTotalPrice();
+  }
 
 function trackItem() {
 	html = this.innerHTML;
@@ -213,6 +424,9 @@ function main() {
 	for (var i = 0; i < len; i++) {
 		menuPage[i].addEventListener("click", trackItem);
 	}
+
+	chevronLeft.addEventListener("click", minusCart);
+ 	chevronRight.addEventListener("click", plusCart);
 
 	//JH	결제 요청 시 서버에 주문 내역이 JSON으로 전달되도록 하기 위한 실험 
 	payByCard.addEventListener("click", () => {

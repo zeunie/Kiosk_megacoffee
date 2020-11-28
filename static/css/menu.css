@@ -5,7 +5,7 @@ body {
 }
 
 .header {
-  height:40px;
+  height: 40px;
   background-color: #472c0c;
 }
 
@@ -33,10 +33,10 @@ body {
   border-bottom: 1px solid black;
   display: flex;
   align-items: center;
-  background-color:#472c0c;
+  background-color: #472c0c;
 }
 
-.nav_items{
+.nav_items {
   display: flex;
 }
 
@@ -92,10 +92,13 @@ body {
 } */
 
 #option {
-  display: block;
+  display: flex;
   font-size: 10px;
   margin-top: -53px;
   text-align: center;
+  position: relative;
+  top: 60px;
+  height: 20px;
 }
 
 .main {
@@ -187,7 +190,7 @@ body {
   left: 36px;
   display: flex;
   justify-content: start;
-  z-index: 1;
+  height: 0px;
 }
 
 #orderPrice {
@@ -200,7 +203,8 @@ body {
   background-color: black;
   opacity: 0.7;
   font-size: larger;
-  z-index: 1;
+  position: relative;
+  z-index: 0;
 }
 
 #orderNameDiv {
@@ -209,17 +213,19 @@ body {
   display: flex;
   left: 36px;
   justify-content: start;
-  z-index: 1;
+  height: 0px;
 }
 
 #orderName {
-  height: 100px;
+  height: 50px;
   width: 100px;
   margin-left: 8px;
   font-weight: bold;
   text-align: center;
   color: white;
   font-size: small;
+  position: relative;
+  top: 100px;
 }
 
 #orderDrink {
@@ -227,57 +233,73 @@ body {
   width: 103px;
   opacity: 0.3;
   margin-top: 37px;
+  position: relative;
 }
 
 #deleteBtn {
   color: rgb(218, 216, 216);
-  margin-left: -13px;
+  margin-left: -14px;
+  position: relative;
   z-index: 1;
   opacity: 0.8;
+  height: 20px;
+  cursor: pointer;
 }
 
 #quantity {
+  position: relative;
+  z-index: 1;
   display: block;
   font-size: 21px;
   margin-top: -38px;
   margin-left: 38px;
+  height: 0px;
+  left: -18px;
+  top: -5px;
 }
 
 .fa-minus-circle {
-  margin-left: -40px;
+  position: relative;
+  left: -15px;
+  top: 65px;
+  font-size: 21px;
   /* margin-right: 7px; */
 }
 
 .fa-plus-circle {
-  margin-left: 28px;
+  position: relative;
+  left: 15px;
+  top: 65px;
+  font-size: 21px;
 }
 
-#chevronLeft{
-  z-index: 1;
-  display: block;
+#chevronLeft {
+  z-index: 2;
   color: rgb(134, 131, 131);
   font-size: 30px;
   font-weight: bolder;
   visibility: hidden;
-  margin-top: -300px;
-  margin-left: 7px;
+  cursor: pointer;
+  position: relative;
+  top: -100px;
 }
 
-#chevronRight{
-  z-index: 1;
-  display: block;
+#chevronRight {
+  z-index: 2;
   color: rgb(134, 131, 131);
-  margin-left: 480px;
   font-size: 30px;
   font-weight: bolder;
   visibility: hidden;
-  margin-top: -45px;
+  cursor: pointer;
+  position: relative;
+  top: -100px;
+  right: -465px;
 }
 
 .footer {
   height: 58px;
   width: 525px;
-  margin: auto; 
+  margin: auto;
   background-color: slategrey;
   display: flex;
   color: white;
@@ -304,7 +326,7 @@ body {
   line-height: 22px;
 }
 
-#orderNumber #num {
+#orderNumber #drinkNum {
   font-size: 20px;
 }
 
@@ -319,7 +341,7 @@ body {
   margin-top: 8px;
 }
 
-#sum #value {
+#sum #totalPrice {
   color: rgb(50, 211, 203);
   font-size: 22px;
 }
