@@ -60,6 +60,8 @@ $jsonTable = json_encode($table);
                 title: '지난 6개월간 월별 매출 (단위: 만원)',
                 titleTextStyle: {fontSize: 15},
                 chartArea: {'width': '80%', 'height': '80%'},
+                height: 400,
+                width: 450,
                 legend: {position: 'none'},
                 hAxis : {format:'MM월'},
                 vAxis : {format: '#만원'}
