@@ -8,7 +8,7 @@ const DB = mysql.createConnection({
 	, port: 3306
 	, user: 'root'
 	, password: '1234'
-	, database: 'megacoffeedb'
+	, database: 'megacoffee'
 })
 
 class DB_adapter {

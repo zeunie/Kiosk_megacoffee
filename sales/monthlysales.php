@@ -1,6 +1,6 @@
 <?php 
 
-$con = mysqli_connect("localhost", "root", "1234", "megadb");
+$con = mysqli_connect("localhost", "root", "1234", "megacoffee");
 
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);

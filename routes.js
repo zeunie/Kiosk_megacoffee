@@ -65,6 +65,10 @@ module.exports = (app, partials) => {
 		res.sendFile("sales/timesales.php")
 	})
 
+	app.get(routes.managerpage, (req, res) => {
+		res.render("managerpage", {routes})
+	})
+	
 	//JH	test페이지 내의 기능 테스트
 	app.get(routes.test, (req, res) => {
 		res.render("test", { routes })
@@ -93,6 +97,7 @@ const routes = {
 	, change_to_complete: "/change_to_complete"
 	, change_to_checkpoint:"/change_to_checkpoint"
 
+	, managerpage: "/managerpage"
 	, refund: "/refund"
 	, timesales: "/timesales"
 
