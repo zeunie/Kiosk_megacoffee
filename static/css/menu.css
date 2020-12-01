@@ -2,6 +2,20 @@ body {
   height: 700px;
   width: 525px;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+#orderDiv {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  height: 700px;
+  width: 525px;
+}
+
+#menuDiv {
+  position: absolute;
+  top: 0;
 }
 
 .header {
@@ -93,8 +107,9 @@ body {
 
 #option {
   display: flex;
+  justify-content: center;
   font-size: 10px;
-  margin-top: -53px;
+  margin-top: -43px;
   text-align: center;
   position: relative;
   top: 60px;
@@ -162,15 +177,69 @@ body {
 }
 
 .item_name {
-  font-size: 13px;
+  font-size: 10px;
   text-align: center;
   background-color: rgb(242, 242, 243);
 }
+
 .item_price {
   text-align: center;
   font-weight: bold;
   font-size: 14px;
   background-color: rgb(242, 242, 243);
+}
+
+#cancelBtn {
+  position: absolute;
+  top: 0px;
+  left: 65px;
+  border: 1px solid #472c0c;
+  width: 400px;
+  height: 150px;
+  background-color: white;
+  visibility: hidden;
+}
+
+#cancelNotice {
+  background-color: #472c0c;
+  color: white;
+  font-size: 14px;
+  margin-top: -1px;
+  margin-left: -1px;
+  text-align: center;
+}
+
+#cancelMessage {
+  margin-top: 33px;
+  text-align: center;
+  font-weight: bolder;
+  color: black;
+}
+
+.cancelBtns {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.cancelBtns #yesBtn {
+  background-color: #4954ec;
+  width: 80px;
+  height: 40px;
+  color: white;
+  margin: 5px;
+}
+
+.cancelBtns #noBtn {
+  background-color: tomato;
+  width: 80px;
+  height: 40px;
+  color: white;
+  margin: 5px;
+}
+
+#yesBtn a {
+  text-decoration: none;
+  color: white;
 }
 
 .banner {
@@ -195,7 +264,7 @@ body {
 
 #orderPrice {
   height: 100px;
-  width: 103px;
+  width: 108px;
   margin-left: 8px;
   font-weight: bold;
   text-align: center;
@@ -218,19 +287,20 @@ body {
 
 #orderName {
   height: 50px;
-  width: 100px;
+  width: 105px;
   margin-left: 8px;
   font-weight: bold;
   text-align: center;
   color: white;
-  font-size: small;
+  font-size: 10px;
+  /* -webkit-transform: scale(0.73); */
   position: relative;
   top: 100px;
 }
 
 #orderDrink {
   height: 70px;
-  width: 103px;
+  width: 108px;
   opacity: 0.3;
   margin-top: 37px;
   position: relative;
@@ -246,7 +316,7 @@ body {
   cursor: pointer;
 }
 
-#quantity {
+#cartQuantity {
   position: relative;
   z-index: 1;
   display: block;
@@ -255,21 +325,21 @@ body {
   margin-left: 38px;
   height: 0px;
   left: -18px;
-  top: -5px;
+  /* top: 8px; */
 }
 
-.fa-minus-circle {
+#orderName .fa-minus-circle {
   position: relative;
   left: -15px;
-  top: 65px;
+  top: 70px;
   font-size: 21px;
   /* margin-right: 7px; */
 }
 
-.fa-plus-circle {
+#orderName .fa-plus-circle {
   position: relative;
   left: 15px;
-  top: 65px;
+  top: 70px;
   font-size: 21px;
 }
 
@@ -296,7 +366,7 @@ body {
   right: -465px;
 }
 
-.footer {
+.footer_menu {
   height: 58px;
   width: 525px;
   margin: auto;
@@ -346,7 +416,7 @@ body {
   font-size: 22px;
 }
 
-#cancel {
+#cancelAll {
   width: 70px;
   height: 58px;
   background-color: tomato;
@@ -356,7 +426,7 @@ body {
   text-align: center;
 }
 
-#cancel svg {
+#cancelAll svg {
   margin-top: 4px;
   width: 42px;
   height: 22px;
