@@ -1,14 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\kiosk",
-    "\\kiosk\\templates",
     "\\static",
     "\\static\\class",
     "\\static\\js",
     "\\views",
     "\\views\\mixins"
   ],
-  "SelectedNode": "\\static\\js\\complete.js",
+  "SelectedNode": "\\DB.js",
   "PreviewInSolutionExplorer": false
 }

@@ -107,10 +107,10 @@ class OrderList {
 }
 
 class Stamp {
-	constructor(id, ph, stamp, date, exp_date) {
+	constructor(id, ph, stampNum, date, exp_date) {
 		this.id = id
 		this.ph = ph
-		this.stamp = stamp
+		this.stamp = stampNum
 		this.date = date
 		this.exp_date = exp_date
 	}
@@ -118,7 +118,7 @@ class Stamp {
 		return {
 			"id": this.id
 			, "ph": this.ph
-			, "stamp": this.stamp
+			, "stamp": this.stampNum
 			, "date": this.date
 			, "exp_date": this.exp_date
 		}

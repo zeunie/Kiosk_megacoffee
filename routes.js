@@ -1,12 +1,7 @@
 const DB = require("./DB")
 let DB_adapter = new DB()
-
-class ServerLog {
-	tell(msg="") {
-		console.log(`[${Date()}]\nTEAM13>> ${msg}`)
-	}
-}
-const Log=new ServerLog() 
+const ServerLog = require("./static/class/ServerLog")
+const Log=new ServerLog()
 
 module.exports = (app, partials) => {
 	app.get(routes.cover, (req, res) => {
@@ -25,27 +20,39 @@ module.exports = (app, partials) => {
 	app.post(routes.check, (req, res) => {
 		Log.tell("Payment Requested")
 
-		console.log(req.body)
-		const order = req.body
-		let amount = 0
+		let order = req.body
+		order["order_list"] = JSON.parse(order["order_list"])
+		order["total_price"] = 0
+		order["total_quantity"] = 0
 		for (var it of order["order_list"]) {
-			amount += it["item_price"]
+			order["total_price"] += it["item_price"]
+			order["total_quantity"]++
 		}
-		order["total_price"] = amount
-		order["total_quantity"] = order["order_list"].length
 
 		res.render("check", { routes, order })
 	})
 
 	app.get(routes.change_to_checkpoint, (req, res) => {
 		Log.tell("Stamp Requested")
-
 		res.render("numberpad", { routes })
 	})
+
+	app.post(routes.stamp, async (req, res) => {
+		Log.tell(`Stamp Accumulation Requested`)
+
+		const stampInfo = req.body
+
+		Log.tell(`Phone numer: ${stampInfo["ph"]}\tstamp: ${stampInfo["stamp"]}`,false)
+
+		await DB_adapter.setStamp(stampInfo["ph"], stampInfo["stamp"]).then((ret) => {
+			Log.tell(ret)
+		})
+
+	})
+
 	app.get(routes.change_to_complete, (req, res) => {
 		Log.tell("Payment Complete Requested")
-
-		res.render("complete", {routes})
+		res.render("complete", { routes })
 	})
 
 	app.get(routes.refund, async (req, res) => {
@@ -79,19 +86,11 @@ module.exports = (app, partials) => {
 const routes = {
 	cover: "/"
 	, menu: "/menu"
-	, coffeeHot: "/coffeeHot"
-	, coffeeIce: "/coffeeIce"
-	, beverage: "/beverage"
-	, tea: "/tea"
-	, juice: "/juice"
-	, ade: "/ade"
-	, smoothieFraffe: "/smoothieFraffe"
-	, dessert: "/dessert"
-	, americano: "/americano"
 
 	, check: "/check"
 	, change_to_complete: "/change_to_complete"
-	, change_to_checkpoint:"/change_to_checkpoint"
+	, change_to_checkpoint: "/change_to_checkpoint"
+	, stamp:"/stamp"
 
 	, refund: "/refund"
 	, timesales: "/timesales"

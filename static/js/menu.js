@@ -444,12 +444,11 @@ function main() {
 		for (key of Object.keys(orderInfo)) {
 			var input = document.createElement('input');
 			input.name = key;
-			input.value = orderInfo[key];
+			input.value = JSON.stringify(orderInfo[key]);
 			form.appendChild(input); // add key/value pair to form
 		}
 		document.body.appendChild(form); // forms cannot be submitted outside of body
 		form.submit(); // send the payload and navigate
-
 	})
 	//JH******************************************
 }
