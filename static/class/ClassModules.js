@@ -4,10 +4,11 @@
  * */
 
 class Menu {
-	constructor(cat = "", name = "", price = 0, image = "/static/picture/default.png", shot = false, cream = false, cinnamon = false) {
+	constructor(cat = "", name = "", price = 0, quantity = 0, image = "/static/picture/default.png", shot = 0, cream = false, cinnamon = false) {
 		this.cat = cat
 		this.name = name
 		this.price = price
+		this.quantity = quantity
 		this.image = image
 		this.shot = shot
 		this.cream = cream
@@ -19,6 +20,7 @@ class Menu {
 			'cat': this.cat
 			, 'name': this.name
 			, 'price': this.price
+			, 'quantity': this.quantity
 			, 'image': this.image
 			, 'shot': this.shot
 			, 'cream': this.cream
@@ -50,22 +52,24 @@ class ShoppingCart {
 	//메뉴 추가/삭제
 	insertOrder(menu) {
 		this.menus.push(menu)
-		this.price += menu.getValue()['price']
-		this.quantity += 1
+		this.quantity += parseInt(menu['quantity'])
+		this.price += (parseInt(menu['price']) * parseInt(menu['quantity']))
 	}
 	deleteOrder(idx) {
 		const target = this.menus[idx].getValue()
 		this.menus.splice(idx, 1)
-		this.price -= target['price']
-		this.quantity -= 1
+		this.price -= parseInt(target['price'])
+		this.quantity -= parseInt(target['quantity'])
 	}
 
+	//주문내역 생성 후 쇼핑카트 초기화
 	constructOrderList() {
-		const ret = new orderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity)
+		//주문번호를 페이지가 바뀌어도 같게 되도록 해야 하는데 그 부분에서 문제가 있습니다. 고치는데 조금 복잡할 것 같아서 차후에 수정하도록 할게요
+		const ret = new OrderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity)
 
 		this.orderNum++
 		if (this.orderNum / 100 == 0) orderNum -= 100 //ex) 600번부터 699번까지 순환 후 700번을 부를 차례가 되면 100을 빼서 600번으로 돌아가도록
-		initiate()
+		this.initiate()
 
 		return ret.getValue()
 	}
@@ -99,12 +103,13 @@ class OrderList {
 			, "orderTime": this.orderTime
 			, "storeNum": this.storeNum
 			, "orderNum": this.orderNum
-			, "menus": this.menus
+			, "menus": JSON.stringify(this.menus)
 			, "price": this.price
 			, "quantity": this.quantity
 		}
 	}
 }
+
 
 class Stamp {
 	constructor(id, ph, stampNum, date, exp_date) {

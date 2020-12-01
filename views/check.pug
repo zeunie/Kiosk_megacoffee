@@ -19,9 +19,9 @@ html(lang="ko")
       #top1 카드결제
       #top2
         | 주문수량 
-        span(style="color:red")=`${order["total_quantity"]}`
+        span(style="color:red")=`${order["quantity"]}`
         |  결제금액 
-        span(style="color:red")=`${order["total_price"]}`
+        span(style="color:red")=`${order["price"]}`
       img(src="static/picture/insert_card.gif" alt="" width="330")
       img
       br
@@ -80,11 +80,12 @@ html(lang="ko")
               div 주문번호 : 104
               br
             div(style="text-align: center;font-size: 20px;")
-              each one in order["order_list"]
-                div=`${one["item_name"]} \t:${one["item_price"]}원`
+              -Menus=JSON.parse(order["menus"])
+              each one in Menus
+                div=`${one["name"]} ${one["quantity"]}개: ${one["price"]}원`
               div ------------------------------------------
-              div=`총합계 : ${order["total_price"]}원`
-              div=`총수량 : ${order["total_quantity"]}개`
+              div=`총합계 : ${order["price"]}원`
+              div=`총수량 : ${order["quantity"]}개`
       #cancle1.popup1
         .popup-content
           #cancle_top1

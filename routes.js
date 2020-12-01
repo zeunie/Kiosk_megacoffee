@@ -21,13 +21,6 @@ module.exports = (app, partials) => {
 		Log.tell("Payment Requested")
 
 		let order = req.body
-		order["order_list"] = JSON.parse(order["order_list"])
-		order["total_price"] = 0
-		order["total_quantity"] = 0
-		for (var it of order["order_list"]) {
-			order["total_price"] += it["item_price"]
-			order["total_quantity"]++
-		}
 
 		res.render("check", { routes, order })
 	})

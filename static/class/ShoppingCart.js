@@ -25,23 +25,24 @@ class ShoppingCart {
 	//메뉴 추가/삭제
 	insertOrder(menu) {
 		this.menus.push(menu)
-		this.price += menu.getValue()['price']
-		this.quantity += 1
+		this.quantity += parseInt(menu['quantity'])
+		this.price += (parseInt(menu['price']) * parseInt(menu['quantity']))
 	}
 	deleteOrder(idx) {
 		const target = this.menus[idx].getValue()
 		this.menus.splice(idx, 1)
-		this.price -= target['price']
-		this.quantity -= 1
+		this.price -= parseInt(target['price'])
+		this.quantity -= parseInt(target['quantity'])
 	}
 
 	//주문내역 생성 후 쇼핑카트 초기화
 	constructOrderList() {
-		const ret = new orderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity)
+		//주문번호를 페이지가 바뀌어도 같게 되도록 해야 하는데 그 부분에서 문제가 있습니다. 고치는데 조금 복잡할 것 같아서 차후에 수정하도록 할게요
+		const ret = new OrderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity)
 
 		this.orderNum++
 		if (this.orderNum / 100 == 0) orderNum -= 100 //ex) 600번부터 699번까지 순환 후 700번을 부를 차례가 되면 100을 빼서 600번으로 돌아가도록
-		initiate()
+		this.initiate()
 
 		return ret.getValue()
 	}
@@ -58,7 +59,7 @@ class OrderList {
 		this.orderTime = new Time()
 		this.id = this.orderTime.getTimeString() + String(this.storeNum)//시간 14자리 + 매장번호 4자리
 	}
-	
+
 	setIdArb(input_id) {
 		//임의로(arbitrary) id를 부여한다.
 		//id는 18자리 문자열이며 조건에 부합하지 않을 경우 000000000000000000으로 한다
@@ -67,7 +68,7 @@ class OrderList {
 			this.id = "000000000000000000"
 		}
 		this.storeNum = parseInt(input_id.slice(14))
-		this.orderTime=new Time(input_id.slice(0,14))
+		this.orderTime = new Time(input_id.slice(0, 14))
 	}
 	getValue() {
 		return {
@@ -75,7 +76,7 @@ class OrderList {
 			, "orderTime": this.orderTime
 			, "storeNum": this.storeNum
 			, "orderNum": this.orderNum
-			, "menus": this.menus
+			, "menus": JSON.stringify(this.menus)
 			, "price": this.price
 			, "quantity": this.quantity
 		}

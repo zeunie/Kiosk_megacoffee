@@ -41,6 +41,7 @@ class DB_adapter {
 				i.Cat
 				, i.Name
 				, i.Price
+				, 0
 				, (i.Image) ? i.Image : undefined
 				, (i.S || i.SW || i.SS) ? true : false
 				, (i.W || i.SW) ? true : false
