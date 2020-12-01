@@ -43,7 +43,10 @@ function number9() {
 }
 
 function delete_one() {
-    $('#insert_num').pop()
+    var num = $('#insert_num').text()
+    num = num.slice(0, -1)
+    $('#insert_num').empty()
+    $('#insert_num').text(num)
 }
 
 function delete_all() {

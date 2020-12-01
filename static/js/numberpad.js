@@ -1,5 +1,5 @@
 function open_checkpoint_popup(stampNum) {
-    //JH    ¼­¹ö¿¡ Àû¸³ Á¤º¸ Àü´Þ
+    //JH    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     const ph = document.getElementById("phonenumber").innerText
     let stampInfo = new Stamp("", ph, stampNum, "", "")
 
@@ -73,7 +73,10 @@ function number9() {
 }
 
 function delete_one() {
-    $('#phonenumber').pop
+    var num = $('#phonenumber').text()
+    num = num.slice(0, -1)
+    $('#phonenumber').empty()
+    $('#phonenumber').text(num)
 }
 
 function delete_all() {
