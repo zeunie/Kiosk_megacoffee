@@ -51,12 +51,21 @@ class DB_adapter {
 		return ret
 	}
 
-	getOrderListCore() {
-		return new Promise((resolve, reject) => {
-			DB.query(`select * from orderlist`, (err, result) => {
-				return (err) ? reject(err) : resolve(result)
+	getOrderListCore(key = "", val = "") {
+		if (key != "") {
+			return new Promise((resolve, reject) => {
+				DB.query(`select * from orderlist where ${key} like ${val}`, (err, result) => {
+					return (err) ? reject(err) : resolve(result)
+				})
 			})
-		})
+		}
+		else {
+			return new Promise((resolve, reject) => {
+				DB.query(`select * from orderlist`, (err, result) => {
+					return (err) ? reject(err) : resolve(result)
+				})
+			})
+		}
 	}
 	async getOrderList() {
 		let ret = []
@@ -68,6 +77,22 @@ class DB_adapter {
 		}
 
 		return ret
+	}
+
+	setOrderListCore(order) {
+		return new Promise((resolve, reject) => {
+			const orderTime = new Time(order.id).getTimeDBString()
+			DB.query(`insert into orderlist(id,customer,time,name,price,quantity) values('${order.id}', 0, '${orderTime}', '', ${order.price}, ${order.quantity})`, (err, result) => {
+				return (err) ? reject(err) : resolve(result)
+			})
+		})
+	}
+	async setOrderList(order) {
+		let inputResult = false
+		await this.setOrderListCore(order).then(() => { })
+		await this.getOrderListCore("id", order.id).then((result) => { inputResult = (result) ? true : false })
+
+		return inputResult
 	}
 
 	getSalesCore(period) {
@@ -113,13 +138,14 @@ class DB_adapter {
 			//전화번호가 있는지 확인하고 있으면 가산, 없으면 등록 후 스탬프 개수 저장
 			await this.getStampCore(tel).then((result) => {
 				let queryString = ``
-				if (result.length!=0) {
+				if (result.length != 0) {
 					//mutex 락 -> 업데이트 -> 셀렉트 -> 언락
-					queryString = `lock tables stamp WRITE;update stamp set stamp = stamp + ${stampNum} where ph like ${tel};select * from stamp where ph like ${tel};unlock tables;`
+					queryString = `update stamp set stamp = stamp + ${stampNum} where ph like ${tel};`
 				}
 				else {
-					queryString = `lock tables stamp WRITE;insert into stamp (ph, stamp,Date, ExpDate) values(${tel},${stampNum} ,curdate(),curdate()+365);select * from stamp where ph like ${tel};unlock tables;`
+					queryString = `insert into stamp (ph, stamp,Date, ExpDate) values(${tel},${stampNum} ,curdate(),curdate() + INTERVAL 1 YEAR);`
 				}
+				Log.tell(`QUERY: ${queryString}`)
 				DB.query(queryString, (err, result) => {
 					return (err) ? reject(err) : resolve(result)
 				})
@@ -127,13 +153,11 @@ class DB_adapter {
 		})
 	}
 	async setStamp(tel, stampNum) {
-		Log.tell("TEST REQUIRED: DB.SETSTAMP")
-
 		let stampResult = {}
-		await this.setStampCore(tel, stampNum).then((result) => { stampResult = result })
+		await this.setStampCore(tel, stampNum).then((result) => { })
+		await this.getStampCore(tel).then((result) => { stampResult=result })
+
 		Log.tell(`query result: ${JSON.stringify(stampResult)}`, false)
-
-
 	}
 }
 

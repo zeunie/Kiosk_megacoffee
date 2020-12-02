@@ -73,7 +73,7 @@ class OrderList {
 	getValue() {
 		return {
 			"id": this.id
-			, "orderTime": this.orderTime
+			, "orderTime": JSON.stringify(this.orderTime)
 			, "storeNum": this.storeNum
 			, "orderNum": this.orderNum
 			, "menus": JSON.stringify(this.menus)

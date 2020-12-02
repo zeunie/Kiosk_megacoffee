@@ -56,4 +56,6 @@ html(lang="en")
             br
             br
             br
-            div(style="text-align: center;font-size: 25px") 1 스탬프가 적립되었습니다.
+            div(style="text-align: center;font-size: 25px")=`${order.quantity} 스탬프가 적립되었습니다.`
+      .data
+        input(type="text" id="order" value=`${JSON.stringify(order)}` hidden)

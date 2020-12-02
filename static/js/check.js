@@ -33,12 +33,30 @@ $(document).ready(function() {
     calculate();
 });
 
-function change_to_checkpoint() {
-    window.location.href = '/change_to_checkpoint'
-}
+function finish_payment_and_move(location) {
+    //JH    결제 완료됐다고 서버에 보내고 다음 창에도 전달하기
+    const orderInfo = JSON.parse($("#order").val())
 
+    let form = document.createElement("form");
+    form.style.visibility = "hidden"; // no user interaction is necessary
+    form.method = "POST"; // forms by default use GET query strings
+    form.action = location;
+    for (key of Object.keys(orderInfo)) {
+        var input = document.createElement("input");
+        input.name = key;
+        input.value = orderInfo[key];
+        form.appendChild(input); // add key/value pair to form
+    }
+    document.body.appendChild(form); // forms cannot be submitted outside of body
+    form.submit(); // send the payload and navigate
+
+}
+//아래 두 함수는 기능이 단순하고 너무 중복돼서 pug파일에서 해당 파일을 위 함수로 바꾸고 아래는 없애는 것 추천
+function change_to_checkpoint() {
+    finish_payment_and_move('/change_to_checkpoint')
+}
 function change_to_complete() {
-    window.location.href = '/change_to_complete'
+    finish_payment_and_move('/change_to_complete')
 }
 
 function open_checking_popup() {

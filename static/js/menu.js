@@ -853,7 +853,7 @@ function main() {
 
 		let orderInfo = shoppingCart.constructOrderList()
 
-		var form = document.createElement("form");
+		let form = document.createElement("form");
 		form.style.visibility = "hidden"; // no user interaction is necessary
 		form.method = "POST"; // forms by default use GET query strings
 		form.action = "/check";

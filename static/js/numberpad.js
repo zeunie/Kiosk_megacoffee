@@ -1,6 +1,7 @@
-function open_checkpoint_popup(stampNum) {
+function open_checkpoint_popup() {
     //JH    ������ ���� ���� ����
     const ph = document.getElementById("phonenumber").innerText
+    const stampNum = JSON.parse($("#order").val()).quantity
     let stampInfo = new Stamp("", ph, stampNum, "", "")
 
     var form = document.createElement('form');
@@ -29,7 +30,20 @@ function close_checkpoint_popup() {
 }
 
 function change_to_complete() {
-    window.location.href = "/change_to_complete"
+    const orderInfo = JSON.parse($("#order").val())
+
+    let form = document.createElement("form");
+    form.style.visibility = "hidden"; // no user interaction is necessary
+    form.method = "POST"; // forms by default use GET query strings
+    form.action = "/change_to_complete";
+    for (key of Object.keys(orderInfo)) {
+        var input = document.createElement("input");
+        input.name = key;
+        input.value = orderInfo[key];
+        form.appendChild(input); // add key/value pair to form
+    }
+    document.body.appendChild(form); // forms cannot be submitted outside of body
+    form.submit(); // send the payload and navigate
 }
 
 function number0() {

@@ -11,8 +11,7 @@ class Time extends Date {
 	constructor(y, m, d, hr, min, sec) {
 		if (typeof (y) === typeof ("")) {
 			//첫번째 매개변수의 타입이 ""이랑 같은(string일) 경우 14자리를 일월연시분초로 parse하여 시간 생성
-
-			let time = y
+			let time = y.replace('T', '').replace(':', '').replace('-', '').replace(':', '').replace('-', '')//ISOtime도 변환 가능
 
 			y = parseInt(time.slice(0, 4))
 			m = parseInt(time.slice(4, 6))-1
@@ -40,7 +39,32 @@ class Time extends Date {
 		this.second = (sec === undefined ? this.getSeconds() : sec)
 		
 	}
+	getTimeDBString() {
+		//DB 입력용
+		let time = "" + this.year
+		if (this.month >= 10)
+			time += "-" + this.month
+		else
+			time += "-0" + this.month
+		if (this.date >= 10)
+			time += "-" + this.date
+		else
+			time += "-0" + this.date
+		if (this.hour >= 10)
+			time += " " + this.hour
+		else
+			time += " 0" + this.hour
+		if (this.minute >= 10)
+			time += ":" + this.minute
+		else
+			time += ":0" + this.minute
+		if (this.second >= 10)
+			time += ":" + this.second
+		else
+			time += ":0" + this.second
 
+		return time
+	}
 	getTimeString() {
 		let time = "" + this.year
 		if (this.month >= 10)
@@ -65,6 +89,26 @@ class Time extends Date {
 			time += "0" + this.second
 
 		return time
+	}
+	showTimeString() {
+		//고객에게 보여줄 목적으로 출
+		let time = "" + this.year + "년 " + this.month + "월" + this.date+"일 "
+		if (this.hour >= 10)
+			time += "" + this.hour
+		else
+			time += "0" + this.hour
+		time+="시 "
+		if (this.minute >= 10)
+			time += "" + this.minute
+		else
+			time += "0" + this.minute
+		time+="분 "
+		if (this.second >= 10)
+			time += "" + this.second
+		else
+			time += "0" + this.second
+
+		return time+="초"
 	}
 }
 

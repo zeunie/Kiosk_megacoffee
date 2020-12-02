@@ -1,7 +1,8 @@
+const Time=require("./static/class/Time")
 const DB = require("./DB")
 let DB_adapter = new DB()
 const ServerLog = require("./static/class/ServerLog")
-const Log=new ServerLog()
+const Log = new ServerLog()
 
 module.exports = (app, partials) => {
 	app.get(routes.cover, (req, res) => {
@@ -20,14 +21,18 @@ module.exports = (app, partials) => {
 	app.post(routes.check, (req, res) => {
 		Log.tell("Payment Requested")
 
-		let order = req.body
+		const order = req.body
 
-		res.render("check", { routes, order })
+		const timestr = new Time(order.id).getTimeDBString()
+		res.render("check", { routes, order,timestr })
 	})
 
-	app.get(routes.change_to_checkpoint, (req, res) => {
+	app.post(routes.change_to_checkpoint, (req, res) => {
 		Log.tell("Stamp Requested")
-		res.render("numberpad", { routes })
+
+		const order = req.body
+
+		res.render("numberpad", { routes, order })
 	})
 
 	app.post(routes.stamp, async (req, res) => {
@@ -35,17 +40,22 @@ module.exports = (app, partials) => {
 
 		const stampInfo = req.body
 
-		Log.tell(`Phone numer: ${stampInfo["ph"]}\tstamp: ${stampInfo["stamp"]}`,false)
+		Log.tell(`Phone numer: ${stampInfo["ph"]}\tstamp: ${stampInfo["stamp"]}`, false)
 
 		await DB_adapter.setStamp(stampInfo["ph"], stampInfo["stamp"]).then((ret) => {
 			Log.tell(ret)
 		})
-
 	})
-
-	app.get(routes.change_to_complete, (req, res) => {
+	app.post(routes.change_to_complete, async (req, res) => {
 		Log.tell("Payment Complete Requested")
-		res.render("complete", { routes })
+
+		const order = req.body
+		await DB_adapter.setOrderList(order).then((ret) => {
+			Log.tell(`Saving Order Information: ${ret}`, false, 1)
+		})
+
+		const timestr = new Time(order.id).getTimeDBString()
+		res.render("complete", { routes, order, timestr})	
 	})
 
 	app.get(routes.refund, async (req, res) => {
@@ -66,9 +76,9 @@ module.exports = (app, partials) => {
 	})
 
 	app.get(routes.managerpage, (req, res) => {
-		res.render("managerpage", {routes})
+		res.render("managerpage", { routes })
 	})
-	
+
 	//JH	test페이지 내의 기능 테스트
 	app.get(routes.test, (req, res) => {
 		res.render("test", { routes })
@@ -87,7 +97,7 @@ const routes = {
 	, check: "/check"
 	, change_to_complete: "/change_to_complete"
 	, change_to_checkpoint: "/change_to_checkpoint"
-	, stamp:"/stamp"
+	, stamp: "/stamp"
 
 	, managerpage: "/managerpage"
 	, refund: "/refund"
