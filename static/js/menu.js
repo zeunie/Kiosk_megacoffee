@@ -825,7 +825,15 @@ function main() {
 	//JH   결제 요청 시 서버에 주문 내역이 JSON으로 전달되도록
 	payByCard.addEventListener("click", () => {
 		//카트 안의 아이템들을 순회하면서 정보를 수집하고 주문목록에 등록한다.
-		const shoppingCart = new ShoppingCart(0204, 101);
+
+		let store = JSON.parse(window.localStorage.getItem("storeInfo"))
+		store.orderNum++;// 원래는 쇼핑카트가 자체적으로 orderNum을 가지고 있었는데 아무래도 storeInfo가 로컬스토리지에 있고 그래서 orderNum은 storeInfo에 놓고 그걸 shoppingcart가 가져다 써야 할 것 같음
+		if (store.orderNum % 100 == 0) {
+			store.orderNum -= 100
+		}
+		window.localStorage.setItem("storeInfo", JSON.stringify(store))
+
+		const shoppingCart = new ShoppingCart(store.id, store.orderNum);
 
 		const itemLength = document.querySelectorAll("#cartQuantity").length;
 		for (let i = 0; i < itemLength; i++) {

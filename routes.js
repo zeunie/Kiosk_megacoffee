@@ -17,7 +17,6 @@ module.exports = (app, partials) => {
 		res.render("menulist", { routes, menu })
 	})
 
-	//JH	결제요청으로 전송된 json 받고 check 페이지로 넘어가기
 	app.post(routes.check, (req, res) => {
 		Log.tell("Payment Requested")
 
@@ -46,6 +45,7 @@ module.exports = (app, partials) => {
 			Log.tell(ret)
 		})
 	})
+
 	app.post(routes.change_to_complete, async (req, res) => {
 		Log.tell("Payment Complete Requested")
 
@@ -60,15 +60,12 @@ module.exports = (app, partials) => {
 
 	app.get(routes.refund, async (req, res) => {
 		let refund = []
-		await DB_adapter.getOrderList().then((ret) => { refund = ret })
-		//JH 201121 주문내역 엄청 많이 나오도록 테스트를 위해 
-		refund = refund.concat(refund)
-		refund = refund.concat(refund)
-		refund = refund.concat(refund)
-		refund = refund.concat(refund)
-		refund = refund.concat(refund)
-		refund = refund.concat(refund)
-		res.render("refund", { routes, refund })
+
+		const target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
+		Log.tell(`day: ${target_day}`)
+		await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
+
+		res.render("refund", { routes, refund , target_day})
 	})
 
 	app.get(routes.timesales, (req, res) => {
@@ -101,6 +98,7 @@ const routes = {
 
 	, managerpage: "/managerpage"
 	, refund: "/refund"
+	, refund_request: "/refund_request"
 	, timesales: "/timesales"
 
 	, test: "/test"

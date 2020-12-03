@@ -54,9 +54,21 @@ class DB_adapter {
 	getOrderListCore(key = "", val = "") {
 		if (key != "") {
 			return new Promise((resolve, reject) => {
-				DB.query(`select * from orderlist where ${key} like ${val}`, (err, result) => {
-					return (err) ? reject(err) : resolve(result)
-				})
+				if (key == "time") {
+					DB.query(`select * from orderlist where time between '${val}'and '${val}' + interval 1 day `, (err, result) => {
+						return (err) ? reject(err) : resolve(result)
+					})
+				}
+				else if (key == "id") {
+					DB.query(`select * from orderlist where ${key} like ${val}`, (err, result) => {
+						return (err) ? reject(err) : resolve(result)
+					})
+				}
+				else {
+					DB.query(`select * from orderlist`, (err, result) => {
+						return (err) ? reject(err) : resolve(result)
+					})
+				}
 			})
 		}
 		else {
@@ -67,11 +79,15 @@ class DB_adapter {
 			})
 		}
 	}
-	async getOrderList() {
+	async getOrderList(target_day) {
 		let ret = []
 		let orderListRaw = []
 
-		await this.getOrderListCore().then((result) => { orderListRaw = result })
+		let key="", val=""
+		if (target_day) {
+			key="time", val=target_day
+		}
+		await this.getOrderListCore(key,val).then((result) => { orderListRaw = result })
 		for (const i of orderListRaw) {
 			ret.push(new OrderList(0, 0, 0, i.Price, i.Quantity))  //.setIdArb("" + String(parseInt(Math.random() * 2020)).padStart(4, '0') + "05140809110204")  임시로 붙인 ID, 다음에 데이터베이스까지 수정해야 함
 		}

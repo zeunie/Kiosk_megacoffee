@@ -14,7 +14,7 @@ class Time extends Date {
 			let time = y.replace('T', '').replace(':', '').replace('-', '').replace(':', '').replace('-', '')//ISOtime도 변환 가능
 
 			y = parseInt(time.slice(0, 4))
-			m = parseInt(time.slice(4, 6))-1
+			m = parseInt(time.slice(4, 6))
 			d = parseInt(time.slice(6, 8))
 			hr = parseInt(time.slice(8, 10))
 			min = parseInt(time.slice(10, 12))
@@ -92,23 +92,23 @@ class Time extends Date {
 	}
 	showTimeString() {
 		//고객에게 보여줄 목적으로 출
-		let time = "" + this.year + "년 " + this.month + "월" + this.date+"일 "
+		let time = `` + this.year + `년 ` + this.month + `월` + this.date+`일 `
 		if (this.hour >= 10)
-			time += "" + this.hour
+			time += `` + this.hour
 		else
-			time += "0" + this.hour
-		time+="시 "
+			time += `0` + this.hour
+		time+=`시 `
 		if (this.minute >= 10)
-			time += "" + this.minute
+			time += `` + this.minute
 		else
-			time += "0" + this.minute
-		time+="분 "
+			time += `0` + this.minute
+		time+=`분 `
 		if (this.second >= 10)
-			time += "" + this.second
+			time += `` + this.second
 		else
-			time += "0" + this.second
+			time += `0` + this.second
 
-		return time+="초"
+		return time+=`초`
 	}
 }
 
