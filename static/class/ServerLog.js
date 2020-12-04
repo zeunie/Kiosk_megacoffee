@@ -1,5 +1,7 @@
 class ServerLog {
 	tell(msg = "", show_info = true, indent = 1) {
+		if (typeof (msg) != typeof (""))
+			msg =JSON.stringify(msg)
 		const msg_list = msg.split("\n")
 		const msg_num = msg_list.length
 		let indent_str = ""

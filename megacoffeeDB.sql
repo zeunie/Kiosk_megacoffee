@@ -139,11 +139,6 @@ UNLOCK TABLES;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`masteruser`@`%`*/ /*!50003 TRIGGER `orderlist_BEFORE_INSERT` BEFORE INSERT ON `orderlist` FOR EACH ROW BEGIN
-	set new.ID = DATE_FORMAT(now(), '%Y%m%d%H%i%s0208');
-    set new.TotalPrice = new.price * new.quantity;
-END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;

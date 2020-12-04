@@ -14,6 +14,7 @@ module.exports = (app, partials) => {
 
 		let menu = []
 		await DB_adapter.getMenu().then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
+
 		res.render("menulist", { routes, menu })
 	})
 
@@ -62,7 +63,6 @@ module.exports = (app, partials) => {
 		let refund = []
 
 		const target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
-		Log.tell(`day: ${target_day}`)
 		await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
 
 		res.render("refund", { routes, refund , target_day})

@@ -4,4 +4,10 @@ $(document).ready(function () {
 		window.localStorage.setItem("storeInfo",JSON.stringify(new Store(1313,1234,"13Á¶","",200)))
 	}
 
+	$("#takeout_true").click(function () {
+		window.location.href="/menu?takeout=true"
+	})
+	$("#takeout_false").click(function () {
+		window.location.href = "/menu?takeout=false"
+	})
 })

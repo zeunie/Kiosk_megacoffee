@@ -17,6 +17,7 @@ $(document).ready(function () {
 
 		$(".order_id").text(`${selected.id}`)
 		$(".order_orderTime").text(`${selected.orderTime}`)
+		$(".order_TO").text(`${(selected.takeout) ? "T.O." : "∏≈¿Â"}`)
 		$(".order_price").text(`${selected.price}`)
 	})
 
