@@ -761,15 +761,13 @@ function handleMinusBtn() {
 	if (menuQuantity.innerText == 1) return;
 	num = parseInt(menuQuantity.innerText) - 1;
 	menuQuantity.innerText = num;
-	nowPrice = eachPrice.split("")[1].split(",").join("");
+	nowPrice = parseInt(eachPrice.innerHTML.split(" ")[1].split(",").join(""));
 	newPrice = (nowPrice * num).toLocaleString("en").split(".")[0];
-	newPriceWithCream = ((nowPrice + shotPrice) * num)
-		.toLocaleString("en")
-		.split(".")[0];
+	newPriceWithCream = ((nowPrice + shotPrice) * num).toLocaleString("en").split(".")[0];
 	// price.innerText = `단가 ${newPrice}`;
 	headerSum.innerText = newPrice;
 	footerSum.innerText = newPriceWithCream;
-}
+ }
 
 function handlePlusBtn() {
 	num = parseInt(menuQuantity.innerText) + 1;
