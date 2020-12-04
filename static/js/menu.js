@@ -789,6 +789,10 @@ function handleCancelAll() {
 	body.style.pointerEvents = "none";
 	cancelBtn.style.pointerEvents = "auto";
 }
+
+function handleYesBtn() {
+	window.location.href = "/";
+}
   
   function handleNoBtn() {
 	cancelBtn.style.visibility = "hidden";
