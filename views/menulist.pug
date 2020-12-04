@@ -7,7 +7,7 @@ block content
             +menuBlock({
                 src: one.getValue().image,
                 name: one.getValue().name,
-                price: one.getValue().price,
+                price: one.getValue().price.toLocaleString("en").split(".")[0],
                 cat: one.getValue().cat,
                 shot : one.getValue().shot,
                 cream: one.getValue().cream,
