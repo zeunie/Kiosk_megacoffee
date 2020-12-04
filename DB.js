@@ -89,8 +89,10 @@ class DB_adapter {
 		}
 		await this.getOrderListCore(key,val).then((result) => { orderListRaw = result })
 		for (const i of orderListRaw) {
-			ret.push(new OrderList(0, 0, 0, i.Price, i.Quantity))  //.setIdArb("" + String(parseInt(Math.random() * 2020)).padStart(4, '0') + "05140809110204")  임시로 붙인 ID, 다음에 데이터베이스까지 수정해야 함
+			ret.push(new OrderList(0, 0, 0, i.Price, i.Quantity,(i.Takeout)?true:false))
+			ret[ret.length-1].setIdArb(i.ID)
 		}
+		Log.tell(ret)
 
 		return ret
 	}
@@ -98,7 +100,7 @@ class DB_adapter {
 	setOrderListCore(order) {
 		return new Promise((resolve, reject) => {
 			const orderTime = new Time(order.id).getTimeDBString()
-			DB.query(`insert into orderlist(id,customer,time,name,price,quantity) values('${order.id}', 0, '${orderTime}', '', ${order.price}, ${order.quantity})`, (err, result) => {
+			DB.query(`insert into orderlist(id,customer,time,name,price,quantity,takeout) values('${order.id}', 0, '${orderTime}', '', ${order.price}, ${order.quantity},${order.takeout})`, (err, result) => {
 				return (err) ? reject(err) : resolve(result)
 			})
 		})

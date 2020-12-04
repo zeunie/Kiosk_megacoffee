@@ -39,7 +39,7 @@ html
                                 td.item_num=`${i++}`
                                 td.item_id=` ${one.id} `
                                 td.item_orderTime=`${one.orderTime.getTimeDBString()}`
-                                td.item_TO=` 테이크 아웃 `
+                                td.item_TO=`${(one.takeout)?"T.O.":"매장"}`
                                 td.item_price=` ${one.price} `
                                 td.item_payment=` 카드 `
                                 td.item_stamp=""

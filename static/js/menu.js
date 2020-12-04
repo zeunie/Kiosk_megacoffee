@@ -833,8 +833,9 @@ function main() {
 			store.orderNum -= 100
 		}
 		window.localStorage.setItem("storeInfo", JSON.stringify(store))
+		const takeout = (new URLSearchParams(window.location.search).get("takeout") == "true") ? true : false;
 
-		const shoppingCart = new ShoppingCart(store.id, store.orderNum);
+		const shoppingCart = new ShoppingCart(store.id, store.orderNum,takeout);
 
 		const itemLength = document.querySelectorAll("#cartQuantity").length;
 		for (let i = 0; i < itemLength; i++) {
