@@ -1,4 +1,5 @@
-const Time=require("./static/class/Time")
+const fs = require("fs")
+const Time = require("./static/class/Time")
 const DB = require("./DB")
 let DB_adapter = new DB()
 const ServerLog = require("./static/class/ServerLog")
@@ -24,7 +25,7 @@ module.exports = (app, partials) => {
 		const order = req.body
 
 		const timestr = new Time(order.id).getTimeDBString()
-		res.render("check", { routes, order,timestr })
+		res.render("check", { routes, order, timestr })
 	})
 
 	app.post(routes.change_to_checkpoint, (req, res) => {
@@ -56,7 +57,7 @@ module.exports = (app, partials) => {
 		})
 
 		const timestr = new Time(order.id).getTimeDBString()
-		res.render("complete", { routes, order, timestr})	
+		res.render("complete", { routes, order, timestr })
 	})
 
 	app.get(routes.refund, async (req, res) => {
@@ -64,8 +65,9 @@ module.exports = (app, partials) => {
 
 		const target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
 		await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
+		refund.reverse()
 
-		res.render("refund", { routes, refund , target_day})
+		res.render("refund", { routes, refund, target_day })
 	})
 
 	app.get(routes.timesales, (req, res) => {

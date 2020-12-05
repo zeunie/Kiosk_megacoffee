@@ -92,7 +92,6 @@ class DB_adapter {
 			ret.push(new OrderList(0, 0, 0, i.Price, i.Quantity,(i.Takeout)?true:false))
 			ret[ret.length-1].setIdArb(i.ID)
 		}
-		Log.tell(ret)
 
 		return ret
 	}
