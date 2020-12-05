@@ -21,6 +21,7 @@ const totalPrice = document.getElementById("totalPrice");
 const cancelAll = document.getElementById("cancelAll");
 const cancelBtn = document.getElementById("cancelBtn");
 const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
 
 const minusBtn = document.getElementById("minusBtn");
 const pulsBtn = document.getElementById("plusBtn");
@@ -180,6 +181,8 @@ function setDisplay(number) {
 }
 
 function showCart() {
+	payByCard.style.pointerEvents = "auto";
+
 	const cartItems1 = document.querySelectorAll(
 		"#orderNameDiv span:nth-child(n)"
 	);
@@ -316,6 +319,7 @@ function delBtnRemover(event) {
 			chevronLeft.style.visibility = "hidden";
 			chevronRight.style.visibility = "hidden";
 			bannerImage.style.opacity = 1;
+			payByCard.style.pointerEvents = "none";
 		} else {
 			showCart();
 		}
@@ -826,9 +830,18 @@ function main() {
 
 	cancelAll.addEventListener("click", handleCancelAll);
 	noBtn.addEventListener("click", handleNoBtn);
+	yesBtn.addEventListener("click", handleYesBtn);
 
 	//JH   결제 요청 시 서버에 주문 내역이 JSON으로 전달되도록
 	payByCard.addEventListener("click", () => {
+
+		if (bannerImage.style.opacity == 1){
+			payByCard.style.pointerEvents = "none";
+		}
+		else {
+			payByCard.style.pointerEvents = "auto";
+		}
+
 		//카트 안의 아이템들을 순회하면서 정보를 수집하고 주문목록에 등록한다.
 
 		let store = JSON.parse(window.localStorage.getItem("storeInfo"))
