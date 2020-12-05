@@ -374,7 +374,7 @@ function addMenu(src, name, price, itemNumber, itemOption1, itemOption2) {
 	orderNameDiv.appendChild(spanForName);
 	const spanForPrice = document.createElement("span");
 	spanForPrice.id = "orderPrice";
-	spanForPrice.innerText = price;
+	spanForPrice.innerText = price.toLocaleString("en").split(".")[0];
 	orderPriceDiv.appendChild(spanForPrice);
 	const drinkImg = document.createElement("img");
 	drinkImg.id = "orderDrink";
