@@ -35,24 +35,25 @@
   font-size: 22px;
   color: white;
   margin-top: 45px;
-  position: relative;
-  left: -120px;
+  display: flex;
+  float: left;
+  margin-left: -150px;
+  margin-right: 7px;
 }
 
 #plusBtn {
   font-size: 22px;
   color: white;
   margin-top: 45px;
-  position: relative;
-  left: -100px;
+  float: right;
+  margin-right: -150px;
+  margin-left: 7px;
 }
 
 #menuQuantity {
   font-size: 25px;
   color: white;
   margin-top: 37px;
-  position: relative;
-  left: -110px;
 }
 
 .header_order #eachPrice {

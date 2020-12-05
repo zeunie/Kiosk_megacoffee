@@ -58,6 +58,10 @@ body {
   color: white;
 }
 
+.nav_items a:hover { 
+  text-decoration: none;
+}
+
 .nav_item {
   margin-left: 1px;
   margin-right: 1px;

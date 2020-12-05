@@ -786,10 +786,17 @@ function handleCancelAll() {
 	cancelBtn.style.visibility = "visible";
 	cancelBtn.style.position = "relative";
 	cancelBtn.style.top = "-400px";
+	body.style.pointerEvents = "none";
+	cancelBtn.style.pointerEvents = "auto";
 }
 
-function handleNoBtn() {
+function handleYesBtn() {
+	window.location.href = "/";
+}
+  
+  function handleNoBtn() {
 	cancelBtn.style.visibility = "hidden";
+	body.style.pointerEvents = "auto";
 }
 
 function main() {
