@@ -15,6 +15,7 @@ html
         nav.navbar.navbar-light.bg-light.justify-content-right
             form.form-inline
                 input.form-control.mr-sm-2#calendar(type="date" value=target_day)
+                input.form-control.mr-sm-2#id_input(type="text" value="" placeholder="YYYYMMDDhhmmssXXXX")
             form.form-inline
                 button.btn.btn-outline-success#search_by_id(type="button") 주문번호 조회
                 button.btn.btn-outline-success#search_by_date(type="button") 날짜별 조회
@@ -42,7 +43,7 @@ html
                                 td.item_TO=`${(one.takeout)?"T.O.":"매장"}`
                                 td.item_price=` ${one.price} `
                                 td.item_payment=` 카드 `
-                                td.item_stamp=""
+                                td.item_stamp=`${(one.stamp)?one.stamp:""}`
             article
                 table#detailed_order.table.table-bordered(hidden)
                     tr

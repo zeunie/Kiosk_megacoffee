@@ -17,16 +17,13 @@ function fail_message() {
 function check() {
     var input_num = $('#insert_num').text()
     if (new Store_adapter().identifyPW(input_num) != true) {
-        alert("비밀번호가 틀렸습니다")
-        // fail_message()
-    }
-    else {
-        window.location.href="/managerpage"
+        alert("확인")
+            // fail_message()
     }
 }
 
 function cancle() {
-    window.location.href="/"
+
 }
 
 function number0() {

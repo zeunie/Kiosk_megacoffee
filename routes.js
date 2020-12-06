@@ -1,4 +1,5 @@
-const Time=require("./static/class/Time")
+const fs = require("fs")
+const Time = require("./static/class/Time")
 const DB = require("./DB")
 let DB_adapter = new DB()
 const ServerLog = require("./static/class/ServerLog")
@@ -6,33 +7,50 @@ const Log = new ServerLog()
 
 module.exports = (app, partials) => {
 	app.get(routes.cover, (req, res) => {
+		console.log(req.headers["referer"])
+
 		res.render("cover", { routes })
 	})
 
 	app.get(routes.menu, async (req, res) => {
 		Log.tell("Menu Page Requested")
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			let menu = []
+			await DB_adapter.getMenu().then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
 
-		let menu = []
-		await DB_adapter.getMenu().then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
-
-		res.render("menulist", { routes, menu })
+			res.render("menulist", { routes, menu })
+		}
 	})
 
 	app.post(routes.check, (req, res) => {
 		Log.tell("Payment Requested")
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			const order = JSON.parse(req.body["orderList"])
 
-		const order = req.body
-
-		const timestr = new Time(order.id).getTimeDBString()
-		res.render("check", { routes, order,timestr })
+			const timestr = new Time(order.id).getTimeDBString()
+			res.render("check", { routes, order, timestr })
+		}
 	})
 
 	app.post(routes.change_to_checkpoint, (req, res) => {
 		Log.tell("Stamp Requested")
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			const order = JSON.parse(req.body["orderList"])
 
-		const order = req.body
-
-		res.render("numberpad", { routes, order })
+			res.render("numberpad", { routes, order })
+		}
 	})
 
 	app.post(routes.stamp, async (req, res) => {
@@ -49,14 +67,43 @@ module.exports = (app, partials) => {
 
 	app.post(routes.change_to_complete, async (req, res) => {
 		Log.tell("Payment Complete Requested")
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			if (req.headers["referer"] === undefined) {
+				res.status(400)
+				res.render("error", { routes })
+			}
+			else {
+				const order = JSON.parse(req.body["orderList"])
+				Log.tell(order)
+				await DB_adapter.setOrderList(order).then((ret) => {
+					Log.tell(`Saving Order Information: ${ret}`, false, 1)
+				})
 
-		const order = req.body
-		await DB_adapter.setOrderList(order).then((ret) => {
-			Log.tell(`Saving Order Information: ${ret}`, false, 1)
-		})
+				const timestr = new Time(order.id).getTimeDBString()
+				res.render("complete", { routes, order, timestr })
+			}
+		}
+	})
 
-		const timestr = new Time(order.id).getTimeDBString()
-		res.render("complete", { routes, order, timestr})	
+	app.get(routes.entermanagerpage, (req, res) => {
+		Log.tell("Entering Manager Page Requested - Identifying...")
+
+		res.render("password_check", { routes })
+	})
+
+	app.get(routes.managerpage, (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			Log.tell("Manager Identified")
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			res.render("managerpage", { routes })
+		}
 	})
 
 	app.get(routes.refund, async (req, res) => {
@@ -64,16 +111,32 @@ module.exports = (app, partials) => {
 
 		const target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
 		await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
+		refund.reverse()
 
-		res.render("refund", { routes, refund , target_day})
+		res.render("refund", { routes, refund, target_day })
 	})
 
 	app.get(routes.timesales, (req, res) => {
 		res.sendFile("sales/timesales.php")
 	})
 
-	app.get(routes.managerpage, (req, res) => {
-		res.render("managerpage", { routes })
+	app.get(routes.change_pw, (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			res.render("newpassword_input", { routes })
+		}
+	})
+	app.get(routes.change_ordernum, (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			res.render("bill_option", { routes })
+		}
 	})
 
 	app.get(routes.menumanage, async (req, res) => {
@@ -143,6 +206,7 @@ module.exports = (app, partials) => {
 	app.post(routes.test, async (req, res) => {
 		let result = []
 		await DB_adapter.getSales(req.body["period"]).then((ret) => { result = ret })
+		Log.tell(result, false, 3)
 		res.send(result)
 	})
 }
@@ -156,13 +220,17 @@ const routes = {
 	, change_to_checkpoint: "/change_to_checkpoint"
 	, stamp: "/stamp"
 
+	, entermanagerpage: "/entermanagerpage"
 	, managerpage: "/managerpage"
 	, menumanage: "/menumanage"
 	, refund: "/refund"
 	, refund_request: "/refund_request"
 	, timesales: "/timesales"
+	, change_ordernum: "/change_ordernum"
+	, change_pw: "/change_pw"
 
 	, test: "/test"
+	, error: "/error"
 }
 
 export default routes

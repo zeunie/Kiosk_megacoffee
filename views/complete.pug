@@ -43,7 +43,7 @@ html(lang="ko")
       h6
       #receipt.popup
         .popup-content(style="border: 3px solid black")
-          #cancle_top1(style="font-size: 30px; text-align: center") 영수증
+          #cancle_top1(style="font-size: 25px; text-align: center") 영수증
           div
             div(style="font-size: 30px;text-align: center")=`주문번호 ${order["orderNum"]}번`
             div(style="font-size: 15px;text-align: center")
@@ -52,8 +52,8 @@ html(lang="ko")
               div=`매장번호 : ${order["storeNum"]}`
               div=`주문번호 : ${order["orderNum"]}`
               br
-            div(style="text-align: center;font-size: 20px;")
-              -Menus=JSON.parse(order["menus"])
+            div(style="text-align: center;font-size: 13px;")
+              -Menus=order["menus"]
               each one in Menus
                 div=`${one["name"]} ${one["quantity"]}개: ${one["price"]}원`
               div ------------------------------------------

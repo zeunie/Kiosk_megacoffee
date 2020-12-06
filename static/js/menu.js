@@ -3,6 +3,10 @@ const navItemFirst = document.getElementById("navItemFirst");
 const navItemSecond = document.getElementById("navItemSecond");
 const navItemThird = document.getElementById("navItemThird");
 const navItemFourth = document.getElementById("navItemFourth");
+const navItemFirstA = document.getElementById("navItemFirstA");
+const navItemSecondA = document.getElementById("navItemSecondA");
+const navItemThirdA = document.getElementById("navItemThirdA");
+const navItemFourthA = document.getElementById("navItemFourthA");
 const navItemLeftBtn = document.getElementById("navItemLeftButton");
 const navItemRightBtn = document.getElementById("navItemRightButton");
 const nextBtnLeft = document.getElementById("nextButtonLeft");
@@ -21,6 +25,7 @@ const totalPrice = document.getElementById("totalPrice");
 const cancelAll = document.getElementById("cancelAll");
 const cancelBtn = document.getElementById("cancelBtn");
 const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
 
 const minusBtn = document.getElementById("minusBtn");
 const pulsBtn = document.getElementById("plusBtn");
@@ -56,29 +61,38 @@ function minusNum() {
 	}
 	number -= 1;
 	if (number == 1) {
-		navItemFirst.innerHTML = `<a href="#" onclick="showCategory('COFFEE(HOT)')">Coffee(HOT)</a>`;
-		navItemSecond.innerHTML = `<a href="#" onclick="showCategory('COFFEE(ICE)')">Coffee(ICE)</a>`;
-		navItemThird.innerHTML = `<a href="#" onclick="showCategory('BEVERAGE')">BEVERAGE</a>`;
-		navItemFourth.innerHTML = `<a href="#" onclick="showCategory('TEA')">TEA</a>`;
+		navItemFirstA.outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('COFFEE(HOT)')">
+			<div class = "nav_item" id = "navItemFirst"> Coffee(HOT)</div></a>`;
+		navItemSecondA.outerHTML = `<a id = "navItemSecondA" href = "#" onclick="showCategory('COFFEE(ICE)')">
+			<div class = "nav_item" id = "navItemSecond"> Coffee(ICE)</div></a>`;
+		navItemThirdA.outerHTML = `<a id = "navItemThirdA" href = "#" onclick="showCategory('BEVERAGE')">
+			<div class = "nav_item" id = "navItemThird"> BEVERAGE</div></a>`;
+		navItemFourthA.outerHTML = `<a id = "navItemFourthA" href = "#" onclick="showCategory('TEA')">
+			<div class = "nav_item" id = "navItemFourth"> TEA</div></a>`;
 	}
 	showCategory("COFFEE(HOT)");
 	showMenuPage(0);
 	setDisplay(displayNumber);
-}
-function plusNum() {
+  }
+  
+  function plusNum() {
 	if (number == 2) {
 		return;
 	}
 	number += 1;
-
+  
 	if (number == 2) {
-		navItemFirst.innerHTML = `<a href="#" onclick="showCategory('JUICE')">JUICE</a>`;
-		navItemSecond.innerHTML = `<a href="#" onclick="showCategory('ADE')">ADE</a>`;
-		navItemThird.innerHTML = `<a href="#" onclick="showCategory('SMOOTHIE')">SMOOTHIE&FRAFFE</a>`;
-		navItemFourth.innerHTML = `<a href="#" onclick="showCategory('DESSERT')">DESSERT</a>`;
+		navItemFirstA.outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('JUICE')">
+			<div class = "nav_item" id = "navItemFirst"> JUICE</div></a>`;
+		navItemSecondA.outerHTML = `<a id = "navItemSecondA" href = "#" onclick="showCategory('ADE')">
+			<div class = "nav_item" id = "navItemSecond"> ADE</div></a>`;
+		navItemThirdA.outerHTML = `<a id = "navItemThirdA" href = "#" onclick="showCategory('SMOOTHIE')">
+			<div class = "nav_item" id = "navItemThird"> SMOOTHIE&FRAFFE</div></a>`;
+		navItemFourthA.outerHTML = `<a id = "navItemFourthA" href = "#" onclick="showCategory('DESSERT')">
+			<div class = "nav_item" id = "navItemFourth"> DESSERT</div></a>`;
 	}
 	showCategory("JUICE");
-}
+  }
 
 function showCategory(cat) {
 	//선택시 menuPage에 있는 메뉴들이 해당 카테고리의 것으로 바뀐다. 그 다음 displayNumber가 처음(0)으로 돌아가도록 하고
@@ -180,6 +194,8 @@ function setDisplay(number) {
 }
 
 function showCart() {
+	payByCard.style.pointerEvents = "auto";
+
 	const cartItems1 = document.querySelectorAll(
 		"#orderNameDiv span:nth-child(n)"
 	);
@@ -316,6 +332,7 @@ function delBtnRemover(event) {
 			chevronLeft.style.visibility = "hidden";
 			chevronRight.style.visibility = "hidden";
 			bannerImage.style.opacity = 1;
+			payByCard.style.pointerEvents = "none";
 		} else {
 			showCart();
 		}
@@ -370,7 +387,7 @@ function addMenu(src, name, price, itemNumber, itemOption1, itemOption2) {
 	orderNameDiv.appendChild(spanForName);
 	const spanForPrice = document.createElement("span");
 	spanForPrice.id = "orderPrice";
-	spanForPrice.innerText = price;
+	spanForPrice.innerText = price.toLocaleString("en").split(".")[0];
 	orderPriceDiv.appendChild(spanForPrice);
 	const drinkImg = document.createElement("img");
 	drinkImg.id = "orderDrink";
@@ -767,7 +784,7 @@ function handleMinusBtn() {
 	// price.innerText = `단가 ${newPrice}`;
 	headerSum.innerText = newPrice;
 	footerSum.innerText = newPriceWithCream;
- }
+}
 
 function handlePlusBtn() {
 	num = parseInt(menuQuantity.innerText) + 1;
@@ -793,8 +810,8 @@ function handleCancelAll() {
 function handleYesBtn() {
 	window.location.href = "/";
 }
-  
-  function handleNoBtn() {
+
+function handleNoBtn() {
 	cancelBtn.style.visibility = "hidden";
 	body.style.pointerEvents = "auto";
 }
@@ -826,20 +843,29 @@ function main() {
 
 	cancelAll.addEventListener("click", handleCancelAll);
 	noBtn.addEventListener("click", handleNoBtn);
+	yesBtn.addEventListener("click", handleYesBtn);
 
 	//JH   결제 요청 시 서버에 주문 내역이 JSON으로 전달되도록
 	payByCard.addEventListener("click", () => {
+
+		if (bannerImage.style.opacity == 1) {
+			payByCard.style.pointerEvents = "none";
+		}
+		else {
+			payByCard.style.pointerEvents = "auto";
+		}
+
 		//카트 안의 아이템들을 순회하면서 정보를 수집하고 주문목록에 등록한다.
 
-		let store = JSON.parse(window.localStorage.getItem("storeInfo"))
+		let store = JSON.parse(new Store_adapter().getStoreInfo())
 		store.orderNum++;// 원래는 쇼핑카트가 자체적으로 orderNum을 가지고 있었는데 아무래도 storeInfo가 로컬스토리지에 있고 그래서 orderNum은 storeInfo에 놓고 그걸 shoppingcart가 가져다 써야 할 것 같음
 		if (store.orderNum % 100 == 0) {
 			store.orderNum -= 100
 		}
-		window.localStorage.setItem("storeInfo", JSON.stringify(store))
+		new Store_adapter().setStoreInfo(store)
 		const takeout = (new URLSearchParams(window.location.search).get("takeout") == "true") ? true : false;
 
-		const shoppingCart = new ShoppingCart(store.id, store.orderNum,takeout);
+		const shoppingCart = new ShoppingCart(store.id, store.orderNum, takeout);
 
 		const itemLength = document.querySelectorAll("#cartQuantity").length;
 		for (let i = 0; i < itemLength; i++) {
@@ -871,12 +897,10 @@ function main() {
 		form.style.visibility = "hidden"; // no user interaction is necessary
 		form.method = "POST"; // forms by default use GET query strings
 		form.action = "/check";
-		for (key of Object.keys(orderInfo)) {
-			var input = document.createElement("input");
-			input.name = key;
-			input.value = orderInfo[key];
-			form.appendChild(input); // add key/value pair to form
-		}
+		var input = document.createElement("input");
+		input.name = "orderList";
+		input.value = JSON.stringify(orderInfo);
+		form.appendChild(input); // add key/value pair to form
 		document.body.appendChild(form); // forms cannot be submitted outside of body
 		form.submit(); // send the payload and navigate
 	});

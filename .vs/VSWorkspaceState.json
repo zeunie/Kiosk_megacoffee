@@ -3,10 +3,10 @@
     "",
     "\\static",
     "\\static\\class",
+    "\\static\\css",
     "\\static\\js",
-    "\\views",
-    "\\views\\mixins"
+    "\\views"
   ],
-  "SelectedNode": "\\static\\js\\refund.js",
+  "SelectedNode": "\\views\\refund.pug",
   "PreviewInSolutionExplorer": false
 }

@@ -233,10 +233,9 @@ class DB_adapter {
 		}
 		await this.getOrderListCore(key,val).then((result) => { orderListRaw = result })
 		for (const i of orderListRaw) {
-			ret.push(new OrderList(0, 0, 0, i.Price, i.Quantity,(i.Takeout)?true:false))
+			ret.push(new OrderList(0, 0, 0, i.Price, i.Quantity,(i.Takeout)?true:false, i.Stamp))
 			ret[ret.length-1].setIdArb(i.ID)
 		}
-		Log.tell(ret)
 
 		return ret
 	}
@@ -244,7 +243,9 @@ class DB_adapter {
 	setOrderListCore(order) {
 		return new Promise((resolve, reject) => {
 			const orderTime = new Time(order.id).getTimeDBString()
-			DB.query(`insert into orderlist(id,customer,time,name,price,quantity,takeout) values('${order.id}', 0, '${orderTime}', '', ${order.price}, ${order.quantity},${order.takeout})`, (err, result) => {
+			const query = `insert into orderlist(id,customer,time,name,price,quantity,takeout,stamp) values('${order.id}', 0, '${orderTime}', '', ${order.price}, ${order.quantity},${order.takeout},${order.stamp})`
+			console.log(query)
+			DB.query(query, (err, result) => {
 				return (err) ? reject(err) : resolve(result)
 			})
 		})
@@ -267,10 +268,9 @@ class DB_adapter {
 			}
 			else {
 				const interval = `${(period == "daily") ? "7 DAY" : "6 MONTH"}`
-				query_string = `SELECT time, Totalprice from orderlist WHERE time > DATE_FORMAT( DATE_ADD(NOW(), INTERVAL - ${interval}), '%Y-%m-%d 00:00:00' )`
+				query_string = `SELECT time, price from orderlist WHERE time > DATE_FORMAT( DATE_ADD(NOW(), INTERVAL - ${interval}), '%Y-%m-%d 00:00:00' )`
 			}
 			//데이터가 많이 들어있지 않으므로 일단 전체를 가져오도록 한다. 추후 장바구니, 결제, DB에 주문내역 저장이 만들어지면 조건에 맞는 것을 가져오도록 바꾼다.
-			query_string = "SELECT * from orderlist"
 			DB.query(query_string, (err, result) => {
 				return (err) ? reject(err) : resolve(result)
 			})
@@ -278,15 +278,12 @@ class DB_adapter {
 	}
 	async getSales(period) {
 		//DB 출력 결과를 받아 가공함
-		let ret = []
 		let salesRaw = []
 		await this.getSalesCore(period).then((result) => { salesRaw = result })
-		for (const i of salesRaw) {
-			ret.push({ "time": new Time(i.Time.getFullYear(), i.Time.getMonth(), i.Time.getDate(), i.Time.getHours(), i.Time.getMinutes(), i.Time.getSeconds()), "price": i.TotalPrice })
+		for (let i of salesRaw) {
+			i["time"] = new Time(i["time"]).getTimeDBString()
 		}
-
-		console.log(`\t\t${ret}\n`);
-		return ret;
+		return salesRaw;
 	}
 
 	getStampCore(tel) {
