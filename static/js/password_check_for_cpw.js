@@ -1,16 +1,14 @@
-var change_pw = 0;
-
 function check() {
     var input_num = $('#insert_num').text()
     if (new Store_adapter().identifyPW(input_num) != true) {
         alert("비밀번호가 틀렸습니다")
-    } else if ((new Store_adapter().identifyPW(input_num) == true) && change_pw == 0) {
-        window.location.href = "/managerpage"
+    } else {
+        // newpassword_input페이지로 이동(JH)
     }
 }
 
 function cancle() {
-    window.location.href = "/"
+    window.location.href = "/managerpage"
 }
 
 function number0() {
