@@ -120,6 +120,15 @@ module.exports = (app, partials) => {
 		res.sendFile("sales/timesales.php")
 	})
 
+	app.get(routes.change_pw, (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			res.render("newpassword_input", { routes })
+		}
+	})
 	app.get(routes.change_ordernum, (req, res) => {
 		if (req.headers["referer"] === undefined) {
 			res.status(400)
@@ -157,6 +166,7 @@ const routes = {
 	, refund_request: "/refund_request"
 	, timesales: "/timesales"
 	, change_ordernum: "/change_ordernum"
+	, change_pw: "/change_pw"
 
 	, test: "/test"
 	, error: "/error"
