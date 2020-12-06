@@ -41,15 +41,12 @@ function finish_payment_and_move(location) {
     form.style.visibility = "hidden"; // no user interaction is necessary
     form.method = "POST"; // forms by default use GET query strings
     form.action = location;
-    for (key of Object.keys(orderInfo)) {
-        var input = document.createElement("input");
-        input.name = key;
-        input.value = orderInfo[key];
-        form.appendChild(input); // add key/value pair to form
-    }
+    var input = document.createElement("input");
+    input.name = "orderList";
+    input.value = JSON.stringify(orderInfo);
+    form.appendChild(input); // add key/value pair to form
     document.body.appendChild(form); // forms cannot be submitted outside of body
     form.submit(); // send the payload and navigate
-
 }
 //아래 두 함수는 기능이 단순하고 너무 중복돼서 pug파일에서 해당 파일을 위 함수로 바꾸고 아래는 없애는 것 추천
 function change_to_checkpoint() {

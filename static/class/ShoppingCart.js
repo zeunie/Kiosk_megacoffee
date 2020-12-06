@@ -40,24 +40,25 @@ class ShoppingCart {
 
 	//주문내역 생성 후 쇼핑카트 초기화
 	constructOrderList() {
-		const ret = new OrderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity, this.takeout)
+		const ret = new OrderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity, this.takeout, 0)
 
 		this.orderNum++
 		if (this.orderNum / 100 == 0) orderNum -= 100 //ex) 600번부터 699번까지 순환 후 700번을 부를 차례가 되면 100을 빼서 600번으로 돌아가도록
 		this.initiate()
 
-		return ret.getValue()
+		return ret
 	}
 }
 
 class OrderList {
-	constructor(storeNum, orderNum, menus, price, quantity, takeout = true) {
+	constructor(storeNum, orderNum, menus, price, quantity, takeout = true, stamp = 0) {
 		this.storeNum = storeNum
 		this.orderNum = orderNum
 		this.menus = menus
 		this.price = price
 		this.quantity = quantity
 		this.takeout = takeout
+		this.stamp = stamp
 
 		this.orderTime = new Time()
 		this.id = this.orderTime.getTimeString() + String(this.storeNum)//시간 14자리 + 매장번호 4자리
@@ -86,6 +87,7 @@ class OrderList {
 			, "price": this.price
 			, "quantity": this.quantity
 			, "takeout": this.takeout
+			, "stamp": this.stamp
 		}
 	}
 }

@@ -1,3 +1,5 @@
+var howManyStampsAdded=0 //스탬프가 적립되었을 경우 여기에 개수를 입력, 개수가 전해진 다음엔 다시 0으로
+
 function open_checkpoint_popup() {
     //JH    ������ ���� ���� ����
     const ph = document.getElementById("phonenumber").innerText
@@ -16,6 +18,8 @@ function open_checkpoint_popup() {
     }
     document.body.appendChild(form); // forms cannot be submitted outside of body
     form.submit(); // send the payload and navigate
+
+    howManyStampsAdded = stampNum
     //JH***************
 
     $('#checkpoint').css('opacity', '1');
@@ -31,17 +35,19 @@ function close_checkpoint_popup() {
 
 function change_to_complete() {
     const orderInfo = JSON.parse($("#order").val())
+    if (howManyStampsAdded) {
+        orderInfo.stamp=howManyStampsAdded
+    }
+    howManyStampsAdded=0
 
     let form = document.createElement("form");
     form.style.visibility = "hidden"; // no user interaction is necessary
     form.method = "POST"; // forms by default use GET query strings
-    form.action = "/change_to_complete";
-    for (key of Object.keys(orderInfo)) {
-        var input = document.createElement("input");
-        input.name = key;
-        input.value = orderInfo[key];
-        form.appendChild(input); // add key/value pair to form
-    }
+    form.action = '/change_to_complete';
+    var input = document.createElement("input");
+    input.name = "orderList";
+    input.value = JSON.stringify(orderInfo);
+    form.appendChild(input); // add key/value pair to form
     document.body.appendChild(form); // forms cannot be submitted outside of body
     form.submit(); // send the payload and navigate
 }

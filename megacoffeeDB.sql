@@ -118,6 +118,7 @@ CREATE TABLE `orderlist` (
   `Takeout` int DEFAULT NULL,
   `Ordernum` int DEFAULT NULL,
   `Served` int DEFAULT NULL,
+  `Stamp` int DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

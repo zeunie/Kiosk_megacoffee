@@ -65,24 +65,25 @@ class ShoppingCart {
 
 	//주문내역 생성 후 쇼핑카트 초기화
 	constructOrderList() {
-		const ret = new OrderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity, this.takeout)
+		const ret = new OrderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity, this.takeout, 0)
 
 		this.orderNum++
 		if (this.orderNum / 100 == 0) orderNum -= 100 //ex) 600번부터 699번까지 순환 후 700번을 부를 차례가 되면 100을 빼서 600번으로 돌아가도록
 		this.initiate()
 
-		return ret.getValue()
+		return ret
 	}
 }
 
 class OrderList {
-	constructor(storeNum, orderNum, menus, price, quantity, takeout = true) {
+	constructor(storeNum, orderNum, menus, price, quantity, takeout = true, stamp = 0) {
 		this.storeNum = storeNum
 		this.orderNum = orderNum
 		this.menus = menus
 		this.price = price
 		this.quantity = quantity
 		this.takeout = takeout
+		this.stamp = stamp
 
 		this.orderTime = new Time()
 		this.id = this.orderTime.getTimeString() + String(this.storeNum)//시간 14자리 + 매장번호 4자리
@@ -111,6 +112,7 @@ class OrderList {
 			, "price": this.price
 			, "quantity": this.quantity
 			, "takeout": this.takeout
+			, "stamp": this.stamp
 		}
 	}
 }
@@ -334,16 +336,22 @@ class Time extends Date {
 	constructor(y, m, d, hr, min, sec) {
 		if (typeof (y) === typeof ("")) {
 			//첫번째 매개변수의 타입이 ""이랑 같은(string일) 경우 14자리를 일월연시분초로 parse하여 시간 생성
-			let time = y.replace('T', '').replace(':', '').replace('-', '').replace(':', '').replace('-', '')//ISOtime도 변환 가능
+			if (y[y.length - 1] == "Z") {//첫 번째 매개변수로 ISOTime이 들어오면 super에 그것을 처리하는 기능이 있으므로 생성자 이용
+				super(y)
+				y = undefined
+			}
+			else {
+				let time = y
 
-			y = parseInt(time.slice(0, 4))
-			m = parseInt(time.slice(4, 6))
-			d = parseInt(time.slice(6, 8))
-			hr = parseInt(time.slice(8, 10))
-			min = parseInt(time.slice(10, 12))
-			sec = parseInt(time.slice(12, 14))
+				y = parseInt(time.slice(0, 4))
+				m = parseInt(time.slice(4, 6))
+				d = parseInt(time.slice(6, 8))
+				hr = parseInt(time.slice(8, 10))
+				min = parseInt(time.slice(10, 12))
+				sec = parseInt(time.slice(12, 14))
 
-			super(y, m, d, hr, min, sec)
+				super(y, m, d, hr, min, sec)
+			}
 		}
 		else if (typeof (y) === typeof (1)) {
 			//첫 번째 매개변수의 타입이 1이랑 같을 경우(숫자일 경우) 그대로 입력해서 시간 생성

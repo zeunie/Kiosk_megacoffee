@@ -771,7 +771,7 @@ function handleMinusBtn() {
 	// price.innerText = `단가 ${newPrice}`;
 	headerSum.innerText = newPrice;
 	footerSum.innerText = newPriceWithCream;
- }
+}
 
 function handlePlusBtn() {
 	num = parseInt(menuQuantity.innerText) + 1;
@@ -797,8 +797,8 @@ function handleCancelAll() {
 function handleYesBtn() {
 	window.location.href = "/";
 }
-  
-  function handleNoBtn() {
+
+function handleNoBtn() {
 	cancelBtn.style.visibility = "hidden";
 	body.style.pointerEvents = "auto";
 }
@@ -835,7 +835,7 @@ function main() {
 	//JH   결제 요청 시 서버에 주문 내역이 JSON으로 전달되도록
 	payByCard.addEventListener("click", () => {
 
-		if (bannerImage.style.opacity == 1){
+		if (bannerImage.style.opacity == 1) {
 			payByCard.style.pointerEvents = "none";
 		}
 		else {
@@ -852,7 +852,7 @@ function main() {
 		new Store_adapter().setStoreInfo(store)
 		const takeout = (new URLSearchParams(window.location.search).get("takeout") == "true") ? true : false;
 
-		const shoppingCart = new ShoppingCart(store.id, store.orderNum,takeout);
+		const shoppingCart = new ShoppingCart(store.id, store.orderNum, takeout);
 
 		const itemLength = document.querySelectorAll("#cartQuantity").length;
 		for (let i = 0; i < itemLength; i++) {
@@ -884,12 +884,10 @@ function main() {
 		form.style.visibility = "hidden"; // no user interaction is necessary
 		form.method = "POST"; // forms by default use GET query strings
 		form.action = "/check";
-		for (key of Object.keys(orderInfo)) {
-			var input = document.createElement("input");
-			input.name = key;
-			input.value = orderInfo[key];
-			form.appendChild(input); // add key/value pair to form
-		}
+		var input = document.createElement("input");
+		input.name = "orderList";
+		input.value = JSON.stringify(orderInfo);
+		form.appendChild(input); // add key/value pair to form
 		document.body.appendChild(form); // forms cannot be submitted outside of body
 		form.submit(); // send the payload and navigate
 	});

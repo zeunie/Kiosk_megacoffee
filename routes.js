@@ -7,33 +7,50 @@ const Log = new ServerLog()
 
 module.exports = (app, partials) => {
 	app.get(routes.cover, (req, res) => {
+		console.log(req.headers["referer"])
+
 		res.render("cover", { routes })
 	})
 
 	app.get(routes.menu, async (req, res) => {
 		Log.tell("Menu Page Requested")
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			let menu = []
+			await DB_adapter.getMenu().then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
 
-		let menu = []
-		await DB_adapter.getMenu().then((ret) => { menu = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
-
-		res.render("menulist", { routes, menu })
+			res.render("menulist", { routes, menu })
+		}
 	})
 
 	app.post(routes.check, (req, res) => {
 		Log.tell("Payment Requested")
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			const order = JSON.parse(req.body["orderList"])
 
-		const order = req.body
-
-		const timestr = new Time(order.id).getTimeDBString()
-		res.render("check", { routes, order, timestr })
+			const timestr = new Time(order.id).getTimeDBString()
+			res.render("check", { routes, order, timestr })
+		}
 	})
 
 	app.post(routes.change_to_checkpoint, (req, res) => {
 		Log.tell("Stamp Requested")
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			const order = JSON.parse(req.body["orderList"])
 
-		const order = req.body
-
-		res.render("numberpad", { routes, order })
+			res.render("numberpad", { routes, order })
+		}
 	})
 
 	app.post(routes.stamp, async (req, res) => {
@@ -50,14 +67,26 @@ module.exports = (app, partials) => {
 
 	app.post(routes.change_to_complete, async (req, res) => {
 		Log.tell("Payment Complete Requested")
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			if (req.headers["referer"] === undefined) {
+				res.status(400)
+				res.render("error", { routes })
+			}
+			else {
+				const order = JSON.parse(req.body["orderList"])
+				Log.tell(order)
+				await DB_adapter.setOrderList(order).then((ret) => {
+					Log.tell(`Saving Order Information: ${ret}`, false, 1)
+				})
 
-		const order = req.body
-		await DB_adapter.setOrderList(order).then((ret) => {
-			Log.tell(`Saving Order Information: ${ret}`, false, 1)
-		})
-
-		const timestr = new Time(order.id).getTimeDBString()
-		res.render("complete", { routes, order, timestr })
+				const timestr = new Time(order.id).getTimeDBString()
+				res.render("complete", { routes, order, timestr })
+			}
+		}
 	})
 
 	app.get(routes.refund, async (req, res) => {
@@ -85,6 +114,7 @@ module.exports = (app, partials) => {
 	app.post(routes.test, async (req, res) => {
 		let result = []
 		await DB_adapter.getSales(req.body["period"]).then((ret) => { result = ret })
+		Log.tell(result, false, 3)
 		res.send(result)
 	})
 }
@@ -104,6 +134,7 @@ const routes = {
 	, timesales: "/timesales"
 
 	, test: "/test"
+	, error: "/error"
 }
 
 export default routes
