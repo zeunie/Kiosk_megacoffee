@@ -1,29 +1,17 @@
-function open_cancle_popup() {
-    $('#cancle').css('opacity', '1');
-    $('#cancle').css('visibility', 'visible');
-    setTimeout(() => close_cancle_popup(), 2500);
-}
+function newpassword() {
 
-function close_cancle_popup() {
-    $('#cancle').css('opacity', '0');
-    $('#cancle').css('visibility', 'hidden')
-
-}
-
-function fail_message() {
-    open_cancle_popup()
-}
-
-function check() {
     var input_num = $('#insert_num').text()
-    if (new Store_adapter().identifyPW(input_num) != true) {
-        alert("확인")
-            // fail_message()
+    if (input_num.length != 4) {
+        alert("비밀번호 4자리를 입력해주세요.")
+        input_num.empty()
+    } else {
+        new Store_adapter().setPW(input_num)
+        window.location.href = "/managerpage"
     }
 }
 
 function cancle() {
-
+    window.location.href = "/managerpage"
 }
 
 function number0() {
