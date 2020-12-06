@@ -1,4 +1,28 @@
+function open_cancle_popup() {
+    $('#cancle').css('opacity', '1');
+    $('#cancle').css('visibility', 'visible');
+    setTimeout(() => close_cancle_popup(), 2500);
+}
+
+function close_cancle_popup() {
+    $('#cancle').css('opacity', '0');
+    $('#cancle').css('visibility', 'hidden')
+
+}
+
+function fail_message() {
+    open_cancle_popup()
+}
+
 function check() {
+    var input_num = $('#insert_num').text()
+    if (new Store_adapter().identifyPW(input_num) != true) {
+        alert("확인")
+            // fail_message()
+    }
+}
+
+function cancle() {
 
 }
 
