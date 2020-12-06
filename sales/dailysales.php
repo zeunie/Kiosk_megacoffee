@@ -63,6 +63,8 @@ $jsonTable = json_encode($table);
             titleTextStyle: {fontSize: 15},
             legend: {position: 'none'},
             chartArea: {'width': '80%', 'height': '80%'},
+            height: 400,
+            width: 450,
             hAxis : {format:'MM/dd'}
             };
 
