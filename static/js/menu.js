@@ -3,6 +3,10 @@ const navItemFirst = document.getElementById("navItemFirst");
 const navItemSecond = document.getElementById("navItemSecond");
 const navItemThird = document.getElementById("navItemThird");
 const navItemFourth = document.getElementById("navItemFourth");
+const navItemFirstA = document.getElementById("navItemFirstA");
+const navItemSecondA = document.getElementById("navItemSecondA");
+const navItemThirdA = document.getElementById("navItemThirdA");
+const navItemFourthA = document.getElementById("navItemFourthA");
 const navItemLeftBtn = document.getElementById("navItemLeftButton");
 const navItemRightBtn = document.getElementById("navItemRightButton");
 const nextBtnLeft = document.getElementById("nextButtonLeft");
@@ -57,29 +61,38 @@ function minusNum() {
 	}
 	number -= 1;
 	if (number == 1) {
-		navItemFirst.innerHTML = `<a href="#" onclick="showCategory('COFFEE(HOT)')">Coffee(HOT)</a>`;
-		navItemSecond.innerHTML = `<a href="#" onclick="showCategory('COFFEE(ICE)')">Coffee(ICE)</a>`;
-		navItemThird.innerHTML = `<a href="#" onclick="showCategory('BEVERAGE')">BEVERAGE</a>`;
-		navItemFourth.innerHTML = `<a href="#" onclick="showCategory('TEA')">TEA</a>`;
+		navItemFirstA.outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('COFFEE(HOT)')">
+			<div class = "nav_item" id = "navItemFirst"> Coffee(HOT)</div></a>`;
+		navItemSecondA.outerHTML = `<a id = "navItemSecondA" href = "#" onclick="showCategory('COFFEE(ICE)')">
+			<div class = "nav_item" id = "navItemSecond"> Coffee(ICE)</div></a>`;
+		navItemThirdA.outerHTML = `<a id = "navItemThirdA" href = "#" onclick="showCategory('BEVERAGE')">
+			<div class = "nav_item" id = "navItemThird"> BEVERAGE</div></a>`;
+		navItemFourthA.outerHTML = `<a id = "navItemFourthA" href = "#" onclick="showCategory('TEA')">
+			<div class = "nav_item" id = "navItemFourth"> TEA</div></a>`;
 	}
 	showCategory("COFFEE(HOT)");
 	showMenuPage(0);
 	setDisplay(displayNumber);
-}
-function plusNum() {
+  }
+  
+  function plusNum() {
 	if (number == 2) {
 		return;
 	}
 	number += 1;
-
+  
 	if (number == 2) {
-		navItemFirst.innerHTML = `<a href="#" onclick="showCategory('JUICE')">JUICE</a>`;
-		navItemSecond.innerHTML = `<a href="#" onclick="showCategory('ADE')">ADE</a>`;
-		navItemThird.innerHTML = `<a href="#" onclick="showCategory('SMOOTHIE')">SMOOTHIE&FRAFFE</a>`;
-		navItemFourth.innerHTML = `<a href="#" onclick="showCategory('DESSERT')">DESSERT</a>`;
+		navItemFirstA.outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('JUICE')">
+			<div class = "nav_item" id = "navItemFirst"> JUICE</div></a>`;
+		navItemSecondA.outerHTML = `<a id = "navItemSecondA" href = "#" onclick="showCategory('ADE')">
+			<div class = "nav_item" id = "navItemSecond"> ADE</div></a>`;
+		navItemThirdA.outerHTML = `<a id = "navItemThirdA" href = "#" onclick="showCategory('SMOOTHIE')">
+			<div class = "nav_item" id = "navItemThird"> SMOOTHIE&FRAFFE</div></a>`;
+		navItemFourthA.outerHTML = `<a id = "navItemFourthA" href = "#" onclick="showCategory('DESSERT')">
+			<div class = "nav_item" id = "navItemFourth"> DESSERT</div></a>`;
 	}
 	showCategory("JUICE");
-}
+  }
 
 function showCategory(cat) {
 	//선택시 menuPage에 있는 메뉴들이 해당 카테고리의 것으로 바뀐다. 그 다음 displayNumber가 처음(0)으로 돌아가도록 하고
