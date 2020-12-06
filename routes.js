@@ -89,6 +89,23 @@ module.exports = (app, partials) => {
 		}
 	})
 
+	app.get(routes.entermanagerpage, (req, res) => {
+		Log.tell("Entering Manager Page Requested - Identifying...")
+
+		res.render("password_check", { routes })
+	})
+
+	app.get(routes.managerpage, (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			Log.tell("Manager Identified")
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			res.render("managerpage", { routes })
+		}
+	})
+
 	app.get(routes.refund, async (req, res) => {
 		let refund = []
 
@@ -103,8 +120,14 @@ module.exports = (app, partials) => {
 		res.sendFile("sales/timesales.php")
 	})
 
-	app.get(routes.managerpage, (req, res) => {
-		res.render("managerpage", { routes })
+	app.get(routes.change_ordernum, (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			res.render("bill_option", { routes })
+		}
 	})
 
 	//JH	test페이지 내의 기능 테스트
@@ -128,10 +151,12 @@ const routes = {
 	, change_to_checkpoint: "/change_to_checkpoint"
 	, stamp: "/stamp"
 
+	, entermanagerpage: "/entermanagerpage"
 	, managerpage: "/managerpage"
 	, refund: "/refund"
 	, refund_request: "/refund_request"
 	, timesales: "/timesales"
+	, change_ordernum: "/change_ordernum"
 
 	, test: "/test"
 	, error: "/error"

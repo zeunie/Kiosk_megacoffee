@@ -53,7 +53,7 @@ html(lang="ko")
               div=`주문번호 : ${order["orderNum"]}`
               br
             div(style="text-align: center;font-size: 13px;")
-              -Menus=JSON.parse(order["menus"])
+              -Menus=order["menus"]
               each one in Menus
                 div=`${one["name"]} ${one["quantity"]}개: ${one["price"]}원`
               div ------------------------------------------

@@ -1,28 +1,21 @@
-const saveBtn = document.querySelector('.save-btn');
-const numberOptionContain = document.querySelector('.number-option-contain');
-let currentBtn;
+var new_order_number = 0
 
-//not yet used
-const store = new Store();
-
-const btnClicked = (e) => {
-  if (e.target === numberOptionContain) {
-    return;
-  }
-
-  if (currentBtn) {
-    currentBtn.classList.remove('clicked-number-option');
-  }
-
-  e.target.classList.add('clicked-number-option');
-  currentBtn = e.target;
-};
-
-function saveOptionNumber() {
-  const store_adapter = new Store_adapter();
-  const number = currentBtn.textContent;
-  store_adapter.setOrderNum(number);
-}
-
-numberOptionContain.addEventListener('click', btnClicked);
-saveBtn.addEventListener('click', saveOptionNumber);
+$(document).ready(function () {
+	$("#exit").click(function () {
+		window.location.href = "/"
+	})
+	$(".number-option").click(function () {
+		for (let i = 0; i < $(".number-option").length; i++) {
+			$(".number-option")[i].classList.remove("clicked-number-option")
+		}
+		$(this).addClass('clicked-number-option')
+		new_order_number = parseInt($(this).text())
+	})
+	$("#save").click(function () {
+		if (new_order_number != 0) {
+			new Store_adapter().setOrderNum(new_order_number)
+			alert(`Order Number Set: ${new_order_number}`)
+			window.location.href = "/managerpage"
+		}
+	})
+})
