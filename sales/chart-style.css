@@ -1,25 +1,24 @@
 
-
 html,
+
 body {
-    margin: 0;
-    padding: 0;
+    height: 700px;
+    width: 525px;
+    margin: 0 auto;
+ 
 }
 
 .chart-container {
-    margin: 2rem;
-    padding: 0.5rem;
-    height: 25rem;
-    width: 25rem;
+    margin: 10%;
     background-color: white;
     display: flex;
     flex-direction: column;
+
 }
 
 .container-title {
-    margin: 1rem 0.4rem;
-    height: 2rem;
-    width: auto;
+    height: 32px;
+    width: 100%;
     background-color: #2f3542;
     color: white;
     display: flex;
@@ -40,10 +39,3 @@ body {
     font-size: 1rem;
 }
 
-
-/* 구조를 보기 위해 만듬*/
-.chart {
-    height: 20rem;
-    width: 22rem;
-    border: black 1px solid;
-}
