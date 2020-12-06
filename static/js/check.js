@@ -36,6 +36,7 @@ $(document).ready(function() {
 function finish_payment_and_move(location) {
     //JH    결제 완료됐다고 서버에 보내고 다음 창에도 전달하기
     const orderInfo = JSON.parse($("#order").val())
+    //{id: "202012052315031313", orderTime: ""2020-12-05T14:15:03.036Z"", storeNum: "1313", orderNum: "204", menus: "[{"cat":"","name":"h 카페라떼","price":2700,"quantity"…age":"","shot":0,"cream":false,"cinnamon":false}]",?…}
 
     let form = document.createElement("form");
     form.style.visibility = "hidden"; // no user interaction is necessary

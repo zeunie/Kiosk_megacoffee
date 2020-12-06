@@ -38,11 +38,11 @@ module.exports = (app, partials) => {
 	app.post(routes.stamp, async (req, res) => {
 		Log.tell(`Stamp Accumulation Requested`)
 
-		const stampInfo = req.body
+		const menumanage = req.body
 
-		Log.tell(`Phone numer: ${stampInfo["ph"]}\tstamp: ${stampInfo["stamp"]}`, false)
+		Log.tell(`Phone numer: ${menumanage["ph"]}\tstamp: ${menumanage["stamp"]}`, false)
 
-		await DB_adapter.setStamp(stampInfo["ph"], stampInfo["stamp"]).then((ret) => {
+		await DB_adapter.setStamp(menumanage["ph"], menumanage["stamp"]).then((ret) => {
 			Log.tell(ret)
 		})
 	})
@@ -76,6 +76,66 @@ module.exports = (app, partials) => {
 		res.render("managerpage", { routes })
 	})
 
+	app.get(routes.menumanage, async (req, res) => {
+		Log.tell("Menumanage Page Requested")
+		let menu = []
+		await DB_adapter.getMenu().then((ret) => { menu = ret })
+		let category = []
+		await DB_adapter.getCategory().then((ret) => { category = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
+		res.render("menumanage", { routes, menu, category })
+	})
+
+	app.post(routes.menumanage, async (req, res) => {
+		Log.tell(`Menu manage update Requested`)
+		//console.log(req.body)
+/* 		{
+			cat: 'ADE',
+			name: 'dd',
+			topping: 'shotCinnamon',
+			price: '3,500',
+			ice: 'ice',
+			image: ''
+		} */
+		//console.log(req.body['ice'] == undefined) = true
+		const menumanage = req.body
+		if (menumanage['addcat'] != '' & menumanage['addcat'] != undefined){
+			DB_adapter.addCategoryCore(menumanage["addcat"])
+		}
+		if (menumanage['deletecm'] != undefined){
+			//console.log('defined')
+			if (menumanage['deletecm'].slice(-3,) === 'cat'){
+				DB_adapter.deleteCategoryCore(menumanage["deletecm"].slice(0,-3))
+			}
+			else if(menumanage['deletecm'].slice(-4,) === 'menu'){
+				//console.log('it is menu')
+				//console.log(`delete from menu where(name = '${menumanage['deletecm'].slice(0,-4)}')`)
+				DB_adapter.deleteMenuCore(menumanage['deletecm'].slice(0,-4))
+			}
+			return
+		}
+		let findmenu =[]
+		await DB_adapter.findMenu(menumanage["name"]).then((ret) => { findmenu = ret })
+/* 		console.log(findmenu)
+		console.log(findmenu == null)
+		console.log(findmenu != []) */
+		DB_adapter.setMenucore(findmenu, menumanage)
+
+/*		console.log(findmenu)
+		console.log(findmenu[0]['cat'])
+ 		   Menu {
+			cat: 'ADE',
+			name: '유니콘매직에이드(핑크)',
+			price: 3500,
+			quantity: 0,
+			image: '/static/picture/ADE/유니콘매직에이드(핑크).jpg',
+			shot: false,
+			cream: false,
+			cinnamon: false,
+			ice: true,
+			soldout: false
+		  } */
+	})
+
 	//JH	test페이지 내의 기능 테스트
 	app.get(routes.test, (req, res) => {
 		res.render("test", { routes })
@@ -97,6 +157,7 @@ const routes = {
 	, stamp: "/stamp"
 
 	, managerpage: "/managerpage"
+	, menumanage: "/menumanage"
 	, refund: "/refund"
 	, refund_request: "/refund_request"
 	, timesales: "/timesales"
