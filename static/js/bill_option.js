@@ -2,7 +2,7 @@ var new_order_number = 0
 
 $(document).ready(function () {
 	$("#exit").click(function () {
-		window.location.href = "/"
+		window.location.href = "/managerpage"
 	})
 	$(".number-option").click(function () {
 		for (let i = 0; i < $(".number-option").length; i++) {

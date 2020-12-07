@@ -24,7 +24,7 @@ class DB_adapter {
 		})
 	}
 
-	getCategoryCore(){
+	getCategoryCore() {
 		return new Promise((resolve, reject) => {
 			DB.query(`select * from category `, (err, result) => {
 				return (err) ? reject(err) : resolve(result)
@@ -46,31 +46,31 @@ class DB_adapter {
 		return ret
 	}
 
-	addCategoryCore(cat){
-		return new Promise(async (resolve,reject) =>{
+	addCategoryCore(cat) {
+		return new Promise(async (resolve, reject) => {
 			DB.query(`insert into category values('${cat}')`, (err, result) => {
 				return (err) ? reject(err) : resolve(result)
 			})
 		})
 	}
 
-	deleteCategoryCore(cat){
-		return new Promise(async (resolve,reject) =>{
+	deleteCategoryCore(cat) {
+		return new Promise(async (resolve, reject) => {
 			DB.query(`delete from category where(Cat = '${cat}')`, (err, result) => {
 				return (err) ? reject(err) : resolve(result)
 			})
 		})
 	}
 
-	deleteMenuCore(name){
-		return new Promise(async (resolve,reject) =>{
+	deleteMenuCore(name) {
+		return new Promise(async (resolve, reject) => {
 			DB.query(`delete from menu where(name = '${name}')`, (err, result) => {
 				return (err) ? reject(err) : resolve(result)
 			})
 		})
 	}
-	
-	findMenuCore(name){
+
+	findMenuCore(name) {
 		return new Promise((resolve, reject) => {
 			DB.query(`select * from menu where name='${name}'`, (err, result) => {
 				return (err) ? reject(err) : resolve(result)
@@ -101,32 +101,32 @@ class DB_adapter {
 		return ret
 	}
 
-	setMenucore(findmenu,menumanage){
+	setMenucore(findmenu, menumanage) {
 		return new Promise((resolve, reject) => {
 			let query_string = ""
 			var cat = menumanage['cat']
 			var name = menumanage['name']
-			if (menumanage['topping'] === 'onlyshot'){
+			if (menumanage['topping'] === 'onlyshot') {
 				var S = 1
 				var W = null
 				var SW = null
 				var SS = null
-			} else if (menumanage['topping'] === 'onlyCream'){
+			} else if (menumanage['topping'] === 'onlyCream') {
 				var S = null
 				var W = 1
 				var SW = null
 				var SS = null
-			} else if (menumanage['topping'] === 'shotCream'){
+			} else if (menumanage['topping'] === 'shotCream') {
 				var S = null
 				var W = null
 				var SW = 1
 				var SS = null
-			} else if (menumanage['topping'] === 'shotCinnamon'){
+			} else if (menumanage['topping'] === 'shotCinnamon') {
 				var S = null
 				var W = null
 				var SW = null
 				var SS = 1
-			} else{
+			} else {
 				var S = null
 				var W = null
 				var SW = null
@@ -134,29 +134,29 @@ class DB_adapter {
 			}
 
 			var price = menumanage['price']
-			if (price[1] == ','){
-				price = price.replace(',','')
+			if (price[1] == ',') {
+				price = price.replace(',', '')
 			}
 			price = Number(price)
 
-			if (menumanage['ice'] === undefined){
+			if (menumanage['ice'] === undefined) {
 				var ice = null
-			} else{
+			} else {
 				var ice = 1
 			}
-			if (menumanage['soldout'] === undefined){
+			if (menumanage['soldout'] === undefined) {
 				var soldout = null
-			} else{
+			} else {
 				var soldout = 1
 			}
 			// image는 아직
-			if(findmenu.length === 1){
+			if (findmenu.length === 1) {
 				query_string = `update menu set cat = '${cat}', name = '${name}', price = ${price}, ice = ${ice}, S = ${S}, W = ${W}, SW = ${SW}, SS = ${SS}, soldout = ${soldout} where name = '${findmenu[0]['name']}'`
 			}
-			else if(findmenu.length === 0){
+			else if (findmenu.length === 0) {
 				query_string = `insert into menu values('${cat}', '${name}', ${price}, ${ice}, ${S}, ${W}, ${SW}, ${SS}, null, ${soldout})`
 			}
-			else{
+			else {
 				alert('해당 메뉴 입력에 실패하였습니다.')
 			}
 			DB.query(query_string), (err, result) => {
@@ -223,18 +223,23 @@ class DB_adapter {
 			})
 		}
 	}
-	async getOrderList(target_day) {
+	async getOrderList(target) {
 		let ret = []
 		let orderListRaw = []
 
-		let key="", val=""
-		if (target_day) {
-			key="time", val=target_day
+		let key = "", val = ""
+
+		if (target.length == 18) {//18자리 이다 -> id
+			key = "id", val = target
 		}
-		await this.getOrderListCore(key,val).then((result) => { orderListRaw = result })
+		else {
+			key = "time", val = target
+		}
+
+		await this.getOrderListCore(key, val).then((result) => { orderListRaw = result })
 		for (const i of orderListRaw) {
-			ret.push(new OrderList(0, 0, 0, i.Price, i.Quantity,(i.Takeout)?true:false, i.Stamp))
-			ret[ret.length-1].setIdArb(i.ID)
+			ret.push(new OrderList(0, 0, 0, i.Price, i.Quantity, (i.Takeout) ? true : false, i.Stamp, i.Refund))
+			ret[ret.length - 1].setIdArb(i.ID)
 		}
 
 		return ret
@@ -250,13 +255,27 @@ class DB_adapter {
 			})
 		})
 	}
-
 	async setOrderList(order) {
 		let inputResult = false
 		await this.setOrderListCore(order).then(() => { })
 		await this.getOrderListCore("id", order.id).then((result) => { inputResult = (result) ? true : false })
 
 		return inputResult
+	}
+
+	refundCore(id) {
+		return new Promise((resolve, reject) => {
+			DB.query(`update orderlist set Refund = 1 where id like '${id}'`, (err, result) => {
+				return (err) ? reject(err) : resolve(result)
+			})
+		})
+	}
+	async refund(id) {
+		let ret = false
+		await this.refundCore(id).then((result) => { })
+		await this.getOrderListCore("id", id).then((result) => { ret = (result) ? true : false })
+
+		return ret
 	}
 
 	getSalesCore(period) {
@@ -315,7 +334,7 @@ class DB_adapter {
 	async setStamp(tel, stampNum) {
 		let stampResult = {}
 		await this.setStampCore(tel, stampNum).then((result) => { })
-		await this.getStampCore(tel).then((result) => { stampResult=result })
+		await this.getStampCore(tel).then((result) => { stampResult = result })
 
 		Log.tell(`query result: ${JSON.stringify(stampResult)}`, false)
 	}

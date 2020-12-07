@@ -108,12 +108,28 @@ module.exports = (app, partials) => {
 
 	app.get(routes.refund, async (req, res) => {
 		let refund = []
+		let target_day = ""
+		let target_id=""
+		if (req.query.id) {
+			await DB_adapter.getOrderList(req.query.id).then((ret) => { refund = ret })
+			target_day = refund[0].orderTime.getTimeDBString().slice(0, 10)
+			target_id=req.query.id
+		}
+		else {
+			target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
+			await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
+			refund.reverse()
+		}
 
-		const target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
-		await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
-		refund.reverse()
+		res.render("refund", { routes, refund, target_day,target_id })
+	})
 
-		res.render("refund", { routes, refund, target_day })
+	app.post(routes.refund, async (req, res) => {
+		const idToRefund = req.body["id"]
+		Log.tell(`ID ${idToRefund} Refund Requested`)
+
+		let refundResult = false
+		await DB_adapter.refund(idToRefund).then((ret) => { refundResult = ret })
 	})
 
 	app.get(routes.timesales, (req, res) => {
@@ -129,6 +145,7 @@ module.exports = (app, partials) => {
 			res.render("newpassword_input", { routes })
 		}
 	})
+
 	app.get(routes.change_ordernum, (req, res) => {
 		if (req.headers["referer"] === undefined) {
 			res.status(400)
@@ -222,12 +239,12 @@ const routes = {
 
 	, entermanagerpage: "/entermanagerpage"
 	, managerpage: "/managerpage"
-	, menumanage: "/menumanage"
 	, refund: "/refund"
 	, refund_request: "/refund_request"
 	, timesales: "/timesales"
-	, change_ordernum: "/change_ordernum"
 	, change_pw: "/change_pw"
+	, change_ordernum: "/change_ordernum"
+	, menumanage: "/menumanage"
 
 	, test: "/test"
 	, error: "/error"

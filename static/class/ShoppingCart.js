@@ -51,7 +51,7 @@ class ShoppingCart {
 }
 
 class OrderList {
-	constructor(storeNum, orderNum, menus, price, quantity, takeout = true, stamp = 0) {
+	constructor(storeNum, orderNum, menus, price, quantity, takeout = true, stamp = 0, refund = false) {
 		this.storeNum = storeNum
 		this.orderNum = orderNum
 		this.menus = menus
@@ -59,6 +59,7 @@ class OrderList {
 		this.quantity = quantity
 		this.takeout = takeout
 		this.stamp = stamp
+		this.refund = refund
 
 		this.orderTime = new Time()
 		this.id = this.orderTime.getTimeString() + String(this.storeNum)//시간 14자리 + 매장번호 4자리
@@ -88,6 +89,7 @@ class OrderList {
 			, "quantity": this.quantity
 			, "takeout": this.takeout
 			, "stamp": this.stamp
+			, "refund": this.refund
 		}
 	}
 }
