@@ -6,231 +6,225 @@ const ServerLog = require("./static/class/ServerLog")
 const Log = new ServerLog()
 
 module.exports = (app, partials) => {
-	app.get(routes.cover, (req, res) => {
-		console.log(req.headers["referer"])
+    app.get(routes.cover, (req, res) => {
+        console.log(req.headers["referer"])
 
-		res.render("cover", { routes })
-	})
+        res.render("cover", { routes })
+    })
 
-	app.get(routes.menu, async (req, res) => {
-		Log.tell("Menu Page Requested")
-		if (req.headers["referer"] === undefined) {
-			res.status(400)
-			res.render("error", { routes })
-		}
-		else {
-			let menu = []
-			await DB_adapter.getMenu().then((ret) => { menu = ret })//°¡°øµÈ °ªÀÌ ¸ğµÎ ³Ñ¾î¿Ã ¶§±îÁö ±â´Ù·È´Ù Ã³¸®
+    app.get(routes.menu, async(req, res) => {
+        Log.tell("Menu Page Requested")
+        if (req.headers["referer"] === undefined) {
+            res.status(400)
+            res.render("error", { routes })
+        } else {
+            let menu = []
+            await DB_adapter.getMenu().then((ret) => { menu = ret }) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù·È´ï¿½ Ã³ï¿½ï¿½
 
-			res.render("menulist", { routes, menu })
-		}
-	})
+            res.render("menulist", { routes, menu })
+        }
+    })
 
-	app.post(routes.check, (req, res) => {
-		Log.tell("Payment Requested")
-		if (req.headers["referer"] === undefined) {
-			res.status(400)
-			res.render("error", { routes })
-		}
-		else {
-			const order = JSON.parse(req.body["orderList"])
+    app.post(routes.check, (req, res) => {
+        Log.tell("Payment Requested")
+        if (req.headers["referer"] === undefined) {
+            res.status(400)
+            res.render("error", { routes })
+        } else {
+            const order = JSON.parse(req.body["orderList"])
 
-			const timestr = new Time(order.id).getTimeDBString()
-			res.render("check", { routes, order, timestr })
-		}
-	})
+            const timestr = new Time(order.id).getTimeDBString()
+            res.render("check", { routes, order, timestr })
+        }
+    })
 
-	app.post(routes.change_to_checkpoint, (req, res) => {
-		Log.tell("Stamp Requested")
-		if (req.headers["referer"] === undefined) {
-			res.status(400)
-			res.render("error", { routes })
-		}
-		else {
-			const order = JSON.parse(req.body["orderList"])
+    app.post(routes.change_to_checkpoint, (req, res) => {
+        Log.tell("Stamp Requested")
+        if (req.headers["referer"] === undefined) {
+            res.status(400)
+            res.render("error", { routes })
+        } else {
+            const order = JSON.parse(req.body["orderList"])
 
-			res.render("numberpad", { routes, order })
-		}
-	})
+            res.render("numberpad", { routes, order })
+        }
+    })
 
-	app.post(routes.stamp, async (req, res) => {
-		Log.tell(`Stamp Accumulation Requested`)
+    app.post(routes.stamp, async(req, res) => {
+        Log.tell(`Stamp Accumulation Requested`)
 
-		const menumanage = req.body
+        const menumanage = req.body
 
-		Log.tell(`Phone numer: ${menumanage["ph"]}\tstamp: ${menumanage["stamp"]}`, false)
+        Log.tell(`Phone numer: ${menumanage["ph"]}\tstamp: ${menumanage["stamp"]}`, false)
 
-		await DB_adapter.setStamp(menumanage["ph"], menumanage["stamp"]).then((ret) => {
-			Log.tell(ret)
-		})
-	})
+        await DB_adapter.setStamp(menumanage["ph"], menumanage["stamp"]).then((ret) => {
+            Log.tell(ret)
+        })
+    })
 
-	app.post(routes.change_to_complete, async (req, res) => {
-		Log.tell("Payment Complete Requested")
-		if (req.headers["referer"] === undefined) {
-			res.status(400)
-			res.render("error", { routes })
-		}
-		else {
-			if (req.headers["referer"] === undefined) {
-				res.status(400)
-				res.render("error", { routes })
-			}
-			else {
-				const order = JSON.parse(req.body["orderList"])
-				Log.tell(order)
-				await DB_adapter.setOrderList(order).then((ret) => {
-					Log.tell(`Saving Order Information: ${ret}`, false, 1)
-				})
+    app.post(routes.change_to_complete, async(req, res) => {
+        Log.tell("Payment Complete Requested")
+        if (req.headers["referer"] === undefined) {
+            res.status(400)
+            res.render("error", { routes })
+        } else {
+            if (req.headers["referer"] === undefined) {
+                res.status(400)
+                res.render("error", { routes })
+            } else {
+                const order = JSON.parse(req.body["orderList"])
+                Log.tell(order)
+                await DB_adapter.setOrderList(order).then((ret) => {
+                    Log.tell(`Saving Order Information: ${ret}`, false, 1)
+                })
 
-				const timestr = new Time(order.id).getTimeDBString()
-				res.render("complete", { routes, order, timestr })
-			}
-		}
-	})
+                const timestr = new Time(order.id).getTimeDBString()
+                res.render("complete", { routes, order, timestr })
+            }
+        }
+    })
 
-	app.get(routes.entermanagerpage, (req, res) => {
-		Log.tell("Entering Manager Page Requested - Identifying...")
+    app.get(routes.entermanagerpage, (req, res) => {
+        Log.tell("Entering Manager Page Requested - Identifying...")
 
-		res.render("password_check", { routes })
-	})
+        res.render("password_check", { routes })
+    })
 
-	app.get(routes.managerpage, (req, res) => {
-		if (req.headers["referer"] === undefined) {
-			Log.tell("Manager Identified")
-			res.status(400)
-			res.render("error", { routes })
-		}
-		else {
-			res.render("managerpage", { routes })
-		}
-	})
+    app.get(routes.managerpage, (req, res) => {
+        if (req.headers["referer"] === undefined) {
+            Log.tell("Manager Identified")
+            res.status(400)
+            res.render("error", { routes })
+        } else {
+            res.render("managerpage", { routes })
+        }
+    })
 
-	app.get(routes.refund, async (req, res) => {
-		let refund = []
+    app.get(routes.refund, async(req, res) => {
+        let refund = []
 
-		const target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
-		await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
-		refund.reverse()
+        const target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
+        await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
+        refund.reverse()
 
-		res.render("refund", { routes, refund, target_day })
-	})
+        res.render("refund", { routes, refund, target_day })
+    })
 
-	app.get(routes.timesales, (req, res) => {
-		res.sendFile("sales/timesales.php")
-	})
+    app.get(routes.timesales, (req, res) => {
+        res.sendFile("sales/timesales.php")
+    })
 
-	app.get(routes.change_pw, (req, res) => {
-		if (req.headers["referer"] === undefined) {
-			res.status(400)
-			res.render("error", { routes })
-		}
-		else {
-			res.render("newpassword_input", { routes })
-		}
-	})
-	app.get(routes.change_ordernum, (req, res) => {
-		if (req.headers["referer"] === undefined) {
-			res.status(400)
-			res.render("error", { routes })
-		}
-		else {
-			res.render("bill_option", { routes })
-		}
-	})
+    app.get(routes.change_pw, (req, res) => {
+        if (req.headers["referer"] === undefined) {
+            res.status(400)
+            res.render("error", { routes })
+        } else {
+            res.render("newpassword_input", { routes })
+        }
+    })
+    app.get(routes.change_ordernum, (req, res) => {
+        if (req.headers["referer"] === undefined) {
+            res.status(400)
+            res.render("error", { routes })
+        } else {
+            res.render("bill_option", { routes })
+        }
+    })
 
-	app.get(routes.menumanage, async (req, res) => {
-		Log.tell("Menumanage Page Requested")
-		let menu = []
-		await DB_adapter.getMenu().then((ret) => { menu = ret })
-		let category = []
-		await DB_adapter.getCategory().then((ret) => { category = ret })//°¡°øµÈ °ªÀÌ ¸ğµÎ ³Ñ¾î¿Ã ¶§±îÁö ±â´Ù·È´Ù Ã³¸®
-		res.render("menumanage", { routes, menu, category })
-	})
+    app.get(routes.menumanage, async(req, res) => {
+        Log.tell("Menumanage Page Requested")
+        let menu = []
+        await DB_adapter.getMenu().then((ret) => { menu = ret })
+        let category = []
+        await DB_adapter.getCategory().then((ret) => { category = ret }) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù·È´ï¿½ Ã³ï¿½ï¿½
+        res.render("menumanage", { routes, menu, category })
+    })
 
-	app.post(routes.menumanage, async (req, res) => {
-		Log.tell(`Menu manage update Requested`)
-		//console.log(req.body)
-/* 		{
-			cat: 'ADE',
-			name: 'dd',
-			topping: 'shotCinnamon',
-			price: '3,500',
-			ice: 'ice',
-			image: ''
-		} */
-		//console.log(req.body['ice'] == undefined) = true
-		const menumanage = req.body
-		if (menumanage['addcat'] != '' & menumanage['addcat'] != undefined){
-			DB_adapter.addCategoryCore(menumanage["addcat"])
-		}
-		if (menumanage['deletecm'] != undefined){
-			//console.log('defined')
-			if (menumanage['deletecm'].slice(-3,) === 'cat'){
-				DB_adapter.deleteCategoryCore(menumanage["deletecm"].slice(0,-3))
-			}
-			else if(menumanage['deletecm'].slice(-4,) === 'menu'){
-				//console.log('it is menu')
-				//console.log(`delete from menu where(name = '${menumanage['deletecm'].slice(0,-4)}')`)
-				DB_adapter.deleteMenuCore(menumanage['deletecm'].slice(0,-4))
-			}
-			return
-		}
-		let findmenu =[]
-		await DB_adapter.findMenu(menumanage["name"]).then((ret) => { findmenu = ret })
-/* 		console.log(findmenu)
-		console.log(findmenu == null)
-		console.log(findmenu != []) */
-		DB_adapter.setMenucore(findmenu, menumanage)
+    app.post(routes.menumanage, async(req, res) => {
+        Log.tell(`Menu manage update Requested`)
+            //console.log(req.body)
+            /* 		{
+            			cat: 'ADE',
+            			name: 'dd',
+            			topping: 'shotCinnamon',
+            			price: '3,500',
+            			ice: 'ice',
+            			image: ''
+            		} */
+            //console.log(req.body['ice'] == undefined) = true
+        const menumanage = req.body
+        if (menumanage['addcat'] != '' & menumanage['addcat'] != undefined) {
+            DB_adapter.addCategoryCore(menumanage["addcat"])
+        }
+        if (menumanage['deletecm'] != undefined) {
+            //console.log('defined')
+            if (menumanage['deletecm'].slice(-3, ) === 'cat') {
+                DB_adapter.deleteCategoryCore(menumanage["deletecm"].slice(0, -3))
+            } else if (menumanage['deletecm'].slice(-4, ) === 'menu') {
+                //console.log('it is menu')
+                //console.log(`delete from menu where(name = '${menumanage['deletecm'].slice(0,-4)}')`)
+                DB_adapter.deleteMenuCore(menumanage['deletecm'].slice(0, -4))
+            }
+            return
+        }
+        let findmenu = []
+        await DB_adapter.findMenu(menumanage["name"]).then((ret) => { findmenu = ret })
+            /* 		console.log(findmenu)
+            		console.log(findmenu == null)
+            		console.log(findmenu != []) */
+        DB_adapter.setMenucore(findmenu, menumanage)
 
-/*		console.log(findmenu)
-		console.log(findmenu[0]['cat'])
- 		   Menu {
-			cat: 'ADE',
-			name: 'À¯´ÏÄÜ¸ÅÁ÷¿¡ÀÌµå(ÇÎÅ©)',
-			price: 3500,
-			quantity: 0,
-			image: '/static/picture/ADE/À¯´ÏÄÜ¸ÅÁ÷¿¡ÀÌµå(ÇÎÅ©).jpg',
-			shot: false,
-			cream: false,
-			cinnamon: false,
-			ice: true,
-			soldout: false
-		  } */
-	})
+        /*		console.log(findmenu)
+        		console.log(findmenu[0]['cat'])
+         		   Menu {
+        			cat: 'ADE',
+        			name: 'ï¿½ï¿½ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½(ï¿½ï¿½Å©)',
+        			price: 3500,
+        			quantity: 0,
+        			image: '/static/picture/ADE/ï¿½ï¿½ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½(ï¿½ï¿½Å©).jpg',
+        			shot: false,
+        			cream: false,
+        			cinnamon: false,
+        			ice: true,
+        			soldout: false
+        		  } */
+    })
 
-	//JH	testÆäÀÌÁö ³»ÀÇ ±â´É Å×½ºÆ®
-	app.get(routes.test, (req, res) => {
-		res.render("test", { routes })
-	})
-	app.post(routes.test, async (req, res) => {
-		let result = []
-		await DB_adapter.getSales(req.body["period"]).then((ret) => { result = ret })
-		Log.tell(result, false, 3)
-		res.send(result)
-	})
+    //JH	testï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®
+    app.get(routes.test, (req, res) => {
+        res.render("test", { routes })
+    })
+    app.post(routes.test, async(req, res) => {
+        let result = []
+        await DB_adapter.getSales(req.body["period"]).then((ret) => { result = ret })
+        Log.tell(result, false, 3)
+        res.send(result)
+    })
 }
 
 const routes = {
-	cover: "/"
-	, menu: "/menu"
+    cover: "/",
+    menu: "/menu"
 
-	, check: "/check"
-	, change_to_complete: "/change_to_complete"
-	, change_to_checkpoint: "/change_to_checkpoint"
-	, stamp: "/stamp"
+    ,
+    check: "/check",
+    change_to_complete: "/change_to_complete",
+    change_to_checkpoint: "/change_to_checkpoint",
+    stamp: "/stamp"
 
-	, entermanagerpage: "/entermanagerpage"
-	, managerpage: "/managerpage"
-	, menumanage: "/menumanage"
-	, refund: "/refund"
-	, refund_request: "/refund_request"
-	, timesales: "/timesales"
-	, change_ordernum: "/change_ordernum"
-	, change_pw: "/change_pw"
+    ,
+    entermanagerpage: "/entermanagerpage",
+    managerpage: "/managerpage",
+    menumanage: "/menumanage",
+    refund: "/refund",
+    refund_request: "/refund_request",
+    timesales: "/timesales",
+    change_ordernum: "/change_ordernum",
+    change_pw: "/change_pw"
 
-	, test: "/test"
-	, error: "/error"
+    ,
+    test: "/test",
+    error: "/error"
 }
 
 export default routes
