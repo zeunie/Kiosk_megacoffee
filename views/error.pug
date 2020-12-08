@@ -1,0 +1,31 @@
+doctype html
+html
+	head
+		title 에러
+		link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
+		link(rel="stylesheet" type="text/css" href="/static/css/cover.css")
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+		style.
+			.bg_image {
+				filter: brightness(60%);
+			}
+			.errmsg {
+				text-align: center;
+				position: relative;
+				bottom: 56vh;
+			}
+			.errmsg .box{
+				background-color:lightgray;
+				padding:10px 0;
+			}
+	body
+		div.bg
+			div
+				img.bg_image(src="static/picture/bg.jpg" alt="picture")
+			div.errmsg
+				div.box
+					h2 잘못된 접근입니다
+					h4
+						a(href="/") 첫 페이지로 돌아가기
+		
+				
