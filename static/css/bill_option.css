@@ -1,25 +1,27 @@
 
 html,
 body {
-    height: 700px;
-    width: 525px;
-    margin: 0 auto;
- 
-}
-
-
-.bill-option-contain {
-
-    margin: 10%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-}
-
-.bill-option-contain-title {
-    height: 32px;
     width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 525px;
+    height: 700px;
+    background: white;
+    border: 3px solid grey
+}
+
+
+
+.top1 {
+    width: 100%;
+    height: 55px;
     background-color: #2f3542;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 55px;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -27,32 +29,46 @@ body {
 
 .bill-option {
     margin-left: 4.8px;
-    padding: 4.8px;
+
 }
 
-.bill-option-btn {
+.Xbtn {
     outline: none;
     border-style: none;
     background: none;
     color: white;
-    font-size: 22.4px;
+    font-size: 20px;
     padding-right: 8px;
 }
 
+
+.top2 {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid black;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 40px;
+    background-color: rgb(229, 226, 226);
+}
+
 .number-option-contain {
-    padding: 8px;
+    padding: 30px;
+    margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
 
 .number-option {
-    margin: 3.2px;
-    padding: 22.4px;
-    border-style: none;
+    margin: 5px;
+    padding: 20px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
     background-color: #57606f;
     color: white;
     outline: none;
+    font-size: 17px;
     justify-content: center;
 }
 .save-btn-contain {
@@ -61,11 +77,13 @@ body {
 }
 
 .save-btn {
-    margin: 3.2px;
-    margin-right: 11.2px;
-    padding: 16px 96px;
-    border-style: none;
+    margin: 20px;
+    margin-right: 25px;
+    padding: 20px 90px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
     outline: none;
+    font-size: 17px;
     background-color: #ff4757;
     color: white;
 
