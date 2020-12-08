@@ -31,7 +31,6 @@ class DB_adapter {
 			})
 		})
 	}
-
 	async getCategory() {
 		let ret = []
 		let catListRaw = []
@@ -53,7 +52,6 @@ class DB_adapter {
 			})
 		})
 	}
-
 	deleteCategoryCore(cat) {
 		return new Promise(async (resolve, reject) => {
 			DB.query(`delete from category where(Cat = '${cat}')`, (err, result) => {
@@ -61,7 +59,6 @@ class DB_adapter {
 			})
 		})
 	}
-
 	deleteMenuCore(name) {
 		return new Promise(async (resolve, reject) => {
 			DB.query(`delete from menu where(name = '${name}')`, (err, result) => {
@@ -69,7 +66,6 @@ class DB_adapter {
 			})
 		})
 	}
-
 	findMenuCore(name) {
 		return new Promise((resolve, reject) => {
 			DB.query(`select * from menu where name='${name}'`, (err, result) => {
@@ -77,7 +73,6 @@ class DB_adapter {
 			})
 		})
 	}
-
 	async findMenu(name) {
 		//DB에서 데이터를 result에 받은 다음 그 데이터로 메뉴 객체를 만든 다음 그것을 반환한다. 
 		let ret = []
@@ -164,7 +159,6 @@ class DB_adapter {
 			}
 		})
 	}
-
 	getMenuCore() {
 		return new Promise((resolve, reject) => {
 			DB.query(`select * from menu order by cat asc`, (err, result) => {

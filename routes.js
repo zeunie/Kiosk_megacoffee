@@ -7,11 +7,8 @@ const Log = new ServerLog()
 
 module.exports = (app, partials) => {
 	app.get(routes.cover, (req, res) => {
-		console.log(req.headers["referer"])
-
 		res.render("cover", { routes })
 	})
-
 	app.get(routes.menu, async (req, res) => {
 		Log.tell("Menu Page Requested")
 		if (req.headers["referer"] === undefined) {
@@ -25,7 +22,6 @@ module.exports = (app, partials) => {
 			res.render("menulist", { routes, menu })
 		}
 	})
-
 	app.post(routes.check, (req, res) => {
 		Log.tell("Payment Requested")
 		if (req.headers["referer"] === undefined) {
@@ -39,7 +35,6 @@ module.exports = (app, partials) => {
 			res.render("check", { routes, order, timestr })
 		}
 	})
-
 	app.post(routes.change_to_checkpoint, (req, res) => {
 		Log.tell("Stamp Requested")
 		if (req.headers["referer"] === undefined) {
@@ -52,7 +47,6 @@ module.exports = (app, partials) => {
 			res.render("numberpad", { routes, order })
 		}
 	})
-
 	app.post(routes.stamp, async (req, res) => {
 		Log.tell(`Stamp Accumulation Requested`)
 
@@ -64,7 +58,6 @@ module.exports = (app, partials) => {
 			Log.tell(ret)
 		})
 	})
-
 	app.post(routes.change_to_complete, async (req, res) => {
 		Log.tell("Payment Complete Requested")
 		if (req.headers["referer"] === undefined) {
@@ -94,7 +87,6 @@ module.exports = (app, partials) => {
 
 		res.render("password_check", { routes })
 	})
-
 	app.get(routes.managerpage, (req, res) => {
 		if (req.headers["referer"] === undefined) {
 			Log.tell("Manager Identified")
@@ -123,7 +115,6 @@ module.exports = (app, partials) => {
 
 		res.render("refund", { routes, refund, target_day,target_id })
 	})
-
 	app.post(routes.refund, async (req, res) => {
 		const idToRefund = req.body["id"]
 		Log.tell(`ID ${idToRefund} Refund Requested`)
@@ -131,11 +122,14 @@ module.exports = (app, partials) => {
 		let refundResult = false
 		await DB_adapter.refund(idToRefund).then((ret) => { refundResult = ret })
 	})
+	app.get(routes.monthlysales, async (req, res) => {
+		Log.tell("Monthlysales Requested")
 
-	app.get(routes.timesales, (req, res) => {
-		res.sendFile("sales/timesales.php")
+		let resultTable = ""
+		await DB_adapter.getSales("monthly").then((ret) => { resultTable = JSON.stringify( ret )})
+
+		res.render("monthlysales", { routes, resultTable})
 	})
-
 	app.get(routes.change_pw, (req, res) => {
 		if (req.headers["referer"] === undefined) {
 			res.status(400)
@@ -145,7 +139,6 @@ module.exports = (app, partials) => {
 			res.render("newpassword_input", { routes })
 		}
 	})
-
 	app.get(routes.change_ordernum, (req, res) => {
 		if (req.headers["referer"] === undefined) {
 			res.status(400)
@@ -155,7 +148,6 @@ module.exports = (app, partials) => {
 			res.render("bill_option", { routes })
 		}
 	})
-
 	app.get(routes.menumanage, async (req, res) => {
 		Log.tell("Menumanage Page Requested")
 		let menu = []
@@ -164,7 +156,6 @@ module.exports = (app, partials) => {
 		await DB_adapter.getCategory().then((ret) => { category = ret })//가공된 값이 모두 넘어올 때까지 기다렸다 처리
 		res.render("menumanage", { routes, menu, category })
 	})
-
 	app.post(routes.menumanage, async (req, res) => {
 		Log.tell(`Menu manage update Requested`)
 		//console.log(req.body)
@@ -231,17 +222,17 @@ module.exports = (app, partials) => {
 const routes = {
 	cover: "/"
 	, menu: "/menu"
-
 	, check: "/check"
-	, change_to_complete: "/change_to_complete"
 	, change_to_checkpoint: "/change_to_checkpoint"
 	, stamp: "/stamp"
+	, change_to_complete: "/change_to_complete"
 
 	, entermanagerpage: "/entermanagerpage"
 	, managerpage: "/managerpage"
+
 	, refund: "/refund"
 	, refund_request: "/refund_request"
-	, timesales: "/timesales"
+	, monthlysales: "/monthlysales"
 	, change_pw: "/change_pw"
 	, change_ordernum: "/change_ordernum"
 	, menumanage: "/menumanage"

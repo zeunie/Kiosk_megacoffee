@@ -1,10 +1,10 @@
 let refund_list = []
 
 $(document).ready(function () {
-	//ÆäÀÌÁö°¡ ·ÎµùµÇ¸é µ¥ÀÌÅÍ div¿¡ ÀÖ´Â Á¤º¸¸¦ º¯¼ö·Î ÀúÀåÇÑ´Ù.
+	//í˜ì´ì§€ê°€ ë¡œë”©ë˜ë©´ ë°ì´í„° divì— ìˆëŠ” ì •ë³´ë¥¼ ë³€ìˆ˜ë¡œ ì €ì¥í•œë‹¤.
 	refund_list = JSON.parse($("#refund").val())
 
-	//¿¢½º ¹öÆ°À» ´©¸£¸é µÚ·Î °£´Ù
+	//ì—‘ìŠ¤ ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ë’¤ë¡œ ê°„ë‹¤
 	$("#Xbtn").click(function () {
 		window.location.href = "/managerpage"
 	})
@@ -18,13 +18,13 @@ $(document).ready(function () {
 		window.location.href = `/refund?id=${targetID}`
 	})
 
-	//ÁÖ¹®³»¿ª Áß ÇÏ³ª¸¦ Å¬¸¯ÇÏ¸é ÇÏ´Ü¿¡ »ó¼¼ ÁÖ¹® ³»¿ªÀ» Ç¥½ÃÇÑ´Ù.
+	//ì£¼ë¬¸ë‚´ì—­ ì¤‘ í•˜ë‚˜ë¥¼ í´ë¦­í•˜ë©´ í•˜ë‹¨ì— ìƒì„¸ ì£¼ë¬¸ ë‚´ì—­ì„ í‘œì‹œí•œë‹¤.
 	$("#table_order_list > tbody > tr").on('click', function () {
 		$(".table > tbody > tr").css("background-color", "inherit")
 		$(this).css("background-color", "skyblue")
 		const idToFind = $(this).children()[1].innerText
 
-		//Å×ÀÌºí¿¡¼­ ¼±ÅÃÇÑ ÁÖ¹®³»¿ª
+		//í…Œì´ë¸”ì—ì„œ ì„ íƒí•œ ì£¼ë¬¸ë‚´ì—­
 		let selected = ""
 		for (let i of refund_list) {
 			if (idToFind == i.id) {
@@ -33,12 +33,12 @@ $(document).ready(function () {
 			}
 		}
 
-		//»ó¼¼ ÁÖ¹® ³»¿ª Å×ÀÌºíÀ» º¸ÀÌ°Ô ÇÑ ÈÄ ³»¿ëÀ» Ã¤¿ö³Ö´Â´Ù
+		//ìƒì„¸ ì£¼ë¬¸ ë‚´ì—­ í…Œì´ë¸”ì„ ë³´ì´ê²Œ í•œ í›„ ë‚´ìš©ì„ ì±„ì›Œë„£ëŠ”ë‹¤
 		$("#detailed_order").removeAttr("hidden")
 
 		$(".order_id").text(`${selected.id}`)
 		$(".order_orderTime").text(`${selected.orderTime}`)
-		$(".order_TO").text(`${(selected.takeout) ? "T.O." : "¸ÅÀå"}`)
+		$(".order_TO").text(`${(selected.takeout) ? "T.O." : "ë§¤ì¥"}`)
 		$(".order_price").text(`${selected.price}`)
 	})
 
