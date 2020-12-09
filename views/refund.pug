@@ -1,72 +1,82 @@
 doctype html
 html
-    head
-        title 메가커피 키오스크
-        meta(charset="UTF-8")
-        meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
-        link(rel="stylesheet" type="text/css" href="/static/css/refund.css")
-        
-        script(src='http://code.jquery.com/jquery-1.9.1.js')
-        script(src='http://code.jquery.com/ui/1.10.2/jquery-ui.js')
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
-        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
-        script(src='/static/js/refund.js')
-            
-    body
-        .wrapper
-            #head
-                | 결제 취소
-                button#Xbtn
-                    | X
-            nav.navbar.navbar-light.bg-light.justify-content-right
-                form.form-inline
-                    input.form-control.mr-sm-2#calendar(type="date" value=`${target_day}`)
-                    input.form-control.mr-sm-2#id_input(type="text" value=`${(target_id)?target_id:""}` placeholder="주문번호 18자리")
-                form.form-inline
-                    button.btns.btn-outline-success#search_by_date(type="button") 날짜별 조회
-                    button.btns.btn-outline-success#search_by_id(type="button") 주문번호 조회
-                    button.btns.btn-outline-success(type="button") 영수증 재출력
-                    button.btns.btn-outline-success#execute_refund(type="button") 반품 
-            main
-                article
-                    table#table_order_list.table.table-bordered.table-sm.table-fix-head
-                        thead.thead-light
-                            tr
-                                th No
-                                th 주문번호
-                                th 거래일시
-                                th 매장/T.O.
-                                th 금액
-                                th 결제 
-                                th 적립
-                        tbody
-                            - var i = 1
-                            each one in refund
-                                tr
-                                    td.item_num=`${(!one.refund)?i++:"반품"}`
-                                    td.item_id=` ${one.id} `
-                                    td.item_orderTime=`${one.orderTime.getTimeDBString()}`
-                                    td.item_TO=`${(one.takeout)?"T.O.":"매장"}`
-                                    td.item_price=` ${one.price} `
-                                    td.item_payment=` 카드 `
-                                    td.item_stamp=`${(one.stamp)?one.stamp:""}`
-                article
-                    table#detailed_order.table.table-bordered(hidden)
-                        tr
-                            th 주문번호
-                            td.order_id
-                        tr
-                            th 거래일시
-                            td.order_orderTime
-                        tr
-                            th 매장/T.O.
-                            td.order_TO
-                        tr
-                            th 금액
-                            td.order_price
-            .data
-                input(type="text" id="refund" value=`${JSON.stringify(refund)}` hidden)
-            
+	head
+		title 메가커피 키오스크
+		meta(charset="UTF-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+		link(rel="stylesheet" type="text/css" href="/static/css/refund.css")
+		
+		script(src='http://code.jquery.com/jquery-1.9.1.js')
+		script(src='http://code.jquery.com/ui/1.10.2/jquery-ui.js')
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
+		script(src='/static/class/ClassModules.js')
+		script(src='/static/js/refund.js')
 
-        
+	body
+		.wrapper
+			#head
+				| 결제 취소
+				button#Xbtn
+					| X
+			nav.navbar.navbar-light.bg-light.justify-content-right
+				form.form-inline
+					input.form-control.mr-sm-2#calendar(type="date" value=`${target_day}`)
+					input.form-control.mr-sm-2#id_input(type="text" value=`${(target_id)?target_id:""}` placeholder="주문번호 18자리")
+				form.form-inline
+					button.btns.btn-outline-success#search_by_date(type="button") 날짜별 조회
+					button.btns.btn-outline-success#search_by_id(type="button") 주문번호 조회
+					button.btns.btn-outline-success(type="button") 영수증 재출력
+					button.btns.btn-outline-success#execute_refund(type="button") 반품 
+			main
+				article
+					table#table_order_list.table.table-bordered.table-sm.table-fix-head
+						thead.thead-light
+							tr
+								th No
+								th 주문번호
+								th 거래일시
+								th 매장/T.O.
+								th 금액
+								th 결제 
+								th 적립
+						tbody
+							- var i = 1
+							each one in refund
+								tr
+									td.item_num=`${(!one.refund)?i++:"반품"}`
+									td.item_id=` ${one.id} `
+									td.item_orderTime=`${one.orderTime.getTimeDBString()}`
+									td.item_TO=`${(one.takeout)?"T.O.":"매장"}`
+									td.item_price=` ${one.price} `
+									td.item_payment=` 카드 `
+									td.item_stamp=`${(one.stamp)?one.stamp:""}`
+				article
+					table#detailed_order.table.table-bordered(hidden)
+						tr
+							th 주문번호
+							td.order_id
+						tr
+							th 거래일시
+							td.order_orderTime
+						tr
+							th 매장/T.O.
+							td.order_TO
+						tr
+							th 금액
+							td.order_price
+							
+					table#detailed_order_menus.table.table-bordered(hidden)
+						tr
+							th 제품명
+							th 가격
+							th 수량
+
+			.data
+				input(type="text" id="refund" value=`${JSON.stringify(refund)}` hidden)
+				input(type="text" id="orderMenus" value=`${JSON.stringify(orderMenus)}` hidden)
+				
+			
+
+		

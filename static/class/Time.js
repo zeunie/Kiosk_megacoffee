@@ -98,7 +98,7 @@ class Time extends Date {
 	}
 	showTimeString() {
 		//고객에게 보여줄 목적으로 출
-		let time = `` + this.year + `년 ` + this.month + `월` + this.date + `일 `
+		let time = `` + this.year + `년 ` + this.month + `월 ` + this.date + `일 `
 		if (this.hour >= 10)
 			time += `` + this.hour
 		else

@@ -99,21 +99,29 @@ module.exports = (app, partials) => {
 	})
 
 	app.get(routes.refund, async (req, res) => {
+		Log.tell(`Refund Requested\nQUERY: ${JSON.stringify(req.query)}`)
 		let refund = []
+		let orderMenus=[]
 		let target_day = ""
 		let target_id=""
 		if (req.query.id) {
 			await DB_adapter.getOrderList(req.query.id).then((ret) => { refund = ret })
 			target_day = refund[0].orderTime.getTimeDBString().slice(0, 10)
-			target_id=req.query.id
+			target_id = req.query.id
+
+			await DB_adapter.getOrderMenu(target_id).then((ret) => { orderMenus = ret })
 		}
 		else {
 			target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
 			await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
 			refund.reverse()
+
+			if (refund.length != 0) {
+				await DB_adapter.getOrderMenu(refund[0].id.slice(0, 8)).then((ret) => { orderMenus = ret })
+			}
 		}
 
-		res.render("refund", { routes, refund, target_day,target_id })
+		res.render("refund", { routes, refund, target_day,target_id , orderMenus})
 	})
 	app.post(routes.refund, async (req, res) => {
 		const idToRefund = req.body["id"]
