@@ -7,14 +7,14 @@ function drawChart() {
 
 	tempdata.addRows(jsonTable.length)
 	for (let i = 0; i < jsonTable.length; i++) {
-		const dt = new Date(jsonTable[i].time)
-
-		tempdata.setCell(i, 0, new Date(dt.getFullYear(),dt.getMonth() , dt.getDate() ))
+		const dt = new Date(jsonTable[i].time.slice(0,jsonTable[i].time.indexOf('(')))
+		tempdata.setCell(i, 0, new Date(dt.getFullYear(),dt.getMonth()))
 		tempdata.setCell(i, 1, parseInt(jsonTable[i].price))
 	}
-
+	
 
 	//월별로 데이터를 묶어서 계산
+	let today = new Date();
 	var data = google.visualization.data.group(tempdata, [0], [{ 'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number' }])
 	var options = {
 		title: '지난 6개월간 월별 매출 (단위: 만원)',
@@ -23,7 +23,10 @@ function drawChart() {
 		height: 400,
 		width: 450,
 		legend: { position: 'none' },
-		hAxis: { format: 'MM월' },
+		hAxis: { format: 'MM월' ,
+		minValue : new Date(today.getFullYear(), today.getMonth()-5),
+		viewWindow: { min: new Date(today.getFullYear(), today.getMonth()-5)}
+		},
 		vAxis: { format: '#만원' }
 
 	};
@@ -47,6 +50,7 @@ function drawChart() {
 			return { v: dt.getValue(row, 1) / 10000, f: dt.getFormattedValue(row, 1) };
 		}
 	}]);
+
 
 	var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
 	chart.draw(view, options);
