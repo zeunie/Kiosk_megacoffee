@@ -242,11 +242,18 @@ class DB_adapter {
 	setOrderListCore(order) {
 		return new Promise((resolve, reject) => {
 			const orderTime = new Time(order.id).getTimeDBString()
-			const query = `insert into orderlist(id,customer,time,name,price,quantity,takeout,stamp) values('${order.id}', 0, '${orderTime}', '', ${order.price}, ${order.quantity},${order.takeout},${order.stamp})`
-			console.log(query)
+			let query = `insert into orderlist(id,customer,time,name,price,quantity,takeout,stamp) values('${order.id}', 0, '${orderTime}', '', ${order.price}, ${order.quantity},${order.takeout},${order.stamp})`
+			DB.query(query, (err, result) => { })
+			query =`insert into menuorder(id, name, price, quantity, shot, whippedcream, cinnamon) values`
+			for (let i of order.menus) {
+				query += `('${order.id}', '${i.name}',${i.price},${i.quantity},${i.shot},${i.cream},${i.cinnamon})\n,`
+			}
+			query = query.slice(0, query.length - 1)
+			Log.tell(query,false)
 			DB.query(query, (err, result) => {
-				return (err) ? reject(err) : resolve(result)
+				return (err)?reject(err):resolve(result)
 			})
+
 		})
 	}
 	async setOrderList(order) {

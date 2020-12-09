@@ -877,12 +877,12 @@ function main() {
 
 			//옵션 설정
 			const itemOptionText = orderNameDiv.children[i].innerText
-			const itemShot = 0;//샷 기본
+			let itemShot = 0;//샷 기본
 			const shotIndex = itemOptionText.indexOf("샷추가");
 			if (-1 < shotIndex)// 샷이 +1~2
-				shot = parseInt(itemOptionText[shotIndex + 4]);
+				itemShot = parseInt(itemOptionText[shotIndex + 4]);
 			else if (-1 < itemOptionText.indexOf("연하게")) //샷 연하게
-				shot = -1;
+				itemShot = -1;
 
 			const itemCream = (itemOptionText.indexOf("휘핑O") != -1)
 			const itemCinnamon = (itemOptionText.indexOf("시나몬O") != -1)
