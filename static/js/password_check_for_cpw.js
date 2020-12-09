@@ -3,7 +3,7 @@ function check() {
     if (new Store_adapter().identifyPW(input_num) != true) {
         alert("비밀번호가 틀렸습니다")
     } else {
-        // newpassword_input페이지로 이동(JH)
+        window.location.href = "/change_pw"
     }
 }
 

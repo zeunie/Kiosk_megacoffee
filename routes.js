@@ -138,6 +138,15 @@ module.exports = (app, partials) => {
 
 		res.render("monthlysales", { routes, resultTable})
 	})
+	app.get(routes.password_check_for_cpw, (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			res.render("password_check_for_cpw", { routes })
+		}
+	})
 	app.get(routes.change_pw, (req, res) => {
 		if (req.headers["referer"] === undefined) {
 			res.status(400)
@@ -241,6 +250,7 @@ const routes = {
 	, refund: "/refund"
 	, refund_request: "/refund_request"
 	, monthlysales: "/monthlysales"
+	, password_check_for_cpw: "/password_check_for_cpw"
 	, change_pw: "/change_pw"
 	, change_ordernum: "/change_ordernum"
 	, menumanage: "/menumanage"

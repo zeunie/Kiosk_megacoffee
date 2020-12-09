@@ -8,7 +8,7 @@ $(document).ready(function () {
 	})
 
 	$("#newpassword_input").click(function () {
-		window.location.href ="/change_pw"
+		window.location.href ="/password_check_for_cpw"
 	})
 	$("#bill_option").click(function () {
 		window.location.href ="/change_ordernum"

@@ -874,6 +874,18 @@ function main() {
 			const itemPrice = parseInt(document.querySelectorAll("#orderPrice")[i].innerText.split(",").join(""));
 			let itemName = document.querySelectorAll("#orderName")[i].innerText
 			itemName = itemName.slice(0, itemName.indexOf("\n"))
+			if (itemName.indexOf("휘핑") != -1) {
+				itemName = itemName.slice(0, itemName.length-4)
+			}if (itemName.indexOf("시나몬") != -1) {
+				itemName = itemName.slice(0, itemName.length-4)
+			}
+			if (itemName.indexOf("+") != -1) {
+				itemName = itemName.slice(0, itemName.length - 4)
+			}
+			if (itemName[itemName.length-1] == ' ') {
+				itemName = itemName.slice(0, itemName.length - 1)
+			}
+			
 
 			//옵션 설정
 			const itemOptionText = orderNameDiv.children[i].innerText
