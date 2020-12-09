@@ -1,6 +1,6 @@
 /* JH 
- * ≈¨∂Û¿Ãæ∆Æ √¯ø°º≠ require∏¶ ªÁøÎ«ÿº≠ ≈¨∑°Ω∫∏¶ ∫“∑Øø√ ºˆ æ¯æÓº≠ ¿”Ω√∑Œ ≈¨∑°Ω∫µÈ¿ª ∫πªÁ«ÿº≠ ∫Ÿø©≥÷æ˙Ω¿¥œ¥Ÿ
- * ¿œ¥‹ ¿Ã js∆ƒ¿œ¿ª html(pug)ø° ∆˜«‘Ω√ƒ—º≠ ≈¨∑°Ω∫∏¶ ªÁøÎ«œ∞Ì ≥™¡ﬂø° ∏µ‚»≠«“∞‘ø‰
+ * ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏ Ï∏°ÏóêÏÑú requireÎ•º ÏÇ¨Ïö©Ìï¥ÏÑú ÌÅ¥ÎûòÏä§Î•º Î∂àÎü¨Ïò¨ Ïàò ÏóÜÏñ¥ÏÑú ÏûÑÏãúÎ°ú ÌÅ¥ÎûòÏä§Îì§ÏùÑ Î≥µÏÇ¨Ìï¥ÏÑú Î∂ôÏó¨ÎÑ£ÏóàÏäµÎãàÎã§
+ * ÏùºÎã® Ïù¥ jsÌååÏùºÏùÑ html(pug)Ïóê Ìè¨Ìï®ÏãúÏºúÏÑú ÌÅ¥ÎûòÏä§Î•º ÏÇ¨Ïö©ÌïòÍ≥† ÎÇòÏ§ëÏóê Î™®ÎìàÌôîÌï†Í≤åÏöî
  * */
 
 class Menu {
@@ -30,8 +30,8 @@ class Menu {
 }
 
 class ShoppingCart {
-	//ºÓ«Œƒ´∆Æø° ªÁøÎµ«¥¬ ≈¨∑°Ω∫¿Ã¥Ÿ. º±≈√µ» ∏ﬁ¥∫∏¶ ¿˙¿Â«œø© ¡÷πÆ ¡§∫∏∏¶ ∞¥√º∑Œ ∏∏µÈæÓ π›»Ø«—¥Ÿ. 
-	//¿Ã ¿⁄√º∞° DBø° ¿˙¿Âµ«¡ˆ¥¬ æ ∞Ì ¿Ã ≈¨∑°Ω∫∞° ª˝ªÍ«œ¥¬ ¡÷πÆ ¡§∫∏ ∞¥√º∞° DBø° ¿˙¿Âµ»¥Ÿ. 
+	//ÏáºÌïëÏπ¥Ìä∏Ïóê ÏÇ¨Ïö©ÎêòÎäî ÌÅ¥ÎûòÏä§Ïù¥Îã§. ÏÑ†ÌÉùÎêú Î©îÎâ¥Î•º Ï†ÄÏû•ÌïòÏó¨ Ï£ºÎ¨∏ Ï†ïÎ≥¥Î•º Í∞ùÏ≤¥Î°ú ÎßåÎì§Ïñ¥ Î∞òÌôòÌïúÎã§. 
+	//Ïù¥ ÏûêÏ≤¥Í∞Ä DBÏóê Ï†ÄÏû•ÎêòÏßÄÎäî ÏïäÍ≥† Ïù¥ ÌÅ¥ÎûòÏä§Í∞Ä ÏÉùÏÇ∞ÌïòÎäî Ï£ºÎ¨∏ Ï†ïÎ≥¥ Í∞ùÏ≤¥Í∞Ä DBÏóê Ï†ÄÏû•ÎêúÎã§. 
 
 	constructor(storeNum, orderNum, takeout = true) {
 		this.storeNum = storeNum
@@ -43,14 +43,14 @@ class ShoppingCart {
 		this.quantity = 0
 	}
 
-	//ºÓ«Œƒ´∆Æ √ ±‚»≠
+	//ÏáºÌïëÏπ¥Ìä∏ Ï¥àÍ∏∞Ìôî
 	initiate() {
 		this.menus = []
 		this.price = 0
 		this.quantity = 0
 	}
 
-	//∏ﬁ¥∫ √ﬂ∞°/ªË¡¶
+	//Î©îÎâ¥ Ï∂îÍ∞Ä/ÏÇ≠Ï†ú
 	insertOrder(menu) {
 		this.menus.push(menu)
 		this.quantity += parseInt(menu['quantity'])
@@ -63,12 +63,12 @@ class ShoppingCart {
 		this.quantity -= parseInt(target['quantity'])
 	}
 
-	//¡÷πÆ≥ªø™ ª˝º∫ »ƒ ºÓ«Œƒ´∆Æ √ ±‚»≠
+	//Ï£ºÎ¨∏ÎÇ¥Ïó≠ ÏÉùÏÑ± ÌõÑ ÏáºÌïëÏπ¥Ìä∏ Ï¥àÍ∏∞Ìôî
 	constructOrderList() {
 		const ret = new OrderList(this.storeNum, this.orderNum, this.menus, this.price, this.quantity, this.takeout, 0)
 
 		this.orderNum++
-		if (this.orderNum / 100 == 0) orderNum -= 100 //ex) 600π¯∫Œ≈Õ 699π¯±Ó¡ˆ º¯»Ø »ƒ 700π¯¿ª ∫Œ∏¶ ¬˜∑ ∞° µ«∏È 100¿ª ª©º≠ 600π¯¿∏∑Œ µπæ∆∞°µµ∑œ
+		if (this.orderNum / 100 == 0) orderNum -= 100 //ex) 600Î≤àÎ∂ÄÌÑ∞ 699Î≤àÍπåÏßÄ ÏàúÌôò ÌõÑ 700Î≤àÏùÑ Î∂ÄÎ•º Ï∞®Î°ÄÍ∞Ä ÎêòÎ©¥ 100ÏùÑ ÎπºÏÑú 600Î≤àÏúºÎ°ú ÎèåÏïÑÍ∞ÄÎèÑÎ°ù
 		this.initiate()
 
 		return ret
@@ -87,12 +87,12 @@ class OrderList {
 		this.refund = refund
 
 		this.orderTime = new Time()
-		this.id = this.orderTime.getTimeString() + String(this.storeNum)//Ω√∞£ 14¿⁄∏Æ + ∏≈¿Âπ¯»£ 4¿⁄∏Æ
+		this.id = this.orderTime.getTimeString() + String(this.storeNum)//ÏãúÍ∞Ñ 14ÏûêÎ¶¨ + Îß§Ïû•Î≤àÌò∏ 4ÏûêÎ¶¨
 	}
 
 	setIdArb(input_id) {
-		//¿”¿«∑Œ(arbitrary) id∏¶ ∫Œø©«—¥Ÿ.
-		//id¥¬ 18¿⁄∏Æ πÆ¿⁄ø≠¿Ã∏Á ¡∂∞«ø° ∫Œ«’«œ¡ˆ æ ¿ª ∞ÊøÏ 000000000000000000¿∏∑Œ «—¥Ÿ
+		//ÏûÑÏùòÎ°ú(arbitrary) idÎ•º Î∂ÄÏó¨ÌïúÎã§.
+		//idÎäî 18ÏûêÎ¶¨ Î¨∏ÏûêÏó¥Ïù¥Î©∞ Ï°∞Í±¥Ïóê Î∂ÄÌï©ÌïòÏßÄ ÏïäÏùÑ Í≤ΩÏö∞ 000000000000000000ÏúºÎ°ú ÌïúÎã§
 		if (input_id.length != 18) {
 			console.error("Invalid ID. returning default ID: 000000000000000000")
 			this.id = "000000000000000000"
@@ -165,11 +165,11 @@ class Store_adapter {
 	constructor() {
 	}
 	getStoreInfo() {
-		//localStorageø° ¿÷¥¬ JSON «¸≈¬¿« store∞¥√º∏¶ π›»Ø
+		//localStorageÏóê ÏûàÎäî JSON ÌòïÌÉúÏùò storeÍ∞ùÏ≤¥Î•º Î∞òÌôò
 		return window.localStorage.getItem("storeInfo")
 	}
 	setStoreInfo(storeInfo) {
-		//localStorageø°¥Ÿ∞° store ∞¥√º∏¶ πﬁæ∆º≠ JSON¿∏∑Œ ¿˙¿Â
+		//localStorageÏóêÎã§Í∞Ä store Í∞ùÏ≤¥Î•º Î∞õÏïÑÏÑú JSONÏúºÎ°ú Ï†ÄÏû•
 		let target = storeInfo
 		if (typeof (target) != typeof ("")) {
 			target = JSON.stringify(target)
@@ -177,18 +177,18 @@ class Store_adapter {
 		return window.localStorage.setItem("storeInfo", target)
 	}
 	identifyPW(pw_input) {
-		//input_id∞° localStorageø° ¿÷¥¬ storeInfo¿« ∫Òπ–π¯»£øÕ ∞∞¿Œ¡ˆ »Æ¿Œ
+		//input_idÍ∞Ä localStorageÏóê ÏûàÎäî storeInfoÏùò ÎπÑÎ∞ÄÎ≤àÌò∏ÏôÄ Í∞ôÏù∏ÏßÄ ÌôïÏù∏
 		const storeInfo = JSON.parse(this.getStoreInfo())
 		return this.SHA256(pw_input) == storeInfo.pw
 	}
 	setPW(pw_new) {
-		//∆ÚπÆ ∫Òπ–π¯»£∏¶ πﬁæ∆º≠ æœ»£»≠«— µ⁄ localStorage¿« storeInfoø° ¿˙¿Â
+		//ÌèâÎ¨∏ ÎπÑÎ∞ÄÎ≤àÌò∏Î•º Î∞õÏïÑÏÑú ÏïîÌò∏ÌôîÌïú Îí§ localStorageÏùò storeInfoÏóê Ï†ÄÏû•
 		let storeInfo = JSON.parse(this.getStoreInfo())
 		storeInfo.pw = this.SHA256(pw_new)
 		this.setStoreInfo(storeInfo)
 	}
 	setOrderNum(num_new) {
-		//º˝¿⁄∏¶ πﬁæ∆º≠ ¡÷πÆπ¯»£∑Œ ¡ˆ¡§
+		//Ïà´ÏûêÎ•º Î∞õÏïÑÏÑú Ï£ºÎ¨∏Î≤àÌò∏Î°ú ÏßÄÏ†ï
 		let storeInfo = JSON.parse(this.getStoreInfo())
 		storeInfo.orderNum = num_new
 		this.setStoreInfo(storeInfo)
@@ -326,19 +326,19 @@ class Store_adapter {
 }
 
 class Time extends Date {
-	/*¿œø˘ø¨Ω√∫–√ ∏¶ ∞°¡ˆ¥¬ Ω√∞£ ≈¨∑°Ω∫ 
+	/*ÏùºÏõîÏó∞ÏãúÎ∂ÑÏ¥àÎ•º Í∞ÄÏßÄÎäî ÏãúÍ∞Ñ ÌÅ¥ÎûòÏä§ 
 	*
-    * 14¿⁄∏Æ πÆ¿⁄ø≠, »§¿∫ ¿œ,ø˘,ø¨,Ω√,∫–,√ ∏¶ ∏≈∞≥∫Øºˆ∑Œ ≥÷æÓº≠ ¿”¿«¿« Ω√∞£ ª˝º∫
+    * 14ÏûêÎ¶¨ Î¨∏ÏûêÏó¥, ÌòπÏùÄ Ïùº,Ïõî,Ïó∞,Ïãú,Î∂Ñ,Ï¥àÎ•º Îß§Í∞úÎ≥ÄÏàòÎ°ú ÎÑ£Ïñ¥ÏÑú ÏûÑÏùòÏùò ÏãúÍ∞Ñ ÏÉùÏÑ±
     * 
-    * »§¿∫ æ∆π´∞Õµµ ≥÷¡ˆ æ æ∆º≠ «ˆ¿Á¿« Ω√∞£ ª˝º∫
+    * ÌòπÏùÄ ÏïÑÎ¨¥Í≤ÉÎèÑ ÎÑ£ÏßÄ ÏïäÏïÑÏÑú ÌòÑÏû¨Ïùò ÏãúÍ∞Ñ ÏÉùÏÑ±
     * 
-    * ª˝º∫µ» ∞¥√º∏¶ 14¿⁄∏Æ string¿∏∑Œ π›»Ø«“ ºˆ ¿÷¿Ω
+    * ÏÉùÏÑ±Îêú Í∞ùÏ≤¥Î•º 14ÏûêÎ¶¨ stringÏúºÎ°ú Î∞òÌôòÌï† Ïàò ÏûàÏùå
     */
 
 	constructor(y, m, d, hr, min, sec) {
 		if (typeof (y) === typeof ("")) {
-			//√ππ¯¬∞ ∏≈∞≥∫Øºˆ¿« ≈∏¿‘¿Ã ""¿Ã∂˚ ∞∞¿∫(string¿œ) ∞ÊøÏ 14¿⁄∏Æ∏¶ ¿œø˘ø¨Ω√∫–√ ∑Œ parse«œø© Ω√∞£ ª˝º∫
-			if (y[y.length - 1] == "Z") {//√π π¯¬∞ ∏≈∞≥∫Øºˆ∑Œ ISOTime¿Ã µÈæÓø¿∏È superø° ±◊∞Õ¿ª √≥∏Æ«œ¥¬ ±‚¥…¿Ã ¿÷¿∏π«∑Œ ª˝º∫¿⁄ ¿ÃøÎ
+			//Ï≤´Î≤àÏß∏ Îß§Í∞úÎ≥ÄÏàòÏùò ÌÉÄÏûÖÏù¥ ""Ïù¥Îûë Í∞ôÏùÄ(stringÏùº) Í≤ΩÏö∞ 14ÏûêÎ¶¨Î•º ÏùºÏõîÏó∞ÏãúÎ∂ÑÏ¥àÎ°ú parseÌïòÏó¨ ÏãúÍ∞Ñ ÏÉùÏÑ±
+			if (y[y.length - 1] == "Z") {//Ï≤´ Î≤àÏß∏ Îß§Í∞úÎ≥ÄÏàòÎ°ú ISOTimeÏù¥ Îì§Ïñ¥Ïò§Î©¥ superÏóê Í∑∏Í≤ÉÏùÑ Ï≤òÎ¶¨ÌïòÎäî Í∏∞Îä•Ïù¥ ÏûàÏúºÎØÄÎ°ú ÏÉùÏÑ±Ïûê Ïù¥Ïö©
 				super(y)
 				y = undefined
 			}
@@ -356,11 +356,11 @@ class Time extends Date {
 			}
 		}
 		else if (typeof (y) === typeof (1)) {
-			//√π π¯¬∞ ∏≈∞≥∫Øºˆ¿« ≈∏¿‘¿Ã 1¿Ã∂˚ ∞∞¿ª ∞ÊøÏ(º˝¿⁄¿œ ∞ÊøÏ) ±◊¥Î∑Œ ¿‘∑¬«ÿº≠ Ω√∞£ ª˝º∫
+			//Ï≤´ Î≤àÏß∏ Îß§Í∞úÎ≥ÄÏàòÏùò ÌÉÄÏûÖÏù¥ 1Ïù¥Îûë Í∞ôÏùÑ Í≤ΩÏö∞(Ïà´ÏûêÏùº Í≤ΩÏö∞) Í∑∏ÎåÄÎ°ú ÏûÖÎ†•Ìï¥ÏÑú ÏãúÍ∞Ñ ÏÉùÏÑ±
 			super(y, m - 1, d, hr, min, sec)
 		}
 		else {
-			//∏≈∞≥∫Øºˆ∞° æ¯¿ª ∞ÊøÏ «ˆ¿Á Ω√∞£ ª˝º∫
+			//Îß§Í∞úÎ≥ÄÏàòÍ∞Ä ÏóÜÏùÑ Í≤ΩÏö∞ ÌòÑÏû¨ ÏãúÍ∞Ñ ÏÉùÏÑ±
 			super()
 		}
 
@@ -373,7 +373,7 @@ class Time extends Date {
 
 	}
 	getTimeDBString() {
-		//DB ¿‘∑¬øÎ
+		//DB ÏûÖÎ†•Ïö©
 		let time = "" + this.year
 		if (this.month >= 10)
 			time += "-" + this.month
@@ -424,23 +424,23 @@ class Time extends Date {
 		return time
 	}
 	showTimeString() {
-		//∞Ì∞¥ø°∞‘ ∫∏ø©¡Ÿ ∏Ò¿˚¿∏∑Œ √‚
-		let time = `` + this.year + `≥‚ ` + this.month + `ø˘` + this.date + `¿œ `
+		//Í≥†Í∞ùÏóêÍ≤å Î≥¥Ïó¨Ï§Ñ Î™©Ï†ÅÏúºÎ°ú Ï∂ú
+		let time = `` + this.year + `ÎÖÑ ` + this.month + `Ïõî ` + this.date + `Ïùº `
 		if (this.hour >= 10)
 			time += `` + this.hour
 		else
 			time += `0` + this.hour
-		time += `Ω√ `
+		time += `Ïãú `
 		if (this.minute >= 10)
 			time += `` + this.minute
 		else
 			time += `0` + this.minute
-		time += `∫– `
+		time += `Î∂Ñ `
 		if (this.second >= 10)
 			time += `` + this.second
 		else
 			time += `0` + this.second
 
-		return time += `√ `
+		return time += `Ï¥à`
 	}
 }

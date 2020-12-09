@@ -148,6 +148,30 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
+-- Table structure for table `menuorder`
+--
+
+DROP TABLE IF EXISTS `menuorder`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `menuorder` (
+  `ID` varchar(20) NOT NULL,
+  `Name` varchar(45) NOT NULL,
+  `Price` int NOT NULL,
+  `Quantity` int DEFAULT 1,
+  `Shot` int DEFAULT 0,
+  `WhippedCream` int DEFAULT NULL,
+  `Cinnamon` int DEFAULT NULL,
+  foreign key (id) references orderlist(id) 
+    on update cascade
+    on delete cascade,
+  foreign key (name) references menu(name) 
+    on update cascade
+    on delete cascade
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `shoppingcart`
 --
 

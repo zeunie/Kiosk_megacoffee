@@ -33,13 +33,41 @@ $(document).ready(function () {
 			}
 		}
 
+		//주문에 해당하는 음료들
+		let orderMenus = []
+		for (let i of JSON.parse($("#orderMenus").val())) {
+			if (i.ID == idToFind) {
+				orderMenus.push(i)
+			}
+		}
+
 		//상세 주문 내역 테이블을 보이게 한 후 내용을 채워넣는다
 		$("#detailed_order").removeAttr("hidden")
-
 		$(".order_id").text(`${selected.id}`)
-		$(".order_orderTime").text(`${selected.orderTime}`)
+		$(".order_orderTime").text(`${new Time(selected.orderTime).showTimeString()}`)
 		$(".order_TO").text(`${(selected.takeout) ? "T.O." : "매장"}`)
 		$(".order_price").text(`${selected.price}`)
+
+		//어떤 메뉴를 주문했는지를 보여준다
+		$("#detailed_order_menus").removeAttr("hidden")
+		const menus_children_num = $("#detailed_order_menus")[0].children.length
+		for (let i = 0; i < menus_children_num - 1; i++) {
+			$("#detailed_order_menus")[0].removeChild($("#detailed_order_menus")[0].lastChild);
+		}
+		for (let i = 0; i < orderMenus.length; i++) {
+			let tr = document.createElement("tr");
+			let td = []
+			const td_attr_num = 3
+			for (let j = 0; j < td_attr_num; j++)
+				td.push(document.createElement("td"))
+
+			const td_attr = [`${orderMenus[i].Name}`, `${orderMenus[i].Price}`, `${orderMenus[i].Quantity}`]
+			for (let j = 0; j < td_attr_num; j++) {
+				td[j].innerText=td_attr[j]
+				tr.appendChild(td[j])
+			}
+			$("#detailed_order_menus")[0].appendChild(tr)
+		}
 	})
 
 	$("#execute_refund").click(function () {
@@ -57,6 +85,6 @@ $(document).ready(function () {
 		document.body.appendChild(form); // forms cannot be submitted outside of body
 		form.submit()
 
-		setTimeout(function () { window.location.reload() },500)
+		setTimeout(function () { window.location.reload() }, 500)
 	})
 })
