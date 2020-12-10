@@ -28,6 +28,7 @@ $(document).ready(function () {
 		window.localStorage.setItem("open", "1");
 	})
 	$("#close").click(function () {
+		alert('영업을 마감합니다.');
 		window.localStorage.setItem("open", "0")
 		window.location.href = "/timesales"
 	})
