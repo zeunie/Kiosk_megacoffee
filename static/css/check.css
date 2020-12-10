@@ -7,7 +7,7 @@ body {
 .wrapper {
     margin: 0 auto;
     width: 525px;
-    height: 696px;
+    height: 700px;
     background: white;
     border: 3px solid grey;
     border-radius: 1px;
@@ -110,4 +110,8 @@ img {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     ;
+}
+
+#cancle {
+    margin-top: 5px;
 }
