@@ -22,4 +22,14 @@ $(document).ready(function () {
 	$("#menumanage").click(function () {
 		window.location.href ="/menumanage"
 	})
+	$("#open").click(function () {
+		
+		alert('영업을 시작합니다.');
+		window.localStorage.setItem("open", "1");
+	})
+	$("#close").click(function () {
+		window.localStorage.setItem("open", "0")
+		window.location.href = "/timesales"
+	})
+	
 })

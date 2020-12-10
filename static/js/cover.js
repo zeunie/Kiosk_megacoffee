@@ -1,17 +1,32 @@
-//JS	¼¼¼Ç ½ºÅä¸®Áö¿¡ ¸ÅÀå Á¤º¸¶û ÁÖ¹®¹øÈ£ ¸î¹øºÎÅÍ ½ÃÀÛÇÏ´ÂÁö¸¦ ÀúÀåÇÏ±â À§ÇØ ¸¸µç js file
+//JS	ì„¸ì…˜ ìŠ¤í† ë¦¬ì§€ì— ë§¤ì¥ ì •ë³´ë‘ ì£¼ë¬¸ë²ˆí˜¸ ëª‡ë²ˆë¶€í„° ì‹œì‘í•˜ëŠ”ì§€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•´ ë§Œë“  js file
 var click_five_times_to_access_manager_page = 0;
+
+if (!(localStorage.hasOwnProperty("open"))){
+	window.localStorage.setItem('open', '1')
+}
+var open = window.localStorage.getItem("open")
 
 $(document).ready(function () {
 	if (!(new Store_adapter().getStoreInfo())) {
-		new Store_adapter().setStoreInfo(new Store(1313, "1234", "13Á¶", "", 200))
+		new Store_adapter().setStoreInfo(new Store(1313, "1234", "13ì¡°", "", 200))
 	}
 
-	$("#takeout_true").click(function () {
-		window.location.href = "/menu?takeout=true"
-	})
-	$("#takeout_false").click(function () {
-		window.location.href = "/menu?takeout=false"
-	})
+	if (open === '0'){
+		$("#takeout_true").click(function () {
+			alert('ì˜ì—… ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤.')
+		})
+		$("#takeout_false").click(function () {
+			alert('ì˜ì—… ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤.')
+		})
+	}
+	else {
+		$("#takeout_true").click(function () {
+			window.location.href = "/menu?takeout=true"
+		})
+		$("#takeout_false").click(function () {
+			window.location.href = "/menu?takeout=false"
+		})
+	}
 
 	$("#managerBtn").click(function () {
 		click_five_times_to_access_manager_page++
