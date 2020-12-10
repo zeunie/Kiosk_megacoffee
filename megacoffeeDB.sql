@@ -130,7 +130,6 @@ ALTER TABLE `orderlist` ADD `Refund` INT DEFAULT NULL;
 
 LOCK TABLES `orderlist` WRITE;
 /*!40000 ALTER TABLE `orderlist` DISABLE KEYS */;
-INSERT INTO `orderlist` VALUES ('1',1,'2020-10-01 01:00:31','아메리카노(ICE)',2000,1,NULL,NULL,NULL,NULL,2000,1,1,1),('2',2,'2020-10-02 01:10:31','h 아메리카노',1500,1,1,NULL,NULL,NULL,1500,1,1,1),('202011231600030208',6,'2020-11-23 07:00:03','h 바닐라라떼',3200,1,NULL,NULL,NULL,NULL,3200,NULL,1,1),('3',3,'2020-10-02 02:00:31','h 티라미수라떼',3900,2,NULL,NULL,NULL,NULL,7800,1,2,1),('4',4,'2020-10-03 06:00:31','아메리카노(ICE)',2000,1,NULL,NULL,NULL,NULL,2000,1,1,1),('5',4,'2020-10-03 06:00:31','바닐라라떼(ICE)',3200,1,1,NULL,NULL,NULL,3200,1,1,1),('6',5,'2020-10-04 01:00:31','h 녹차라떼',3200,1,NULL,NULL,NULL,NULL,3200,1,1,1);
 /*!40000 ALTER TABLE `orderlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -138,7 +137,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;
