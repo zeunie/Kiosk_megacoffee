@@ -6,6 +6,7 @@ function newpassword() {
         input_num.empty()
     } else {
         new Store_adapter().setPW(input_num)
+        alert('비밀번호가 정상적으로 변경되었습니다.')
         window.location.href = "/managerpage"
     }
 }
