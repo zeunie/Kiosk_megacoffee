@@ -102,6 +102,10 @@ function showCategory(cat) {
 			menuPage[i].setAttribute("data-selected", "selected");
 			count_of_item_in_category++;
 		}
+		// YH : 품절시 soldout 이미지로 변경
+		if (String(menuPage[i].children[5].innerText).includes('true')){
+			menuPage[i].children[0].src = '/static/picture/soldout.jpg'
+		}
 	}
 
 	displayNumber = parseInt((count_of_item_in_category - 1) / HOW_MANY_TO_SHOW);
@@ -622,6 +626,7 @@ function goToShotCinnamon() {
 
 function trackItem() {
 	html = this.innerHTML;
+	console.log(html);
 	src = html.split('"')[3];
 	name = html.split(">")[2];
 	name = name.split("<")[0];
@@ -629,6 +634,12 @@ function trackItem() {
 	itemPrice = itemPrice.split("<")[0];
 	prop = html.split(">")[8];
 	prop = prop.split("<")[0];
+	soldout = html.split('>')[10].split('<')[0];
+
+	if (soldout == " true"){
+		alert('품절된 상품입니다.')
+		return
+	}
 	if (prop == "true,false,false") {
 		goToOnlyShot();
 		setting(src, name, itemPrice);

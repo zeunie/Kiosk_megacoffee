@@ -30,7 +30,7 @@ function deleteCM() {
 	else if (menu_selected != false) {
 		menuinfos = menu_selected.split(' ')
 		if (menuinfos.length > 4) {
-			menuinfos[0] = menuinfos[0] + menuinfos[1]
+			menuinfos[0] = menuinfos[0] + ' ' + menuinfos[1]
 		}
 		document.getElementById('deletecm').value = menuinfos[0] + 'menu'
 		var answer = confirm(`메뉴 ${menuinfos[0]} 를 삭제하시겠습니까?`)
@@ -41,10 +41,6 @@ function deleteCM() {
 	if (answer == true) {
 		document.changeform.submit()
 	}
-}
-
-function menuChange() {
-
 }
 
 
@@ -104,6 +100,7 @@ function menuInfo(selected) {
 	}
 
 	document.getElementById("rname").value = name
+	document.getElementById("rnamepast").value = name
 	var rtopping = document.getElementById("rtopping")
 
 	// value에 저장된 true, false 값은 bool 값이 아닌 str

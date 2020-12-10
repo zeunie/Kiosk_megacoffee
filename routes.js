@@ -231,23 +231,30 @@ module.exports = (app, partials) => {
 				} */
 		//console.log(req.body['ice'] == undefined) = true
 		const menumanage = req.body
+		
+		//카테고리 추가의 경우
 		if (menumanage['addcat'] != '' & menumanage['addcat'] != undefined) {
 			DB_adapter.addCategoryCore(menumanage["addcat"])
 		}
+
+		//메뉴 삭제의 경우
 		if (menumanage['deletecm'] != undefined) {
 			//console.log('defined')
 			if (menumanage['deletecm'].slice(-3,) === 'cat') {
 				DB_adapter.deleteCategoryCore(menumanage["deletecm"].slice(0, -3))
 			}
 			else if (menumanage['deletecm'].slice(-4,) === 'menu') {
-				//console.log('it is menu')
-				//console.log(`delete from menu where(name = '${menumanage['deletecm'].slice(0,-4)}')`)
+				console.log('it is menu')
+				console.log(`delete from menu where(name = '${menumanage['deletecm']}')`)
+				
 				DB_adapter.deleteMenuCore(menumanage['deletecm'].slice(0, -4))
 			}
 			return
 		}
+
+		//신규 메뉴 추가 또는 메뉴 변경의 경우
 		let findmenu = []
-		await DB_adapter.findMenu(menumanage["name"]).then((ret) => { findmenu = ret })
+		await DB_adapter.findMenu(menumanage["namepast"]).then((ret) => { findmenu = ret })
 		/* 		console.log(findmenu)
 				console.log(findmenu == null)
 				console.log(findmenu != []) */

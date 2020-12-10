@@ -5,6 +5,7 @@ mixin menuBlock(menu={})
         span.item_price=menu.price
         span.item_cat(hidden)=` ${menu.cat} `
         span.item_prop(hidden)=`${menu.shot},${menu.cream},${menu.cinnamon}`
+        span.item_soldout(hidden)=` ${menu.soldout}`
 
 mixin menuList(menu={})
     option(value=`${menu.name} ${menu.price} ${menu.cat} ${menu.shot},${menu.cream},${menu.cinnamon},${menu.ice},${menu.soldout},${menu.image}`, onclick=`menuInfo(this)`)= `${menu.name} ${menu.price}`
