@@ -297,7 +297,7 @@ class DB_adapter {
 			//time/daily/monthly에 따라 다른 query
 			let query_string = ""
 			if (period == "time") {
-				query_string = "SELECT time, Quantity from orderlist where Date(time) = Date(CURDATE())"
+				query_string = "SELECT time, price from orderlist where Date(time) = Date(CURDATE())"
 			}
 			else {
 				const interval = `${(period == "daily") ? "7 DAY" : "6 MONTH"}`
