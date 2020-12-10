@@ -34,9 +34,9 @@ $(document).ready(function() {
 });
 
 function finish_payment_and_move(location) {
-    //JH    °áÁ¦ ¿Ï·áµÆ´Ù°í ¼­¹ö¿¡ º¸³»°í ´ÙÀ½ Ã¢¿¡µµ Àü´ÞÇÏ±â
+    //JH    ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Æ´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
     const orderInfo = JSON.parse($("#order").val())
-    //{id: "202012052315031313", orderTime: ""2020-12-05T14:15:03.036Z"", storeNum: "1313", orderNum: "204", menus: "[{"cat":"","name":"h Ä«Æä¶ó¶¼","price":2700,"quantity"¡¦age":"","shot":0,"cream":false,"cinnamon":false}]",?¡¦}
+        //{id: "202012052315031313", orderTime: ""2020-12-05T14:15:03.036Z"", storeNum: "1313", orderNum: "204", menus: "[{"cat":"","name":"h Ä«ï¿½ï¿½ï¿½","price":2700,"quantity"ï¿½ï¿½age":"","shot":0,"cream":false,"cinnamon":false}]",?ï¿½ï¿½}
 
     let form = document.createElement("form");
     form.style.visibility = "hidden"; // no user interaction is necessary
@@ -49,10 +49,11 @@ function finish_payment_and_move(location) {
     document.body.appendChild(form); // forms cannot be submitted outside of body
     form.submit(); // send the payload and navigate
 }
-//¾Æ·¡ µÎ ÇÔ¼ö´Â ±â´ÉÀÌ ´Ü¼øÇÏ°í ³Ê¹« Áßº¹µÅ¼­ pugÆÄÀÏ¿¡¼­ ÇØ´ç ÆÄÀÏÀ» À§ ÇÔ¼ö·Î ¹Ù²Ù°í ¾Æ·¡´Â ¾ø¾Ö´Â °Í ÃßÃµ
+//ï¿½Æ·ï¿½ ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¼ï¿½ï¿½Ï°ï¿½ ï¿½Ê¹ï¿½ ï¿½ßºï¿½ï¿½Å¼ï¿½ pugï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ù²Ù°ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½Ãµ
 function change_to_checkpoint() {
     finish_payment_and_move('/change_to_checkpoint')
 }
+
 function change_to_complete() {
     finish_payment_and_move('/change_to_complete')
 }
@@ -94,4 +95,5 @@ function close_cancle_popup() {
     $('#cancle').css('opacity', '0');
     $('#cancle').css('visibility', 'hidden')
     time_pause = 0
+    window.location.href = "/"
 }
