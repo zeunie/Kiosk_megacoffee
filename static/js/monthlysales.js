@@ -1,6 +1,7 @@
 function drawChart() {
 	const jsonTable = JSON.parse($("#resultTable").val())
 
+
 	var tempdata = new google.visualization.DataTable();
 	tempdata.addColumn('datetime', 'DATE')
 	tempdata.addColumn('number', 'PRICE')
