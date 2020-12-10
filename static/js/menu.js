@@ -3,10 +3,6 @@ const navItemFirst = document.getElementById("navItemFirst");
 const navItemSecond = document.getElementById("navItemSecond");
 const navItemThird = document.getElementById("navItemThird");
 const navItemFourth = document.getElementById("navItemFourth");
-const navItemFirstA = document.getElementById("navItemFirstA");
-const navItemSecondA = document.getElementById("navItemSecondA");
-const navItemThirdA = document.getElementById("navItemThirdA");
-const navItemFourthA = document.getElementById("navItemFourthA");
 const navItemLeftBtn = document.getElementById("navItemLeftButton");
 const navItemRightBtn = document.getElementById("navItemRightButton");
 const nextBtnLeft = document.getElementById("nextButtonLeft");
@@ -61,13 +57,13 @@ function minusNum() {
 	}
 	number -= 1;
 	if (number == 1) {
-		navItemFirstA.outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('COFFEE(HOT)')">
+		document.getElementById("navItemFirstA").outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('COFFEE(HOT)')">
 			<div class = "nav_item" id = "navItemFirst"> Coffee(HOT)</div></a>`;
-		navItemSecondA.outerHTML = `<a id = "navItemSecondA" href = "#" onclick="showCategory('COFFEE(ICE)')">
+		document.getElementById("navItemSecondA").outerHTML = `<a id = "navItemSecondA" href = "#" onclick="showCategory('COFFEE(ICE)')">
 			<div class = "nav_item" id = "navItemSecond"> Coffee(ICE)</div></a>`;
-		navItemThirdA.outerHTML = `<a id = "navItemThirdA" href = "#" onclick="showCategory('BEVERAGE')">
+		document.getElementById("navItemThirdA").outerHTML = `<a id = "navItemThirdA" href = "#" onclick="showCategory('BEVERAGE')">
 			<div class = "nav_item" id = "navItemThird"> BEVERAGE</div></a>`;
-		navItemFourthA.outerHTML = `<a id = "navItemFourthA" href = "#" onclick="showCategory('TEA')">
+		document.getElementById("navItemFourthA").outerHTML = `<a id = "navItemFourthA" href = "#" onclick="showCategory('TEA')">
 			<div class = "nav_item" id = "navItemFourth"> TEA</div></a>`;
 	}
 	showCategory("COFFEE(HOT)");
@@ -82,13 +78,13 @@ function minusNum() {
 	number += 1;
   
 	if (number == 2) {
-		navItemFirstA.outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('JUICE')">
+		document.getElementById("navItemFirstA").outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('JUICE')">
 			<div class = "nav_item" id = "navItemFirst"> JUICE</div></a>`;
-		navItemSecondA.outerHTML = `<a id = "navItemSecondA" href = "#" onclick="showCategory('ADE')">
+		document.getElementById("navItemSecondA").outerHTML = `<a id = "navItemSecondA" href = "#" onclick="showCategory('ADE')">
 			<div class = "nav_item" id = "navItemSecond"> ADE</div></a>`;
-		navItemThirdA.outerHTML = `<a id = "navItemThirdA" href = "#" onclick="showCategory('SMOOTHIE')">
+		document.getElementById("navItemThirdA").outerHTML = `<a id = "navItemThirdA" href = "#" onclick="showCategory('SMOOTHIE')">
 			<div class = "nav_item" id = "navItemThird"> SMOOTHIE&FRAFFE</div></a>`;
-		navItemFourthA.outerHTML = `<a id = "navItemFourthA" href = "#" onclick="showCategory('DESSERT')">
+		document.getElementById("navItemFourthA").outerHTML = `<a id = "navItemFourthA" href = "#" onclick="showCategory('DESSERT')">
 			<div class = "nav_item" id = "navItemFourth"> DESSERT</div></a>`;
 	}
 	showCategory("JUICE");

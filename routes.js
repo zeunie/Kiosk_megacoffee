@@ -99,29 +99,37 @@ module.exports = (app, partials) => {
 	})
 
 	app.get(routes.refund, async (req, res) => {
-		Log.tell(`Refund Requested\nQUERY: ${JSON.stringify(req.query)}`)
-		let refund = []
-		let orderMenus=[]
-		let target_day = ""
-		let target_id=""
-		if (req.query.id) {
-			await DB_adapter.getOrderList(req.query.id).then((ret) => { refund = ret })
-			target_day = refund[0].orderTime.getTimeDBString().slice(0, 10)
-			target_id = req.query.id
-
-			await DB_adapter.getOrderMenu(target_id).then((ret) => { orderMenus = ret })
+		if (req.headers["referer"] === undefined) {
+			Log.tell("Manager Identified")
+			res.status(400)
+			res.render("error", { routes })
 		}
 		else {
-			target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
-			await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
-			refund.reverse()
 
-			if (refund.length != 0) {
-				await DB_adapter.getOrderMenu(refund[0].id.slice(0, 8)).then((ret) => { orderMenus = ret })
+			Log.tell(`Refund Requested\nQUERY: ${JSON.stringify(req.query)}`)
+			let refund = []
+			let orderMenus = []
+			let target_day = ""
+			let target_id = ""
+			if (req.query.id) {
+				await DB_adapter.getOrderList(req.query.id).then((ret) => { refund = ret })
+				target_day = refund[0].orderTime.getTimeDBString().slice(0, 10)
+				target_id = req.query.id
+
+				await DB_adapter.getOrderMenu(target_id).then((ret) => { orderMenus = ret })
 			}
-		}
+			else {
+				target_day = (req.query.date) ? req.query.date : new Time().getTimeDBString().slice(0, 10)
+				await DB_adapter.getOrderList(target_day).then((ret) => { refund = ret })
+				refund.reverse()
 
-		res.render("refund", { routes, refund, target_day,target_id , orderMenus})
+				if (refund.length != 0) {
+					await DB_adapter.getOrderMenu(refund[0].id.slice(0, 8)).then((ret) => { orderMenus = ret })
+				}
+			}
+
+			res.render("refund", { routes, refund, target_day, target_id, orderMenus })
+		}
 	})
 	app.post(routes.refund, async (req, res) => {
 		const idToRefund = req.body["id"]
@@ -130,13 +138,50 @@ module.exports = (app, partials) => {
 		let refundResult = false
 		await DB_adapter.refund(idToRefund).then((ret) => { refundResult = ret })
 	})
+	app.get(routes.dailysales, async (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			Log.tell("Manager Identified")
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			Log.tell("Dailysales Requested")
+
+			let resultTable = ""
+			await DB_adapter.getSales("daily").then((ret) => { resultTable = JSON.stringify(ret) })
+
+			res.render("dailysales", { routes, resultTable })
+		}
+	})
 	app.get(routes.monthlysales, async (req, res) => {
-		Log.tell("Monthlysales Requested")
+		if (req.headers["referer"] === undefined) {
+			Log.tell("Manager Identified")
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			Log.tell("Monthlysales Requested")
 
-		let resultTable = ""
-		await DB_adapter.getSales("monthly").then((ret) => { resultTable = JSON.stringify( ret )})
+			let resultTable = ""
+			await DB_adapter.getSales("monthly").then((ret) => { resultTable = JSON.stringify(ret) })
 
-		res.render("monthlysales", { routes, resultTable})
+			res.render("monthlysales", { routes, resultTable })
+		}
+	})
+	app.get(routes.timesales, async (req, res) => {
+		if (req.headers["referer"] === undefined) {
+			Log.tell("Manager Identified")
+			res.status(400)
+			res.render("error", { routes })
+		}
+		else {
+			Log.tell("Timesales Requested")
+
+			let resultTable = ""
+			await DB_adapter.getSales("time").then((ret) => { resultTable = JSON.stringify(ret) })
+			Log.tell(resultTable)
+			res.render("timesales", { routes, resultTable })
+		}
 	})
 	app.get(routes.password_check_for_cpw, (req, res) => {
 		if (req.headers["referer"] === undefined) {
@@ -176,52 +221,52 @@ module.exports = (app, partials) => {
 	app.post(routes.menumanage, async (req, res) => {
 		Log.tell(`Menu manage update Requested`)
 		//console.log(req.body)
-/* 		{
-			cat: 'ADE',
-			name: 'dd',
-			topping: 'shotCinnamon',
-			price: '3,500',
-			ice: 'ice',
-			image: ''
-		} */
+		/* 		{
+					cat: 'ADE',
+					name: 'dd',
+					topping: 'shotCinnamon',
+					price: '3,500',
+					ice: 'ice',
+					image: ''
+				} */
 		//console.log(req.body['ice'] == undefined) = true
 		const menumanage = req.body
-		if (menumanage['addcat'] != '' & menumanage['addcat'] != undefined){
+		if (menumanage['addcat'] != '' & menumanage['addcat'] != undefined) {
 			DB_adapter.addCategoryCore(menumanage["addcat"])
 		}
-		if (menumanage['deletecm'] != undefined){
+		if (menumanage['deletecm'] != undefined) {
 			//console.log('defined')
-			if (menumanage['deletecm'].slice(-3,) === 'cat'){
-				DB_adapter.deleteCategoryCore(menumanage["deletecm"].slice(0,-3))
+			if (menumanage['deletecm'].slice(-3,) === 'cat') {
+				DB_adapter.deleteCategoryCore(menumanage["deletecm"].slice(0, -3))
 			}
-			else if(menumanage['deletecm'].slice(-4,) === 'menu'){
+			else if (menumanage['deletecm'].slice(-4,) === 'menu') {
 				//console.log('it is menu')
 				//console.log(`delete from menu where(name = '${menumanage['deletecm'].slice(0,-4)}')`)
-				DB_adapter.deleteMenuCore(menumanage['deletecm'].slice(0,-4))
+				DB_adapter.deleteMenuCore(menumanage['deletecm'].slice(0, -4))
 			}
 			return
 		}
-		let findmenu =[]
+		let findmenu = []
 		await DB_adapter.findMenu(menumanage["name"]).then((ret) => { findmenu = ret })
-/* 		console.log(findmenu)
-		console.log(findmenu == null)
-		console.log(findmenu != []) */
+		/* 		console.log(findmenu)
+				console.log(findmenu == null)
+				console.log(findmenu != []) */
 		DB_adapter.setMenucore(findmenu, menumanage)
 
-/*		console.log(findmenu)
-		console.log(findmenu[0]['cat'])
- 		   Menu {
-			cat: 'ADE',
-			name: '유니콘매직에이드(핑크)',
-			price: 3500,
-			quantity: 0,
-			image: '/static/picture/ADE/유니콘매직에이드(핑크).jpg',
-			shot: false,
-			cream: false,
-			cinnamon: false,
-			ice: true,
-			soldout: false
-		  } */
+		/*		console.log(findmenu)
+				console.log(findmenu[0]['cat'])
+					   Menu {
+					cat: 'ADE',
+					name: '유니콘매직에이드(핑크)',
+					price: 3500,
+					quantity: 0,
+					image: '/static/picture/ADE/유니콘매직에이드(핑크).jpg',
+					shot: false,
+					cream: false,
+					cinnamon: false,
+					ice: true,
+					soldout: false
+				  } */
 	})
 
 	//JH	test페이지 내의 기능 테스트
@@ -249,7 +294,9 @@ const routes = {
 
 	, refund: "/refund"
 	, refund_request: "/refund_request"
+	, dailysales: "/dailysales"
 	, monthlysales: "/monthlysales"
+	, timesales: "/timesales"
 	, password_check_for_cpw: "/password_check_for_cpw"
 	, change_pw: "/change_pw"
 	, change_ordernum: "/change_ordernum"

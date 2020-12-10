@@ -3,8 +3,14 @@ $(document).ready(function () {
 		window.location.href="/refund"
 	})
 
+	$("#dailysales").click(function () {
+		window.location.href ="/dailysales"
+	})
 	$("#monthlysales").click(function () {
 		window.location.href ="/monthlysales"
+	})
+	$("#timesales").click(function () {
+		window.location.href ="/timesales"
 	})
 
 	$("#newpassword_input").click(function () {
@@ -16,5 +22,4 @@ $(document).ready(function () {
 	$("#menumanage").click(function () {
 		window.location.href ="/menumanage"
 	})
-
 })
