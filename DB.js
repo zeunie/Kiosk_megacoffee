@@ -297,11 +297,11 @@ class DB_adapter {
 			//time/daily/monthly에 따라 다른 query
 			let query_string = ""
 			if (period == "time") {
-				query_string = "SELECT time, price from orderlist where Date(time) = Date(CURDATE())"
+				query_string = "SELECT time, price from orderlist where Date(time) = Date(CURDATE()) and refund is null"
 			}
 			else {
 				const interval = `${(period == "daily") ? "7 DAY" : "6 MONTH"}`
-				query_string = `SELECT time, price from orderlist WHERE time > DATE_FORMAT( DATE_ADD(NOW(), INTERVAL - ${interval}), '%Y-%m-%d 00:00:00' )`
+				query_string = `SELECT time, price from orderlist WHERE time > DATE_FORMAT( DATE_ADD(NOW(), INTERVAL - ${interval}), '%Y-%m-%d 00:00:00' ) and refund is null`
 			}
 			//데이터가 많이 들어있지 않으므로 일단 전체를 가져오도록 한다. 추후 장바구니, 결제, DB에 주문내역 저장이 만들어지면 조건에 맞는 것을 가져오도록 바꾼다.
 			DB.query(query_string, (err, result) => {

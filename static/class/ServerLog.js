@@ -1,4 +1,5 @@
 class ServerLog {
+	//디버그용, 서버 로그에 내용을 효과적으로 찍어줌
 	tell(msg = "", show_info = true, indent = 1) {
 		if (typeof (msg) != typeof (""))
 			msg =JSON.stringify(msg)

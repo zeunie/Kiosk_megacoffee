@@ -69,14 +69,14 @@ function minusNum() {
 	showCategory("COFFEE(HOT)");
 	showMenuPage(0);
 	setDisplay(displayNumber);
-  }
-  
-  function plusNum() {
+}
+
+function plusNum() {
 	if (number == 2) {
 		return;
 	}
 	number += 1;
-  
+
 	if (number == 2) {
 		document.getElementById("navItemFirstA").outerHTML = `<a id = "navItemFirstA" href = "#" onclick="showCategory('JUICE')">
 			<div class = "nav_item" id = "navItemFirst"> JUICE</div></a>`;
@@ -88,7 +88,7 @@ function minusNum() {
 			<div class = "nav_item" id = "navItemFourth"> DESSERT</div></a>`;
 	}
 	showCategory("JUICE");
-  }
+}
 
 function showCategory(cat) {
 	//선택시 menuPage에 있는 메뉴들이 해당 카테고리의 것으로 바뀐다. 그 다음 displayNumber가 처음(0)으로 돌아가도록 하고
@@ -103,7 +103,7 @@ function showCategory(cat) {
 			count_of_item_in_category++;
 		}
 		// YH : 품절시 soldout 이미지로 변경
-		if (String(menuPage[i].children[5].innerText).includes('true')){
+		if (String(menuPage[i].children[5].innerText).includes('true')) {
 			menuPage[i].children[0].src = '/static/picture/soldout.jpg'
 		}
 	}
@@ -113,6 +113,15 @@ function showCategory(cat) {
 	minusIndex();
 	showMenuPage(index);
 	setDisplay(displayNumber);
+
+	//카테고리 버튼의 색을 바꾼다
+	for (let i = 1; i < 5; i++) {
+		const target=document.getElementsByClassName("nav_items")[0].children[i].children[0]
+		target.style = "background-color:rgb(157, 162, 167); color:white"
+		if (target.innerText.toUpperCase().includes(cat)) {
+			target.style = "background-color:white; color:black"
+		}
+	}
 }
 
 function showMenuPage(num) {
@@ -636,7 +645,7 @@ function trackItem() {
 	prop = prop.split("<")[0];
 	soldout = html.split('>')[10].split('<')[0];
 
-	if (soldout == " true"){
+	if (soldout == " true") {
 		alert('품절된 상품입니다.')
 		return
 	}
@@ -882,17 +891,17 @@ function main() {
 			let itemName = document.querySelectorAll("#orderName")[i].innerText
 			itemName = itemName.slice(0, itemName.indexOf("\n"))
 			if (itemName.indexOf("휘핑") != -1) {
-				itemName = itemName.slice(0, itemName.length-4)
-			}if (itemName.indexOf("시나몬") != -1) {
-				itemName = itemName.slice(0, itemName.length-4)
+				itemName = itemName.slice(0, itemName.length - 4)
+			} if (itemName.indexOf("시나몬") != -1) {
+				itemName = itemName.slice(0, itemName.length - 4)
 			}
 			if (itemName.indexOf("+") != -1) {
 				itemName = itemName.slice(0, itemName.length - 4)
 			}
-			if (itemName[itemName.length-1] == ' ') {
+			if (itemName[itemName.length - 1] == ' ') {
 				itemName = itemName.slice(0, itemName.length - 1)
 			}
-			
+
 
 			//옵션 설정
 			const itemOptionText = orderNameDiv.children[i].innerText

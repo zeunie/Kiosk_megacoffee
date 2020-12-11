@@ -14,7 +14,7 @@ $(document).ready(function () {
 	$("#save").click(function () {
 		if (new_order_number != 0) {
 			new Store_adapter().setOrderNum(new_order_number)
-			alert(`Order Number Set: ${new_order_number}`)
+			alert(`주문번호는 ${new_order_number + 1}번부터 시작됩니다.`)
 			window.location.href = "/managerpage"
 		}
 	})
