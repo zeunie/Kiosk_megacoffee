@@ -1,6 +1,12 @@
 function drawChart() {
-	const jsonTable = JSON.parse($("#resultTable").val())
-	
+	let jsonTable = JSON.parse($("#resultTable").val())
+	let today = new Date();
+
+	//JH	데이터가 없는 시간대에는 NULL이 아니라 0원을 팔았다는 것을 의미
+	for (let i = 10; i <= 22; i++) {
+		jsonTable.push({ "time": String(new Date(today.getFullYear(), today.getMonth(), today.getDate(), i, 00, 00)), "price": 0 })
+	}
+
 	var tempdata = new google.visualization.DataTable();
 	tempdata.addColumn('datetime', 'DATE')
 	tempdata.addColumn('number', 'PRICE')
@@ -13,7 +19,6 @@ function drawChart() {
 	}
 
 
-	let today = new Date();
 	var data = google.visualization.data.group(tempdata, [0], [{ 'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number' }])
 	var options = {
 		title: '일간 시간별 주문건수 (단위: 만원)',

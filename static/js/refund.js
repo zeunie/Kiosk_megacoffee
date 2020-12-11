@@ -4,7 +4,6 @@ $(document).ready(function () {
 	//페이지가 로딩되면 데이터 div에 있는 정보를 변수로 저장한다.
 	refund_list = JSON.parse($("#refund").val())
 
-	//엑스 버튼을 누르면 뒤로 간다
 	$("#Xbtn").click(function () {
 		window.location.href = "/managerpage"
 	})
@@ -44,7 +43,7 @@ $(document).ready(function () {
 		//상세 주문 내역 테이블을 보이게 한 후 내용을 채워넣는다
 		$("#detailed_order").removeAttr("hidden")
 		$(".order_id").text(`${selected.id}`)
-		$(".order_orderTime").text(`${new Time(selected.orderTime).showTimeString()}`)
+		$(".order_orderTime").text(`${new Time(selected.id).showTimeString()}`)
 		$(".order_TO").text(`${(selected.takeout) ? "T.O." : "매장"}`)
 		$(".order_price").text(`${selected.price}`)
 

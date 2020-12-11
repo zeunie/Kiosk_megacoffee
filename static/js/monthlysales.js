@@ -1,6 +1,11 @@
 function drawChart() {
-	const jsonTable = JSON.parse($("#resultTable").val())
+	let jsonTable = JSON.parse($("#resultTable").val())
+	let today = new Date();
 
+	//JH	데이터가 없는 시간대에는 NULL이 아니라 0원을 팔았다는 것을 의미
+	for (let i = -5; i <= 0; i++) {
+		jsonTable.push({ "time": String(new Date(today.getFullYear(), today.getMonth()+i)), "price": 0 })
+	}
 
 	var tempdata = new google.visualization.DataTable();
 	tempdata.addColumn('datetime', 'DATE')
@@ -14,7 +19,6 @@ function drawChart() {
 	}
 
 	//월별로 데이터를 묶어서 계산
-	let today = new Date();
 	var data = google.visualization.data.group(tempdata, [0], [{ 'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number' }])
 	var options = {
 		title: '지난 6개월간 월별 매출 (단위: 만원)',

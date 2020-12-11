@@ -2,15 +2,15 @@ extends menu
 include mixins/menuBlock
 
 block content
-    div.items
-        each one in menu
-            +menuBlock({
-                src: one.getValue().image,
-                name: one.getValue().name,
-                price: one.getValue().price.toLocaleString("en").split(".")[0],
-                cat: one.getValue().cat,
-                shot : one.getValue().shot,
-                cream: one.getValue().cream,
-                cinnamon: one.getValue().cinnamon,
-                soldout: one.getValue().soldout
-            })
+	div.items
+		each one in menu
+			+menuBlock({
+				src: one.getValue().image,
+				name: one.getValue().name,
+				price: one.getValue().price.toLocaleString("en").split(".")[0],
+				cat: one.getValue().cat,
+				shot : one.getValue().shot,
+				cream: one.getValue().cream,
+				cinnamon: one.getValue().cinnamon,
+				soldout: one.getValue().soldout
+			})
