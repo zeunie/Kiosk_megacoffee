@@ -18,6 +18,7 @@ function addCat() {
 		}
 	}
 }
+
 function deleteCM() {
 	var cat_selected = document.querySelector("#catslist").value
 	//ADE
@@ -29,8 +30,15 @@ function deleteCM() {
 	}
 	else if (menu_selected != false) {
 		menuinfos = menu_selected.split(' ')
-		if (menuinfos.length > 4) {
+		console.log(menuinfos)
+		while (menuinfos.length > 4) {
 			menuinfos[0] = menuinfos[0] + ' ' + menuinfos[1]
+			menuinfos.splice(1,1)
+			if (menuinfos.length == 4){
+				break
+			}
+			menuinfos[menuinfos.length-2] = menuinfos[menuinfos.length-2] + ' ' + menuinfos[menuinfos.length-1]
+			menuinfos.splice(menuinfos.length-1,1)
 		}
 		document.getElementById('deletecm').value = menuinfos[0] + 'menu'
 		var answer = confirm(`메뉴 ${menuinfos[0]} 를 삭제하시겠습니까?`)
@@ -74,10 +82,16 @@ function searchChange() {
 function menuInfo(selected) {
 	document.querySelector("#catslist").value = false
 	var info = selected.value
-	infos = info.split(' ')
-	if (infos.length > 4) {
-		infos[1] = infos[0] + ' ' + infos[1]
-		infos = infos.splice(1,)
+	var infos = info.split(' ')
+
+	while (infos.length > 4) {
+		infos[0] = infos[0] + ' ' + infos[1]
+		infos.splice(1,1)
+		if (infos.length == 4){
+			break
+		}
+		infos[infos.length-2] = infos[infos.length-2] + ' ' + infos[infos.length-1]
+		infos.splice(infos.length-1,1)
 	}
 	//console.log(infos)
 

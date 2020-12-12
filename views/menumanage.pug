@@ -2,104 +2,104 @@ include mixins/menuBlock
 
 doctype html
 html(lang="ko")
-  head
-    link(href="static/css/menumanage.css" rel="stylesheet")
-    meta(charset="UTF-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    // Bootstrap CSS
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
-    // Optional JavaScript
-    // jQuery first, then Popper.js, then Bootstrap JS
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
-    script(src="/static/js/menumanage.js")
-    meta(charset="UTF-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    title MenuManage
-  body
-    .wrapper
-      #leftone
-        form(name="changeform" method="post")
-          button(onclick="deleteCM()").btns.f_right 삭제
-          input(id="deletecm" name="deletecm" hidden)
-          button(onclick="addCat()").btns.red.f_right 카테고리 추가
-          input(id="addcat" name="addcat" hidden)
-        br
-        br
-        br
-        .top1 카테고리
-        select.select100(id = "catslist" name="catslist" size="6" onclick="menubycondition(this.value)")
-          each one in category
-            option(value=one.getValue().cat) #{one.getValue().cat}
-        br
-        br
-        form(name="searchinputs")
-          input(id = "searchitem" name = "searchitem" type="search" style="height:35px" onkeyup="searchChange()")
-          input.btns(id = "serchbtn" value="조회" style="width:50px" onclick="searchChange()")
-        br
-        br
-        .top1.top2.f_left 메뉴
-        .top1.top2.f_right 판매 가격
-        select.select100(id = "menulist" name="menulist" size="20")
-          each one in menu
-            +menuList({
-                  src: one.getValue().image,
-                  name: one.getValue().name,
-                  price: one.getValue().price.toLocaleString("en").split(".")[0],
-                  cat: one.getValue().cat,
-                  shot : one.getValue().shot,
-                  cream: one.getValue().cream,
-                  cinnamon: one.getValue().cinnamon,
-                  ice: one.getValue().ice,
-                  soldout: one.getValue().soldout,
-                  image: one.getValue().image
-              })
+	head
+		link(href="static/css/menumanage.css" rel="stylesheet")
+		meta(charset="UTF-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		// Bootstrap CSS
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+		// Optional JavaScript
+		// jQuery first, then Popper.js, then Bootstrap JS
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
+		script(src="/static/js/menumanage.js")
+		meta(charset="UTF-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		title MenuManage
+	body
+		.wrapper
+			#leftone
+				form(name="changeform" method="post")
+					button(onclick="deleteCM()").btns.f_right 삭제
+					input(id="deletecm" name="deletecm" hidden)
+					button(onclick="addCat()").btns.red.f_right 카테고리 추가
+					input(id="addcat" name="addcat" hidden)
+				br
+				br
+				br
+				.top1 카테고리
+				select.select100(id = "catslist" name="catslist" size="6" onclick="menubycondition(this.value)")
+					each one in category
+						option(value=one.getValue().cat) #{one.getValue().cat}
+				br
+				br
+				form(name="searchinputs")
+					input(id = "searchitem" name = "searchitem" type="search" style="height:35px" onkeyup="searchChange()")
+					input.btns(id = "serchbtn" value="조회" style="width:50px" onclick="searchChange()")
+				br
+				br
+				.top1.top2.f_left 메뉴
+				.top1.top2.f_right 판매 가격
+				select.select100(id = "menulist" name="menulist" size="20")
+					each one in menu
+						+menuList({
+									src: one.getValue().image,
+									name: one.getValue().name,
+									price: one.getValue().price.toLocaleString("en").split(".")[0],
+									cat: one.getValue().cat,
+									shot : one.getValue().shot,
+									cream: one.getValue().cream,
+									cinnamon: one.getValue().cinnamon,
+									ice: one.getValue().ice,
+									soldout: one.getValue().soldout,
+									image: one.getValue().image
+							})
 
-      #rightone
-        form(method='post')
-            input(onclick="window.location.reload()" value="신규").btns.orange.f_left
-            button(type="submit").btns.green.f_left 저장
-            #Xbtn  X 
-            br
-            br
-            br
-            br
-            .f_left.rightside1
-                | 카테고리
-                br
-                |             아이템명
-                br
-                |             토핑메뉴
-                br
-                |             가격
-                br
-                |             기타설정
-                br
-                |             이미지 등록
-            .f_right.rightside2
+			#rightone
+				form(method='post')
+						input(onclick="window.location.reload()" value="신규").btns.orange.f_left
+						button(type="submit").btns.green.f_left 저장
+						#Xbtn	X 
+						br
+						br
+						br
+						br
+						.f_left.rightside1
+								| 카테고리
+								br
+								|						 아이템명
+								br
+								|						 토핑메뉴
+								br
+								|						 가격
+								br
+								|						 기타설정
+								br
+								|						 이미지 등록
+						.f_right.rightside2
 
-                select(id = "rcat" name="cat" onchange="setCatvalue()")
-                    each one in category
-                        option(value=one.getValue().cat) #{one.getValue().cat}
-                br
-                input(id = "rname" type="text" name="name" style="line-height:10px")
-                input(id = "rnamepast" type="text" name = "namepast" hidden)
-                br
-                select(id = "rtopping" name="topping" onchanhe="setToppvalue()")
-                    option(value="") 없음
-                    option(value="onlyshot") 샷추가
-                    option(value="onlyCream") 휘핑크림
-                    option(value="shotCream") 샷추가 & 휘핑크림
-                    option(value="shotCinnamon") 샷추가 & 시나몬
-                input(id = "rprice" type="text" name="price" style="line-height:10px")
-                br
-                |             ICE MENU 
-                input(id = "rice" type="checkbox" name="ice" value="ice")
-                |  SOLD OUT 
-                input(id = "rsoldout" type="checkbox" name="soldout" value="soldout")
-                br
-                input(id = "rimg" type="file" name="image")
-                br
-                br
-                img(id="curimg")
+								select(id = "rcat" name="cat" onchange="setCatvalue()")
+										each one in category
+												option(value=one.getValue().cat) #{one.getValue().cat}
+								br
+								input(id = "rname" type="text" name="name" style="line-height:10px")
+								input(id = "rnamepast" type="text" name = "namepast" hidden)
+								br
+								select(id = "rtopping" name="topping" onchanhe="setToppvalue()")
+										option(value="") 없음
+										option(value="onlyshot") 샷추가
+										option(value="onlyCream") 휘핑크림
+										option(value="shotCream") 샷추가 & 휘핑크림
+										option(value="shotCinnamon") 샷추가 & 시나몬
+								input(id = "rprice" type="text" name="price" style="line-height:10px")
+								br
+								|						 ICE MENU 
+								input(id = "rice" type="checkbox" name="ice" value="ice")
+								|	SOLD OUT 
+								input(id = "rsoldout" type="checkbox" name="soldout" value="soldout")
+								br
+								input(id = "rimg" type="file" name="image")
+								br
+								br
+								img(id="curimg")
