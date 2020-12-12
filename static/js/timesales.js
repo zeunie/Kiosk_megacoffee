@@ -21,7 +21,7 @@ function drawChart() {
 	//시간대별로 데이터를 묶어서 합산
 	var data = google.visualization.data.group(tempdata, [0], [{ 'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number' }])
 	var options = {
-		title: '일간 시간별 주문건수 (단위: 만원)',
+		title: '일간 시간별 매출 (단위: 만원)',
 		titleTextStyle: { fontSize: 15 },
 		chartArea: { 'width': '80%', 'height': '80%' },
 		height: 400,
