@@ -2,7 +2,7 @@ function drawChart() {
 	let jsonTable = JSON.parse($("#resultTable").val())
 	let today = new Date();
 
-	//JH	데이터가 없는 시간대에는 NULL이 아니라 0원을 팔았다는 것을 의미
+	//JS	데이터가 없는 날짜에는 NULL이 아니라 0원을 팔았다는 것을 의미
 	for (let i = -6; i <= 0; i++) {
 		jsonTable.push({ "time": String(new Date(today.getFullYear(), today.getMonth() + i)), "price": 0 })
 	}
@@ -17,6 +17,7 @@ function drawChart() {
 		tempdata.setCell(i, 1, parseInt(jsonTable[i].price))
 	}
 
+	//날짜별로 매출액 묶어서 합산
 	var data = google.visualization.data.group(tempdata, [0], [{ 'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number' }])
 	var options = {
 		title: '지난 일주일간 일별 매출 (단위: 만원)',
